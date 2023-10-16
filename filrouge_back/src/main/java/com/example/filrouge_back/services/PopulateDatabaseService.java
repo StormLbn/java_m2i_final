@@ -1,6 +1,10 @@
 package com.example.filrouge_back.services;
 
+import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.Media;
+import com.example.filrouge_back.entities.MediaProfessional;
+import com.example.filrouge_back.entities.Professional;
+import com.example.filrouge_back.models.JobForMedia;
 import com.example.filrouge_back.models.MediaType;
 import com.example.filrouge_back.models.MovieApiResponse;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -79,12 +83,59 @@ public class PopulateDatabaseService {
                 movie.setDuration(response.getMovie().getLength()/60);
 
                 movie.setGenres(new ArrayList<>());
-                for (String genre : response.getMovie().getGenres()) {
-                    // TODO EN COURS
-//                    movie.getGenres().add();
+                for (String data : response.getMovie().getGenres()) {
+                    Genre genre = Genre.builder()
+                            .genre(data)
+                            .build();
+                    movie.getGenres().add(genre);
+                }
+
+                movie.setProfessionals(new ArrayList<>());
+                for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getDirectors()) {
+                    Professional person = Professional.builder()
+                            .name(data.getName())
+                            .imageUrl(data.getPicture())
+                            .build();
+
+                    MediaProfessional director = MediaProfessional.builder()
+                            .job(JobForMedia.DIRECTOR)
+                            .professional(person)
+                            .build();
+
+                    movie.getProfessionals().add(director);
+                }
+
+                for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getProducers()) {
+                    Professional person = Professional.builder()
+                            .name(data.getName())
+                            .imageUrl(data.getPicture())
+                            .build();
+
+                    MediaProfessional director = MediaProfessional.builder()
+                            .job(JobForMedia.PRODUCER)
+                            .professional(person)
+                            .build();
+
+                    movie.getProfessionals().add(director);
+                }
+
+
+                for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getWriters()) {
+                    Professional person = Professional.builder()
+                            .name(data.getName())
+                            .imageUrl(data.getPicture())
+                            .build();
+
+                    MediaProfessional director = MediaProfessional.builder()
+                            .job(JobForMedia.WRITER)
+                            .professional(person)
+                            .build();
+
+                    movie.getProfessionals().add(director);
                 }
 
                 log.info(movie.toString());
+                
             }
 
 
@@ -133,14 +184,15 @@ public class PopulateDatabaseService {
 
         List<String> idList = new ArrayList<>();
 
-        for (int i = 1 ; i <= 5 ; i++) {
+//        for (int i = 1 ; i <= 5 ; i++) {
+        int i = 1;
             ResponseEntity<JsonNode> entityJson =
                     restTemplate.getForEntity(type + "/top_rated?language=fr-FR&page=" + i, JsonNode.class);
 
             entityJson.getBody().findPath("results").elements().forEachRemaining(e -> {
                 idList.add(e.findPath("id").asText());
             });
-        }
+//        }
 
         return idList;
     }

@@ -1,15 +1,13 @@
 package com.example.filrouge_back.services;
 
 import com.example.filrouge_back.entities.Media;
-import com.example.filrouge_back.models.MediaType;
-import com.example.filrouge_back.models.MovieApiResponse;
+import com.example.filrouge_back.models.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.PostConstruct;
 import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.MediaProfessional;
 import com.example.filrouge_back.entities.Professional;
-import com.example.filrouge_back.models.JobForMedia;
 import com.example.filrouge_back.models.MediaType;
 import com.example.filrouge_back.models.MovieApiResponse;
 import com.example.filrouge_back.repositories.GenreRepository;
@@ -73,7 +71,7 @@ public class PopulateDatabaseService {
                     log.info(id);
                     getMovie(id);
                 } catch (Exception e) {
-                    log.warn("Movie could not be added from betaseries");
+                    log.warn("An error occurred while adding the data");
                     notFoundCount++;
                 }
             }
@@ -87,23 +85,26 @@ public class PopulateDatabaseService {
     public void getMovie(String id) throws Exception {
 
         RestTemplate restTemplate = betaseriesBuilder.build();
+        Media movie;
 
         try {
-            MovieApiResponse response =
-                    restTemplate.getForEntity("movies/movie?tmdb_id=" + id, MovieApiResponse.class).getBody();
+            MovieApiResponse moviesResponse = restTemplate
+                    .getForEntity("movies/movie?tmdb_id=" + id, MovieApiResponse.class).getBody();
 
-            if (response != null) {
-                Media movie = saveMovie(response);
+            if (moviesResponse != null) {
+                movie = saveMovie(moviesResponse);
 
+                ActorsApiResponse actorsResponse = restTemplate
+                        .getForEntity("movies/characters?id=" + movie.getBetaseriesId(), ActorsApiResponse.class).getBody();
+
+                if (actorsResponse != null) {
+                    saveActors(actorsResponse, movie);
+                }
             }
 
-
-//            response = restTemplate.getForEntity("movies/characters?id=" + id, JsonNode.class);
-//            response.getBody().findPath("results").elements().forEachRemaining(e -> {
-//                // TODO récupérer les données intéressantes des acteurs
-//            });
         } catch (HttpClientErrorException e) {
-            throw new Exception("Movie with id " + id + " nout found", e);
+            log.warn("Movie with id " + id + " not found on betaseries");
+            throw new Exception(e);
         }
         // TODO sauvegarder OU retourner les films & leurs acteurs
     }
@@ -137,7 +138,7 @@ public class PopulateDatabaseService {
         mediaRepository.save(movie);
 
         movie.setProfessionals(new ArrayList<>());
-        for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getDirectors()) {
+        for (Person data : response.getMovie().getCrew().getDirectors()) {
             Professional person = findOrSaveProfessional(data);
 
             MediaProfessional director = mediaProfessionalRepository.save(
@@ -151,7 +152,7 @@ public class PopulateDatabaseService {
             movie.getProfessionals().add(director);
         }
 
-        for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getProducers()) {
+        for (Person data : response.getMovie().getCrew().getProducers()) {
             Professional person = findOrSaveProfessional(data);
 
             MediaProfessional producer = mediaProfessionalRepository.save(
@@ -166,7 +167,8 @@ public class PopulateDatabaseService {
         }
 
 
-        for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getWriters()) {
+        // TODO refactoriser dans une méthode !
+        for (Person data : response.getMovie().getCrew().getWriters()) {
             Professional person = findOrSaveProfessional(data);
 
             MediaProfessional writer = mediaProfessionalRepository.save(
@@ -185,15 +187,39 @@ public class PopulateDatabaseService {
         return movie;
     }
 
-    public Professional findOrSaveProfessional(MovieApiResponse.Movie.Crew.Person data) {
-        Professional person;
+    @Transactional
+    public void saveActors(ActorsApiResponse response, Media media) {
+        List<Person> personsList = response.getCharacters();
+        int actorsCount = Math.min(personsList.size(), 7);
+        for (int i = 0 ; i <= actorsCount ; i++) {
+            Person data = personsList.get(i);
+            Professional person = findOrSaveProfessional(data);
 
-        if (professionalRepository.existsByName(data.getName())) {
-            person = professionalRepository.findByName(data.getName());
+            MediaProfessional actor = mediaProfessionalRepository.save(
+                    MediaProfessional.builder()
+                            .job(JobForMedia.ACTOR)
+                            .professional(person)
+                            .media(media)
+                            .build()
+            );
+
+            media.getProfessionals().add(actor);
+        }
+        mediaRepository.save(media);
+    }
+
+    public Professional findOrSaveProfessional(Person data) {
+        Professional person;
+        String name = data.getActor() != null
+                ? data.getActor()
+                : data.getName();
+
+        if (professionalRepository.existsByName(name)) {
+            person = professionalRepository.findByName(name);
         } else {
             person = professionalRepository.save(
                     Professional.builder()
-                            .name(data.getName())
+                            .name(name)
                             .imageUrl(data.getPicture())
                             .build()
             );

@@ -1,6 +1,8 @@
 package com.example.filrouge_back.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,8 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Professional {
 
@@ -16,8 +20,9 @@ public class Professional {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String firstName;
-    private String lastName;
+    @Column(unique = true)
+    private String name;
+    private String imageUrl;
 
     @OneToMany(mappedBy = "professional")
     private List<MediaProfessional> mediaList;

@@ -26,6 +26,7 @@ public class Media {
     @Enumerated(EnumType.STRING)
     private MediaType type;
 
+    @Column(columnDefinition = "TEXT")
     private String plot;
 
     private String imageUrl;

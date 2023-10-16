@@ -54,11 +54,10 @@ public class PopulateDatabaseService {
 
     @PostConstruct
     public void populateDatabase() {
-        log.info("Database is empty");
-
-        // TODO ajouter la condition "si BDD vide"
+//        if (mediaRepository.count() == 0) {
         if (true) {
-            // TODO récupérer les films
+            log.info("Database is empty");
+
             List<String> idList = getIdList("movie");
 
             log.info("Filling with " + idList.size() + " movies data...");
@@ -68,6 +67,7 @@ public class PopulateDatabaseService {
                 try {
                     log.info(id);
                     getMovie(id);
+
                 } catch (Exception e) {
                     log.warn("Movie not found on betaseries");
                     notFoundCount++;
@@ -171,7 +171,6 @@ public class PopulateDatabaseService {
             movie.getProfessionals().add(director);
         }
 
-        log.info(movie.toString());
         mediaRepository.save(movie);
 
         return movie;
@@ -229,15 +228,15 @@ public class PopulateDatabaseService {
 
         List<String> idList = new ArrayList<>();
 
-//        for (int i = 1 ; i <= 5 ; i++) {
-        int i = 1;
-            ResponseEntity<JsonNode> entityJson =
-                    restTemplate.getForEntity(type + "/top_rated?language=fr-FR&page=" + i, JsonNode.class);
+        for (int i = 1 ; i <= 5 ; i++) {
+            JsonNode entityJson =
+                    restTemplate.getForEntity(type + "/top_rated?language=fr-FR&page=" + i, JsonNode.class).getBody();
 
-            entityJson.getBody().findPath("results").elements().forEachRemaining(e -> {
-                idList.add(e.findPath("id").asText());
-            });
-//        }
+            if (entityJson != null) {
+                entityJson.findPath("results").elements()
+                        .forEachRemaining(e -> idList.add(e.findPath("id").asText()));
+            }
+        }
 
         return idList;
     }

@@ -7,8 +7,13 @@ import com.example.filrouge_back.entities.Professional;
 import com.example.filrouge_back.models.JobForMedia;
 import com.example.filrouge_back.models.MediaType;
 import com.example.filrouge_back.models.MovieApiResponse;
+import com.example.filrouge_back.repositories.GenreRepository;
+import com.example.filrouge_back.repositories.MediaProfessionalRepository;
+import com.example.filrouge_back.repositories.MediaRepository;
+import com.example.filrouge_back.repositories.ProfessionalRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -26,13 +31,25 @@ public class PopulateDatabaseService {
 
     private final RestTemplateBuilder tmdbBuilder;
     private final RestTemplateBuilder betaseriesBuilder;
+    private final MediaRepository mediaRepository;
+    private final MediaProfessionalRepository mediaProfessionalRepository;
+    private final ProfessionalRepository professionalRepository;
+    private final GenreRepository genreRepository;
 
     public PopulateDatabaseService(
             @Qualifier("tmdb") RestTemplateBuilder tmdbBuilder,
-            @Qualifier("betaseries") RestTemplateBuilder betaseriesBuilder
+            @Qualifier("betaseries") RestTemplateBuilder betaseriesBuilder,
+            MediaRepository mediaRepository,
+            MediaProfessionalRepository mediaProfessionalRepository,
+            ProfessionalRepository professionalRepository,
+            GenreRepository genreRepository
     ) {
         this.tmdbBuilder = tmdbBuilder;
         this.betaseriesBuilder = betaseriesBuilder;
+        this.mediaRepository = mediaRepository;
+        this.mediaProfessionalRepository = mediaProfessionalRepository;
+        this.professionalRepository = professionalRepository;
+        this.genreRepository = genreRepository;
     }
 
     @PostConstruct
@@ -72,70 +89,8 @@ public class PopulateDatabaseService {
                     restTemplate.getForEntity("movies/movie?tmdb_id=" + id, MovieApiResponse.class).getBody();
 
             if (response != null) {
-                Media movie = new Media();
-                movie.setType(MediaType.MOVIE);
+                Media movie = saveMovie(response);
 
-                movie.setBetaseriesId(response.getMovie().getId());
-                movie.setTitle(response.getMovie().getOther_title().getTitle());
-                movie.setPlot(response.getMovie().getSynopsis());
-                movie.setImageUrl(response.getMovie().getPoster());
-                movie.setReleaseDate(response.getMovie().getRelease_date());
-                movie.setDuration(response.getMovie().getLength()/60);
-
-                movie.setGenres(new ArrayList<>());
-                for (String data : response.getMovie().getGenres()) {
-                    Genre genre = Genre.builder()
-                            .genre(data)
-                            .build();
-                    movie.getGenres().add(genre);
-                }
-
-                movie.setProfessionals(new ArrayList<>());
-                for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getDirectors()) {
-                    Professional person = Professional.builder()
-                            .name(data.getName())
-                            .imageUrl(data.getPicture())
-                            .build();
-
-                    MediaProfessional director = MediaProfessional.builder()
-                            .job(JobForMedia.DIRECTOR)
-                            .professional(person)
-                            .build();
-
-                    movie.getProfessionals().add(director);
-                }
-
-                for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getProducers()) {
-                    Professional person = Professional.builder()
-                            .name(data.getName())
-                            .imageUrl(data.getPicture())
-                            .build();
-
-                    MediaProfessional director = MediaProfessional.builder()
-                            .job(JobForMedia.PRODUCER)
-                            .professional(person)
-                            .build();
-
-                    movie.getProfessionals().add(director);
-                }
-
-
-                for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getWriters()) {
-                    Professional person = Professional.builder()
-                            .name(data.getName())
-                            .imageUrl(data.getPicture())
-                            .build();
-
-                    MediaProfessional director = MediaProfessional.builder()
-                            .job(JobForMedia.WRITER)
-                            .professional(person)
-                            .build();
-
-                    movie.getProfessionals().add(director);
-                }
-
-                log.info(movie.toString());
-                
             }
 
 
@@ -147,6 +102,96 @@ public class PopulateDatabaseService {
             throw new Exception("Movie with id " + id + " nout found", e);
         }
         // TODO sauvegarder OU retourner les films & leurs acteurs
+    }
+
+    @Transactional
+    public Media saveMovie(MovieApiResponse response) {
+        Media movie = new Media();
+        movie.setType(MediaType.MOVIE);
+
+        movie.setBetaseriesId(response.getMovie().getId());
+        movie.setTitle(response.getMovie().getOther_title().getTitle());
+        movie.setPlot(response.getMovie().getSynopsis());
+        movie.setImageUrl(response.getMovie().getPoster());
+        movie.setReleaseDate(response.getMovie().getRelease_date());
+        movie.setDuration(response.getMovie().getLength()/60);
+
+        movie.setGenres(new ArrayList<>());
+        for (String data : response.getMovie().getGenres()) {
+            Genre genre;
+            if (genreRepository.existsByGenreName(data)) {
+                genre = genreRepository.findByGenreName(data);
+            } else {
+                genre = genreRepository.save(
+                        Genre.builder().genreName(data).build()
+                );
+            }
+
+            movie.getGenres().add(genre);
+        }
+
+        movie.setProfessionals(new ArrayList<>());
+        for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getDirectors()) {
+            Professional person = findOrSaveProfessional(data);
+
+            MediaProfessional director = mediaProfessionalRepository.save(
+                    MediaProfessional.builder()
+                    .job(JobForMedia.DIRECTOR)
+                    .professional(person)
+                    .build()
+            );
+
+            movie.getProfessionals().add(director);
+        }
+
+        for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getProducers()) {
+            Professional person = findOrSaveProfessional(data);
+
+            MediaProfessional director = mediaProfessionalRepository.save(
+                    MediaProfessional.builder()
+                    .job(JobForMedia.PRODUCER)
+                    .professional(person)
+                    .build()
+            );
+
+            movie.getProfessionals().add(director);
+        }
+
+
+        for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getWriters()) {
+            Professional person = findOrSaveProfessional(data);
+
+            MediaProfessional director = mediaProfessionalRepository.save(
+                    MediaProfessional.builder()
+                            .job(JobForMedia.WRITER)
+                            .professional(person)
+                            .build()
+            );
+
+            movie.getProfessionals().add(director);
+        }
+
+        log.info(movie.toString());
+        mediaRepository.save(movie);
+
+        return movie;
+    }
+
+    public Professional findOrSaveProfessional(MovieApiResponse.Movie.Crew.Person data) {
+        Professional person;
+
+        if (professionalRepository.existsByName(data.getName())) {
+            person = professionalRepository.findByName(data.getName());
+        } else {
+            person = professionalRepository.save(
+                    Professional.builder()
+                            .name(data.getName())
+                            .imageUrl(data.getPicture())
+                            .build()
+            );
+        }
+
+        return person;
     }
 
     public void getShows() {

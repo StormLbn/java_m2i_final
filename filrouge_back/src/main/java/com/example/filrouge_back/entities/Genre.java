@@ -19,7 +19,8 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String genre;
+    @Column(unique = true)
+    private String genreName;
 
     @ManyToMany(mappedBy = "genres")
     private Collection<Media> medias;

@@ -25,6 +25,7 @@ public class Media {
 
     private MediaType type;
 
+    @Column(columnDefinition = "TEXT")
     private String plot;
 
     private String imageUrl;

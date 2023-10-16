@@ -25,7 +25,7 @@ public class MovieApiResponse {
         @Data
         public static class Crew {
             @Data
-            private static class Person {
+            public static class Person {
                 private int id;
                 private String name;
                 private String picture;

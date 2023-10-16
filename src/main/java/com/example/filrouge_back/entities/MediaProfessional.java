@@ -16,6 +16,7 @@ public class MediaProfessional {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Enumerated(EnumType.STRING)
     private JobForMedia job;
 
     // TODO définir cascade ?

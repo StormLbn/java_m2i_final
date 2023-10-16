@@ -1,5 +1,6 @@
 package com.example.filrouge_back.entities;
 
+import com.example.filrouge_back.models.MediaType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

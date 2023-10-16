@@ -1,4 +1,4 @@
-package com.example.filrouge_back.entities;
+package com.example.filrouge_back.models;
 
 public enum MediaType {
     MOVIE("film"),

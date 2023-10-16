@@ -69,7 +69,7 @@ public class PopulateDatabaseService {
                     getMovie(id);
 
                 } catch (Exception e) {
-                    log.warn("Movie not found on betaseries");
+                    log.warn("Movie could not be added from betaseries");
                     notFoundCount++;
                 }
             }

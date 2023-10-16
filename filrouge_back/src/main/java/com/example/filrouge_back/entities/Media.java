@@ -23,6 +23,7 @@ public class Media {
 
     private String title;
 
+    @Enumerated(EnumType.STRING)
     private MediaType type;
 
     @Column(columnDefinition = "TEXT")

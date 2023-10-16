@@ -1,5 +1,10 @@
 package com.example.filrouge_back.services;
 
+import com.example.filrouge_back.entities.Media;
+import com.example.filrouge_back.models.MediaType;
+import com.example.filrouge_back.models.MovieApiResponse;
+import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.annotation.PostConstruct;
 import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.MediaProfessional;
@@ -67,7 +72,6 @@ public class PopulateDatabaseService {
                 try {
                     log.info(id);
                     getMovie(id);
-
                 } catch (Exception e) {
                     log.warn("Movie not found on betaseries");
                     notFoundCount++;

@@ -134,15 +134,18 @@ public class PopulateDatabaseService {
             movie.getGenres().add(genre);
         }
 
+        mediaRepository.save(movie);
+
         movie.setProfessionals(new ArrayList<>());
         for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getDirectors()) {
             Professional person = findOrSaveProfessional(data);
 
             MediaProfessional director = mediaProfessionalRepository.save(
                     MediaProfessional.builder()
-                    .job(JobForMedia.DIRECTOR)
-                    .professional(person)
-                    .build()
+                        .job(JobForMedia.DIRECTOR)
+                        .professional(person)
+                        .media(movie)
+                        .build()
             );
 
             movie.getProfessionals().add(director);
@@ -151,28 +154,30 @@ public class PopulateDatabaseService {
         for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getProducers()) {
             Professional person = findOrSaveProfessional(data);
 
-            MediaProfessional director = mediaProfessionalRepository.save(
+            MediaProfessional producer = mediaProfessionalRepository.save(
                     MediaProfessional.builder()
-                    .job(JobForMedia.PRODUCER)
-                    .professional(person)
-                    .build()
+                        .job(JobForMedia.PRODUCER)
+                        .professional(person)
+                        .media(movie)
+                        .build()
             );
 
-            movie.getProfessionals().add(director);
+            movie.getProfessionals().add(producer);
         }
 
 
         for (MovieApiResponse.Movie.Crew.Person data : response.getMovie().getCrew().getWriters()) {
             Professional person = findOrSaveProfessional(data);
 
-            MediaProfessional director = mediaProfessionalRepository.save(
+            MediaProfessional writer = mediaProfessionalRepository.save(
                     MediaProfessional.builder()
                             .job(JobForMedia.WRITER)
                             .professional(person)
+                            .media(movie)
                             .build()
             );
 
-            movie.getProfessionals().add(director);
+            movie.getProfessionals().add(writer);
         }
 
         mediaRepository.save(movie);

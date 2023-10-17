@@ -31,10 +31,4 @@ public class Evaluation {
     @JoinColumn(name = "mediaId", insertable = false, updatable = false)
     private Media media;
 
-    public Evaluation(UUID userId, UUID mediaId, int rating, String comment) {
-        this.userId = userId;
-        this.mediaId = mediaId;
-        this.rating = rating;
-        this.comment = comment;
-    }
 }

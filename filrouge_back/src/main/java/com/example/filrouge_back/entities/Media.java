@@ -53,10 +53,10 @@ public class Media {
             joinColumns = @JoinColumn(name = "media_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    @JsonIgnore
+
     private List<Genre> genres;
 
     @OneToMany(mappedBy = "media")
-    @JsonIgnore
+
     private List<MediaProfessional> professionals;
 }

@@ -1,5 +1,6 @@
 package com.example.filrouge_back.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,7 @@ public class Genre {
     private String genreName;
 
     @ManyToMany(mappedBy = "genres")
+    @JsonIgnore
     private Collection<Media> medias;
 
 }

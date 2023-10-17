@@ -60,7 +60,7 @@ public class PopulateDatabaseService {
     @PostConstruct
     public void populateDatabase() {
 //        if (mediaRepository.count() == 0) {
-        if (true) {
+        if (mediaRepository.count() == 0) {
             log.info("Database is empty");
 
             List<String> idList = getIdList("movie");

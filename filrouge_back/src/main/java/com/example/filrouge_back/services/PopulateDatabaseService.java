@@ -180,10 +180,10 @@ public class PopulateDatabaseService {
 
             MediaProfessional director = mediaProfessionalRepository.save(
                     MediaProfessional.builder()
-                        .job(JobForMedia.DIRECTOR)
-                        .professional(person)
-                        .media(movie)
-                        .build()
+                            .job(JobForMedia.DIRECTOR)
+                            .professional(person)
+                            .media(movie)
+                            .build()
             );
 
             movie.getProfessionals().add(director);
@@ -194,10 +194,10 @@ public class PopulateDatabaseService {
 
             MediaProfessional producer = mediaProfessionalRepository.save(
                     MediaProfessional.builder()
-                        .job(JobForMedia.PRODUCER)
-                        .professional(person)
-                        .media(movie)
-                        .build()
+                            .job(JobForMedia.PRODUCER)
+                            .professional(person)
+                            .media(movie)
+                            .build()
             );
 
             movie.getProfessionals().add(producer);

@@ -130,7 +130,7 @@ public class PopulateDatabaseService {
                 int count = 0;
                 for (ShowApiResponse.Show showResponse : showsList) {
                     Media show = saveShow(showResponse);
-                    log.info("Show n°" + ++count);
+
                     ActorsApiResponse actorsResponse = restTemplate
                             .getForEntity("shows/characters?id=" + showResponse.getId(), ActorsApiResponse.class).getBody();
 

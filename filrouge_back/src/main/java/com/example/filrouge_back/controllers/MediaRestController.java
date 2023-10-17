@@ -2,6 +2,7 @@ package com.example.filrouge_back.controllers;
 
 
 import com.example.filrouge_back.entities.Media;
+import com.example.filrouge_back.models.MediaDTO;
 import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.repositories.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,51 +18,30 @@ import java.util.stream.Collectors;
 public class MediaRestController {
 
     private final MediaRepository mediaRepository;
-
+    private final MediaMapper mediaMapper;
 
 
     @Autowired
-    public MediaRestController(MediaRepository mediaRepository, MediaMapper mediaMapper) {
+    public MediaRestController(MediaRepository mediaRepository, MediaMapper mediaMapper, MediaMapper mediaMapper1) {
         this.mediaRepository = mediaRepository;
 
-    }
-
-//    @GetMapping("/all")
-//    public List<Media> getAllMedia() {
-//        return mediaRepository.findAll();
-//    }
-
-    private com.example.filrouge_back.dto.MediaDTO convertToDTO(Media media) {
-        com.example.filrouge_back.dto.MediaDTO mediaDTO = new com.example.filrouge_back.dto.MediaDTO();
-        mediaDTO.setId(media.getId());
-        mediaDTO.setBetaseriesId(media.getBetaseriesId());
-        mediaDTO.setTitle(media.getTitle());
-        mediaDTO.setType(media.getType());
-        mediaDTO.setImageUrl(media.getImageUrl());
-        mediaDTO.setReleaseDate(media.getReleaseDate());
-        mediaDTO.setDuration(media.getDuration());
-        mediaDTO.setSeasons(media.getSeasons());
-        mediaDTO.setAvgRating(media.getAvgRating());
-        mediaDTO.setGenres(media.getGenres());
-        return mediaDTO;
+        this.mediaMapper = mediaMapper1;
     }
 
 
 
 
     @GetMapping("/all")
-    public List<com.example.filrouge_back.dto.MediaDTO> getAllMedia() {
+    public List<MediaDTO> getAllMedia() {
         List<Media> mediaList = mediaRepository.findAll();
 
-        // Transformez les objets Media en objets MediaDTO
-        List<com.example.filrouge_back.dto.MediaDTO> mediaDTOList = mediaList.stream()
-                .map(this::convertToDTO)
+        // Utilisez le mapper pour convertir les objets Media en objets MediaDTO
+        List<MediaDTO> mediaDTOList = mediaList.stream()
+                .map(mediaMapper::mediaToMediaDTO)
                 .collect(Collectors.toList());
 
         return mediaDTOList;
     }
-
-
 
     @GetMapping("/{mediaId}") // Spécifiez l'ID comme variable de chemin
     public Media getMediaById(@PathVariable UUID mediaId) {
@@ -76,12 +56,12 @@ public class MediaRestController {
     }
 
     @GetMapping("/all/{genre}")
-    public List<com.example.filrouge_back.dto.MediaDTO> getMediaByGenre(@PathVariable String genre) {
+    public List<MediaDTO> getMediaByGenre(@PathVariable String genre) {
         List<Media> mediaList = mediaRepository.findByGenres_GenreName(genre);
 
 
-        List<com.example.filrouge_back.dto.MediaDTO> mediaDTOList = mediaList.stream()
-                .map(this::convertToDTO)
+        List<MediaDTO> mediaDTOList = mediaList.stream()
+                .map(mediaMapper::mediaToMediaDTO)
                 .collect(Collectors.toList());
 
         return mediaDTOList;

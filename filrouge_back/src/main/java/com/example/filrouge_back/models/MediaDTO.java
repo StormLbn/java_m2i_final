@@ -1,4 +1,4 @@
-package com.example.filrouge_back.dto;
+package com.example.filrouge_back.models;
 
 import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.models.MediaType;

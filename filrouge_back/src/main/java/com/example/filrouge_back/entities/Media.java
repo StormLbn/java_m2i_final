@@ -59,4 +59,8 @@ public class Media {
     @OneToMany(mappedBy = "media")
 
     private List<MediaProfessional> professionals;
+
+    @OneToMany(mappedBy = "media")
+    private List<Evaluation> evaluations;
+
 }

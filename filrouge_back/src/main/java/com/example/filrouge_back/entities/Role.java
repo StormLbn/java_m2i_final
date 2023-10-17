@@ -1,6 +1,7 @@
 package com.example.filrouge_back.entities;
 
 import com.example.filrouge_back.models.RoleName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Role {
 
 
     @OneToMany(mappedBy = "role")
+    @JsonIgnore
     private List<UserEntity> userEntityList;
 
 

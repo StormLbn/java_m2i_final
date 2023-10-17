@@ -39,6 +39,12 @@ public class UserEntity {
     )
     private List<Genre> genres;
 
+    @OneToMany(mappedBy = "user")
+    private List<Evaluation> evaluations;
+
+
+
+
 }
 
 

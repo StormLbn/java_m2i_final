@@ -4,6 +4,7 @@ package com.example.filrouge_back.controllers;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.models.MediaDTO;
 import com.example.filrouge_back.mappers.MediaMapper;
+import com.example.filrouge_back.models.MediaType;
 import com.example.filrouge_back.repositories.MediaRepository;
 import com.example.filrouge_back.services.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +35,18 @@ public class MediaRestController {
 
 
     @GetMapping("/{mediaId}")
-    public MediaDTO getMediaById(@PathVariable UUID mediaId) {
+    public Media getMediaById(@PathVariable UUID mediaId) {
         return mediaService.getMediaById(mediaId);
     }
 
-    @GetMapping("/all/{genre}")
+    @GetMapping("/all/genre/{genre}")
     public List<MediaDTO> getMediaByGenre(@PathVariable String genre) {
         return mediaService.getMediaByGenre(genre);
     }
 
-
-
+    @GetMapping("/all/type/{type}")
+    public List<MediaDTO> getMediaByType(@PathVariable MediaType type) {
+        return mediaService.getMediaByType(type);
+    }
 
 }

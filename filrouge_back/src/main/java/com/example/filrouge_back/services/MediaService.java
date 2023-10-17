@@ -3,6 +3,7 @@ package com.example.filrouge_back.services;
 import com.example.filrouge_back.models.MediaDTO;
 import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.entities.Media;
+import com.example.filrouge_back.models.MediaType;
 import com.example.filrouge_back.repositories.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,17 +29,22 @@ public class MediaService {
         return mediaMapper.mediaListToMediaDTOList(mediaList);
     }
 
-    public MediaDTO getMediaById(UUID mediaId) {
+    public Media getMediaById(UUID mediaId) {
         Optional<Media> optionalMedia = mediaRepository.findById(mediaId);
         if (optionalMedia.isPresent()) {
             Media media = optionalMedia.get();
-            return mediaMapper.mediaToMediaDTO(media);
+            return media;
         }
         return null;
     }
 
     public List<MediaDTO> getMediaByGenre(String genre) {
         List<Media> mediaList = mediaRepository.findByGenres_GenreName(genre);
+        return mediaMapper.mediaListToMediaDTOList(mediaList);
+    }
+
+    public List<MediaDTO> getMediaByType(MediaType type) {
+        List<Media> mediaList = mediaRepository.findByType(type);
         return mediaMapper.mediaListToMediaDTOList(mediaList);
     }
 }

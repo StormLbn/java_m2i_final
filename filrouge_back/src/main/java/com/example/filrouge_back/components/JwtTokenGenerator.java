@@ -32,7 +32,6 @@ public class JwtTokenGenerator {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
-                // Une fois build, on peut lire les données du token
                 .parseClaimsJws(token)
                 .getBody();
 

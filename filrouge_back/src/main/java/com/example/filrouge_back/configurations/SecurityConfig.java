@@ -36,7 +36,10 @@ public class SecurityConfig {
         http
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling((ex) -> ex.authenticationEntryPoint(customAuthenticationEntryPoint))
                 .authorizeHttpRequests(requests -> requests
+                        // TODO gérer les routes
                         .anyRequest().permitAll()
                 );
 

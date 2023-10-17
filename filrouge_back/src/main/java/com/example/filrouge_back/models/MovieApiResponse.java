@@ -24,12 +24,6 @@ public class MovieApiResponse {
 
         @Data
         public static class Crew {
-            @Data
-            public static class Person {
-                private int id;
-                private String name;
-                private String picture;
-            }
 
             private List<Person> producers;
             private List<Person> writers;

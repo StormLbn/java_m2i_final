@@ -48,7 +48,6 @@
             <scope>test</scope>
         </dependency>
 
-            <!-- TODO dépendances Security à remettre quand configuré -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>

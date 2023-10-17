@@ -34,7 +34,7 @@ public class MediaService {
             Media media = optionalMedia.get();
             return mediaMapper.mediaToMediaDTO(media);
         }
-        return null; 
+        return null;
     }
 
     public List<MediaDTO> getMediaByGenre(String genre) {

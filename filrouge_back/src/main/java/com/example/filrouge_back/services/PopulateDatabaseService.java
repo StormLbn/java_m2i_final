@@ -130,7 +130,7 @@ public class PopulateDatabaseService {
                 int count = 0;
                 for (ShowApiResponse.Show showResponse : showsList) {
                     Media show = saveShow(showResponse);
-                    log.info("Show n°" + ++count);
+
                     ActorsApiResponse actorsResponse = restTemplate
                             .getForEntity("shows/characters?id=" + showResponse.getId(), ActorsApiResponse.class).getBody();
 
@@ -280,7 +280,7 @@ public class PopulateDatabaseService {
         List<Person> personsList = response.getCharacters();
         if (!personsList.isEmpty()) {
             int actorsCount = Math.min(personsList.size(), 7);
-            for (int i = 0; i <= actorsCount; i++) {
+            for (int i = 0; i < actorsCount; i++) {
                 Person data = personsList.get(i);
                 Professional person = findOrSaveProfessional(data);
 

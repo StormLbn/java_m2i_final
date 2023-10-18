@@ -44,6 +44,7 @@ public class AuthService {
     }
 
     public String register(AuthRequest authRequest) {
+        // TODO créer l'utilisateur dans UserService ?
         if (!userEntityRepository.existsByMail(authRequest.getMail())) {
             Role role = roleRepository
                     .findByRoleName(RoleName.USER)

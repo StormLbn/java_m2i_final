@@ -21,7 +21,7 @@ public class AuthRestController {
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerHandler(@RequestBody AuthRequest authRequest) {
         String token = authService.register(authRequest);
-
+        // TODO gérer le cas où l'utilisateur existe déjà
         return ResponseEntity.ok(generateResponse(token));
     }
 
@@ -35,9 +35,7 @@ public class AuthRestController {
 
     private AuthResponse generateResponse(String token) {
 
-        return AuthResponse.builder()
-                .token(token)
-                .build();
+        return AuthResponse.builder().token(token).build();
     }
 
     @PostMapping("/sign-out")

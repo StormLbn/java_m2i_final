@@ -5,6 +5,7 @@ import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.repositories.MediaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class MediaService {
 
     private final MediaRepository mediaRepository;
     private final MediaMapper mediaMapper;
-
-    @Autowired
-    public MediaService(MediaRepository mediaRepository, MediaMapper mediaMapper) {
-        this.mediaRepository = mediaRepository;
-        this.mediaMapper = mediaMapper;
-    }
 
     public List<MediaDTO> getAllMedia() {
         List<Media> mediaList = mediaRepository.findAll();
@@ -31,11 +27,7 @@ public class MediaService {
 
     public Media getMediaById(UUID mediaId) {
         Optional<Media> optionalMedia = mediaRepository.findById(mediaId);
-        if (optionalMedia.isPresent()) {
-            Media media = optionalMedia.get();
-            return media;
-        }
-        return null;
+        return optionalMedia.orElse(null);
     }
 
     public List<MediaDTO> getMediaByGenre(String genre) {

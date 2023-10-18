@@ -34,7 +34,7 @@ public class EvaluationService {
 
             return evaluationMapper.evaluationToEvaluationDTO(evaluationRepository.save(evaluation));
         } else {
-            // Gérer le cas où l'utilisateur ou le média n'a pas été trouvé.
+            // TODO Gérer le cas où l'utilisateur ou le média n'a pas été trouvé.
             return null;
         }
     }
@@ -54,6 +54,7 @@ public class EvaluationService {
     }
 
     public boolean deleteEvaluation(UUID evaluationId) {
+        // TODO
         return false;
     }
 }

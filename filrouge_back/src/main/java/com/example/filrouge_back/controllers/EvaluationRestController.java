@@ -16,12 +16,16 @@ public class EvaluationRestController {
 
     private final EvaluationService evaluationService;
 
+    // TODO GET commentaires d'un média
+    // TODO GET commentaires d'un utilisateur
+
     @PostMapping("/add")
     public ResponseEntity<EvaluationDTO> createEvaluation(@RequestBody EvaluationDTO evaluationDTO) {
         EvaluationDTO createdEvaluation = evaluationService.createEvaluation(evaluationDTO);
         return new ResponseEntity<>(createdEvaluation, HttpStatus.CREATED);
     }
 
+    // TODO passer en PATCH
     @PutMapping("/{evaluationId}")
     public ResponseEntity<EvaluationDTO> updateEvaluation(
             @PathVariable UUID evaluationId,
@@ -38,7 +42,7 @@ public class EvaluationRestController {
     @DeleteMapping("/{evaluationId}")
     public ResponseEntity<Void> deleteEvaluation(@PathVariable UUID evaluationId) {
         if (evaluationService.deleteEvaluation(evaluationId)) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }

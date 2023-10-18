@@ -15,8 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -51,7 +49,6 @@ public class AuthService {
                     .findByRoleName(RoleName.USER)
                     .orElseGet(() -> roleRepository.save(Role.builder().roleName(RoleName.USER).build()));
 
-            // TODO ajouter les autres données de l'utilisateur
             UserEntity newUser = UserEntity.builder()
                     .mail(authRequest.getMail())
                     .password(passwordEncoder.encode(authRequest.getPassword()))

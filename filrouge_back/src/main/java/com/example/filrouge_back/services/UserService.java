@@ -33,8 +33,8 @@ public class UserService {
             if (updatedUserDTO.getPseudo() != null)  {
                 user.setPseudo(updatedUserDTO.getPseudo());
             }
-            if (updatedUserDTO.getBirthday() != null)  {
-                user.setBirthday(updatedUserDTO.getBirthday());
+            if (updatedUserDTO.getBirthDate() != null)  {
+                user.setBirthDate(updatedUserDTO.getBirthDate());
             }
             if (updatedUserDTO.getPassword() != null)  {
                 user.setPassword(updatedUserDTO.getPassword());

@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -45,6 +44,9 @@ public class UserEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private List<Genre> genres;
+
+    @OneToMany(mappedBy = "user")
+    private List<Evaluation> evaluations;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

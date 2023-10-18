@@ -21,8 +21,8 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
     @ManyToMany(mappedBy = "genres")
+    @JsonIgnore
     private List<UserEntity> users;
 
     @Column(unique = true)

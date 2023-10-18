@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
+// TODO AuthRequest = UserDto ?
 public class AuthRequest {
 
     // TODO ajouter les autres données d'utilisateur

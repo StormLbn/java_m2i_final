@@ -40,9 +40,9 @@ public class UserEntity implements UserDetails {
 
     @ManyToMany
     @JoinTable(
-            name = "user_genre", // Nom de la table de liaison
-            joinColumns = @JoinColumn(name = "userEntity_id"), // Clé étrangère de UserEntity
-            inverseJoinColumns = @JoinColumn(name = "genre_id") // Clé étrangère de Genre
+            name = "user_genre",
+            joinColumns = @JoinColumn(name = "userEntity_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private List<Genre> genres;
 

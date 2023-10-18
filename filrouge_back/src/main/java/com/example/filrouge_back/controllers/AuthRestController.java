@@ -20,20 +20,23 @@ public class AuthRestController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerHandler(@RequestBody AuthRequest authRequest) {
-        authService.register(authRequest);
+        String token = authService.register(authRequest);
 
-        return authenticationHandler(authRequest);
+        return ResponseEntity.ok(generateResponse(token));
     }
 
 
-    @PostMapping("authenticate")
-    public ResponseEntity<AuthResponse> authenticationHandler(AuthRequest authRequest) {
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthResponse> authenticationHandler(@RequestBody AuthRequest authRequest) {
         String token = authService.authenticate(authRequest);
 
-        AuthResponse response = AuthResponse.builder()
+        return ResponseEntity.ok(generateResponse(token));
+    }
+
+    private AuthResponse generateResponse(String token) {
+
+        return AuthResponse.builder()
                 .token(token)
                 .build();
-
-        return ResponseEntity.ok(response);
     }
 }

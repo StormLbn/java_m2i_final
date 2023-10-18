@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class AuthResponse {
 
+    // TODO autres éléments à ajouter ?
     private String token;
 
 }

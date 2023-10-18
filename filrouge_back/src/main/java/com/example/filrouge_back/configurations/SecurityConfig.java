@@ -39,7 +39,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((ex) -> ex.authenticationEntryPoint(customAuthenticationEntryPoint))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/media/**", "/api/auth/**").permitAll()
+                                .requestMatchers("/api/media/**", "/api/auth/**").permitAll()
+                                .requestMatchers("/api/user/**").permitAll()
+                                .requestMatchers("/api/user/edit/**").authenticated()
                         // TODO gérer les routes bloquées
                 );
 

@@ -1,7 +1,7 @@
 package com.example.filrouge_back.controllers;
 
-import com.example.filrouge_back.models.AuthRequest;
-import com.example.filrouge_back.models.AuthResponse;
+import com.example.filrouge_back.models.authdtos.AuthRequest;
+import com.example.filrouge_back.models.authdtos.AuthResponse;
 import com.example.filrouge_back.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class AuthRestController {
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerHandler(@RequestBody AuthRequest authRequest) {
         String token = authService.register(authRequest);
-
+        // TODO gérer le cas où l'utilisateur existe déjà
         return ResponseEntity.ok(generateResponse(token));
     }
 
@@ -35,9 +35,7 @@ public class AuthRestController {
 
     private AuthResponse generateResponse(String token) {
 
-        return AuthResponse.builder()
-                .token(token)
-                .build();
+        return AuthResponse.builder().token(token).build();
     }
 
     @PostMapping("/sign-out")

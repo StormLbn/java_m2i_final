@@ -2,7 +2,7 @@ package com.example.filrouge_back.mappers;
 
 
 import com.example.filrouge_back.entities.Media;
-import com.example.filrouge_back.models.MediaDTO;
+import com.example.filrouge_back.models.entitydtos.MediaDTO;
 import org.mapstruct.Mapper;
 
 import java.util.List;

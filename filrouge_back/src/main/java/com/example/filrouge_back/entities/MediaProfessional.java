@@ -1,7 +1,6 @@
 package com.example.filrouge_back.entities;
 
-import com.example.filrouge_back.models.JobForMedia;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.example.filrouge_back.models.enums.JobForMedia;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

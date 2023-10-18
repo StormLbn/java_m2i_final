@@ -3,6 +3,8 @@ package com.example.filrouge_back.entities;
 import com.example.filrouge_back.models.RoleName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,8 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Role {
 
@@ -19,7 +23,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Enumerated(EnumType.STRING) // Spécifiez le type de l'enum (STRING ou ORDINAL)
+    @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
 

@@ -25,8 +25,20 @@ public class UserService {
 
         if (optionalUser.isPresent()) {
             UserEntity user = optionalUser.get();
-            UserEntity updatedUser = userMapper.userDtoToUser(updatedUserDTO);
+//            UserEntity updatedUser = userMapper.userDtoToUser(updatedUserDTO);
 
+            if (updatedUserDTO.getMail() != null)  {
+                user.setMail(updatedUserDTO.getMail());
+            }
+            if (updatedUserDTO.getPseudo() != null)  {
+                user.setPseudo(updatedUserDTO.getPseudo());
+            }
+            if (updatedUserDTO.getBirthday() != null)  {
+                user.setBirthday(updatedUserDTO.getBirthday());
+            }
+            if (updatedUserDTO.getPassword() != null)  {
+                user.setPassword(updatedUserDTO.getPassword());
+            }
             userEntityRepository.save(user);
 
             return user;

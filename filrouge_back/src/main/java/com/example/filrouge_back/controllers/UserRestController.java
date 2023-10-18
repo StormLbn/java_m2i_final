@@ -37,5 +37,5 @@ public class UserRestController {
     public UserEntity updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
         return userService.updateUser(userId, updatedUserDTO);
     }
-    
+
 }

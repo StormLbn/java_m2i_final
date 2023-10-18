@@ -55,6 +55,8 @@ public class AuthService {
             UserEntity newUser = UserEntity.builder()
                     .mail(authRequest.getMail())
                     .password(passwordEncoder.encode(authRequest.getPassword()))
+                    .pseudo(authRequest.getPseudo())
+                    .birthDate(authRequest.getBirthDate())
                     .role(role)
                     .build();
 

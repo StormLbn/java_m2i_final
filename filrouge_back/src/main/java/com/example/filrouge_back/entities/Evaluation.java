@@ -1,5 +1,6 @@
 package com.example.filrouge_back.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,20 +16,20 @@ public class Evaluation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
-    private UUID userId;
-
-    @Column(nullable = false)
-    private UUID mediaId;
-
-    @Column(nullable = false)
-    private int rating;
-
-    @Column(length = 500)
     private String comment;
 
+    private int rating;
+
     @ManyToOne
-    @JoinColumn(name = "mediaId", insertable = false, updatable = false)
+    @JoinColumn(name = "media_id")
     private Media media;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+//    @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "media_id"}))
+    private UserEntity user;
+
+
 
 }

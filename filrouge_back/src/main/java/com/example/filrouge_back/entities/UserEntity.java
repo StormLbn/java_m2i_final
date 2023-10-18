@@ -43,6 +43,9 @@ public class UserEntity implements UserDetails {
     )
     private List<Genre> genres;
 
+    @OneToMany(mappedBy = "user")
+    private List<Evaluation> evaluations;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>(List.of(new SimpleGrantedAuthority(role.getRoleName().toString())));

@@ -19,6 +19,8 @@ public class UserRestController {
     private final UserEntityRepository userEntityRepository;
     private final UserService userService;
 
+    // TODO Modification des genres préférés
+
     @GetMapping("/{userId}")
     public UserEntity getUserById(@PathVariable UUID userId) {
         // TODO passer par le service

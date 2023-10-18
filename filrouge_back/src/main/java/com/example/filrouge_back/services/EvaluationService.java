@@ -54,7 +54,14 @@ public class EvaluationService {
     }
 
     public boolean deleteEvaluation(UUID evaluationId) {
-        // TODO
+        Optional<Evaluation> foundEvaluation = evaluationRepository.findById(evaluationId);
+
+        if (foundEvaluation.isPresent()) {
+            evaluationRepository.delete(foundEvaluation.get());
+
+            return true;
+        }
+
         return false;
     }
 }

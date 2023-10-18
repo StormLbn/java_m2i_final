@@ -19,6 +19,8 @@ public class MediaRestController {
 
     private final MediaService mediaService;
 
+    // TODO GET recommandations ?
+
     @GetMapping("/all")
     public List<MediaDTO> getAllMedia() {
         return mediaService.getAllMedia();

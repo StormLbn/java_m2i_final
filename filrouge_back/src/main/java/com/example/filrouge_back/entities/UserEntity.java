@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -29,7 +30,7 @@ public class UserEntity implements UserDetails {
 
     private String password;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @ManyToOne()
     @JoinColumn(name = "role_id")

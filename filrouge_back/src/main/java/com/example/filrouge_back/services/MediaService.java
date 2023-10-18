@@ -1,9 +1,9 @@
 package com.example.filrouge_back.services;
 
-import com.example.filrouge_back.models.MediaDTO;
+import com.example.filrouge_back.models.entitydtos.MediaDTO;
 import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.entities.Media;
-import com.example.filrouge_back.models.MediaType;
+import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.repositories.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

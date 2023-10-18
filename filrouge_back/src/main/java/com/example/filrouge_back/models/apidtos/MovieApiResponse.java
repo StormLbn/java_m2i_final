@@ -1,4 +1,4 @@
-package com.example.filrouge_back.models;
+package com.example.filrouge_back.models.apidtos;
 
 import lombok.Data;
 
@@ -25,9 +25,9 @@ public class MovieApiResponse {
         @Data
         public static class Crew {
 
-            private List<Person> producers;
-            private List<Person> writers;
-            private List<Person> directors;
+            private List<PersonApiResponse> producers;
+            private List<PersonApiResponse> writers;
+            private List<PersonApiResponse> directors;
         }
 
         @Data

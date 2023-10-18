@@ -1,4 +1,4 @@
-package com.example.filrouge_back.models;
+package com.example.filrouge_back.models.apidtos;
 
 import lombok.Data;
 
@@ -17,7 +17,7 @@ public class ShowApiResponse {
         private String description;
         private int seasons;
         private int creation;
-        private List<Person> showrunners;
+        private List<PersonApiResponse> showrunners;
         private Map<String, String> genres;
         private int length;
         private String status;

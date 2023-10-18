@@ -3,7 +3,7 @@ package com.example.filrouge_back.services;
 
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.mappers.UserMapper;
-import com.example.filrouge_back.models.UserDTO;
+import com.example.filrouge_back.models.entitydtos.UserDTO;
 import com.example.filrouge_back.repositories.UserEntityRepository;
 import org.springframework.stereotype.Service;
 

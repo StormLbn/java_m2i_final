@@ -1,7 +1,7 @@
 package com.example.filrouge_back.controllers;
 
-import com.example.filrouge_back.models.AuthRequest;
-import com.example.filrouge_back.models.AuthResponse;
+import com.example.filrouge_back.models.authdtos.AuthRequest;
+import com.example.filrouge_back.models.authdtos.AuthResponse;
 import com.example.filrouge_back.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

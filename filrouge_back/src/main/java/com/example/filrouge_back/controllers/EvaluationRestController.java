@@ -1,6 +1,6 @@
 package com.example.filrouge_back.controllers;
 
-import com.example.filrouge_back.models.EvaluationDTO;
+import com.example.filrouge_back.models.entitydtos.EvaluationDTO;
 import com.example.filrouge_back.services.EvaluationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

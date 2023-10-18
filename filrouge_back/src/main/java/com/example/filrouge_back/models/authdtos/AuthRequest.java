@@ -1,11 +1,9 @@
-package com.example.filrouge_back.models;
+package com.example.filrouge_back.models.authdtos;
 
-import com.example.filrouge_back.entities.Genre;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -16,7 +14,7 @@ public class AuthRequest {
     private String mail;
     private String password;
     private String pseudo;
-    private Date birthDate;
+    private LocalDate birthDate;
 
     // TODO à faire à l'inscription ?
 //    private List<String> genres;

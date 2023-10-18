@@ -1,9 +1,9 @@
-package com.example.filrouge_back.models;
+package com.example.filrouge_back.models.entitydtos;
 
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -12,10 +12,6 @@ public class UserDTO {
     private UUID id;
     private String pseudo;
     private String mail;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String password;
-
-
-
-
 }

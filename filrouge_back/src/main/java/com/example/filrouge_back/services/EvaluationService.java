@@ -4,7 +4,7 @@ import com.example.filrouge_back.entities.Evaluation;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.mappers.EvaluationMapper;
-import com.example.filrouge_back.models.EvaluationDTO;
+import com.example.filrouge_back.models.entitydtos.EvaluationDTO;
 import com.example.filrouge_back.repositories.EvaluationRepository;
 import com.example.filrouge_back.repositories.MediaRepository;
 import com.example.filrouge_back.repositories.UserEntityRepository;

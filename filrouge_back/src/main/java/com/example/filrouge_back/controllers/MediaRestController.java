@@ -2,18 +2,14 @@ package com.example.filrouge_back.controllers;
 
 
 import com.example.filrouge_back.entities.Media;
-import com.example.filrouge_back.models.MediaDTO;
-import com.example.filrouge_back.mappers.MediaMapper;
-import com.example.filrouge_back.models.MediaType;
-import com.example.filrouge_back.repositories.MediaRepository;
+import com.example.filrouge_back.models.entitydtos.MediaDTO;
+import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.services.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/media")

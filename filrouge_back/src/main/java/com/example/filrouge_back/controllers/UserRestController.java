@@ -1,7 +1,7 @@
 package com.example.filrouge_back.controllers;
 
 import com.example.filrouge_back.entities.UserEntity;
-import com.example.filrouge_back.models.UserDTO;
+import com.example.filrouge_back.models.entitydtos.UserDTO;
 import com.example.filrouge_back.repositories.UserEntityRepository;
 import com.example.filrouge_back.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

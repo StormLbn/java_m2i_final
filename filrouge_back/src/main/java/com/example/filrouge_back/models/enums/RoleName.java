@@ -1,4 +1,4 @@
-package com.example.filrouge_back.models;
+package com.example.filrouge_back.models.enums;
 
 
 

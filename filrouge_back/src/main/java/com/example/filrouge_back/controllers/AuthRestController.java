@@ -39,4 +39,9 @@ public class AuthRestController {
                 .token(token)
                 .build();
     }
+
+    @PostMapping("/sign-out")
+    public void signOutHandler() {
+        authService.signOut();
+    }
 }

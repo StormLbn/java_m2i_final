@@ -41,6 +41,10 @@ public class AuthService {
         return tokenGenerator.generateToken(authentication);
     }
 
+    public void signOut() {
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }
+
     public String register(AuthRequest authRequest) {
         if (!userEntityRepository.existsByMail(authRequest.getMail())) {
             Role role = roleRepository
@@ -51,6 +55,8 @@ public class AuthService {
             UserEntity newUser = UserEntity.builder()
                     .mail(authRequest.getMail())
                     .password(passwordEncoder.encode(authRequest.getPassword()))
+                    .pseudo(authRequest.getPseudo())
+                    .birthDate(authRequest.getBirthDate())
                     .role(role)
                     .build();
 

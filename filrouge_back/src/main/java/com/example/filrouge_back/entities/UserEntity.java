@@ -24,17 +24,15 @@ public class UserEntity implements UserDetails {
 
     private String pseudo;
 
-    private String lastName;
-
     @Column(unique = true)
     private String mail;
 
     private String password;
 
-    private Date birthday;
+    private Date birthDate;
 
     @ManyToOne()
-    @JoinColumn(name = "Role_id")
+    @JoinColumn(name = "role_id")
     private Role role;
 
     @ManyToMany

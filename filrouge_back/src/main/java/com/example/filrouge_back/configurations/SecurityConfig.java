@@ -43,6 +43,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/user/**").permitAll()
                                 .requestMatchers("/api/user/edit/**").authenticated()
                         // TODO gérer les routes bloquées
+                        .anyRequest().permitAll()
                 );
 
         return http.build();

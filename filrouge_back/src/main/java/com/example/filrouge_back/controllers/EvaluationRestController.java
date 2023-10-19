@@ -1,5 +1,6 @@
 package com.example.filrouge_back.controllers;
 
+
 import com.example.filrouge_back.models.EvaluationDTO;
 import com.example.filrouge_back.services.EvaluationService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class EvaluationRestController {
     @PostMapping("/add")
     public ResponseEntity<EvaluationDTO> createEvaluation(@RequestBody EvaluationDTO evaluationDTO) {
         EvaluationDTO createdEvaluation = evaluationService.createEvaluation(evaluationDTO);
+
         return new ResponseEntity<>(createdEvaluation, HttpStatus.CREATED);
     }
 
@@ -28,19 +30,12 @@ public class EvaluationRestController {
             @RequestBody EvaluationDTO updatedEvaluationDTO
     ) {
         EvaluationDTO updatedEvaluation = evaluationService.updateEvaluation(evaluationId, updatedEvaluationDTO);
-        if (updatedEvaluation != null) {
-            return ResponseEntity.ok(updatedEvaluation);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(updatedEvaluation);
     }
 
     @DeleteMapping("/{evaluationId}")
     public ResponseEntity<Void> deleteEvaluation(@PathVariable UUID evaluationId) {
-        if (evaluationService.deleteEvaluation(evaluationId)) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        evaluationService.deleteEvaluation(evaluationId);
+        return ResponseEntity.ok().build();
     }
 }

@@ -3,6 +3,7 @@ package com.example.filrouge_back.services;
 import com.example.filrouge_back.entities.Evaluation;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.UserEntity;
+import com.example.filrouge_back.exceptions.ResourceNotFoundException;
 import com.example.filrouge_back.mappers.EvaluationMapper;
 import com.example.filrouge_back.models.EvaluationDTO;
 import com.example.filrouge_back.repositories.EvaluationRepository;
@@ -27,15 +28,16 @@ public class EvaluationService {
         Optional<UserEntity> userEntity = userEntityRepository.findById(evaluationDTO.getUserId());
         Optional<Media> media = mediaRepository.findById(evaluationDTO.getMediaId());
 
-        if (userEntity.isPresent() && media.isPresent()) {
+        if (userEntity.isEmpty()) {
+            throw new ResourceNotFoundException("User not found at id " + evaluationDTO.getUserId());
+        } else if (media.isEmpty()) {
+            throw new ResourceNotFoundException("Media not found at id " + evaluationDTO.getMediaId());
+        } else {
             Evaluation evaluation = evaluationMapper.evaluationDTOToEvaluation(evaluationDTO);
             evaluation.setUser(userEntity.get());
             evaluation.setMedia(media.get());
 
             return evaluationMapper.evaluationToEvaluationDTO(evaluationRepository.save(evaluation));
-        } else {
-            // Gérer le cas où l'utilisateur ou le média n'a pas été trouvé.
-            return null;
         }
     }
 
@@ -48,12 +50,17 @@ public class EvaluationService {
 
             return evaluationMapper.evaluationToEvaluationDTO(evaluationRepository.save(updatedEvaluation));
         } else {
-
-            return null;
+            throw new ResourceNotFoundException("Evaluation not found at id " + evaluationId);
         }
     }
 
-    public boolean deleteEvaluation(UUID evaluationId) {
-        return false;
+    public void deleteEvaluation(UUID evaluationId) {
+        Optional<Evaluation> foundEvaluation = evaluationRepository.findById(evaluationId);
+
+        if (foundEvaluation.isPresent()) {
+            evaluationRepository.delete(foundEvaluation.get());
+        } else {
+            throw new ResourceNotFoundException("Evaluation not found at id " + evaluationId);
+        }
     }
 }

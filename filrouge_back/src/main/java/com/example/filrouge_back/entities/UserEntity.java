@@ -1,5 +1,6 @@
 package com.example.filrouge_back.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,6 +46,7 @@ public class UserEntity implements UserDetails {
     private List<Genre> genres;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Evaluation> evaluations;
 
     @Override

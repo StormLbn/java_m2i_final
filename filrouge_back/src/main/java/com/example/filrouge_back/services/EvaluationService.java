@@ -10,8 +10,10 @@ import com.example.filrouge_back.repositories.EvaluationRepository;
 import com.example.filrouge_back.repositories.MediaRepository;
 import com.example.filrouge_back.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +25,35 @@ public class EvaluationService {
     private final MediaRepository mediaRepository;
     private final EvaluationRepository evaluationRepository;
     private final EvaluationMapper evaluationMapper;
+
+    public List<EvaluationDTO> getEvaluationsByMedia(UUID mediaId) {
+        Optional<Media> foundMedia = mediaRepository.findById(mediaId);
+
+        if (foundMedia.isPresent()) {
+            List<Evaluation> evaluationList = evaluationRepository.findAllByMedia(foundMedia.get());
+            return evaluationList
+                    .stream()
+                    .map(evaluationMapper::evaluationToEvaluationDTO)
+                    .toList();
+        } else {
+            throw new ResourceNotFoundException("Media not found at id " + mediaId);
+        }
+    }
+
+    public List<EvaluationDTO> getEvaluationsByUser(UUID userId) {
+        Optional<UserEntity> foundUser = userEntityRepository.findById(userId);
+
+        if (foundUser.isPresent()) {
+            List<Evaluation> evaluationList = evaluationRepository.findAllByUser(foundUser.get());
+
+            return evaluationList
+                    .stream()
+                    .map(evaluationMapper::evaluationToEvaluationDTO)
+                    .toList();
+        } else {
+            throw new ResourceNotFoundException("User not found at id " + userId);
+        }
+    }
 
     public EvaluationDTO createEvaluation(EvaluationDTO evaluationDTO) {
         Optional<UserEntity> userEntity = userEntityRepository.findById(evaluationDTO.getUserId());

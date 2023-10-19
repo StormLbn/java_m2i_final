@@ -3,15 +3,17 @@ package com.example.filrouge_back.entities;
 import com.example.filrouge_back.models.enums.MediaType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class Media {
 

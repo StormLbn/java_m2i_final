@@ -21,6 +21,8 @@ public class UserRestController {
 
     // TODO Modification des genres préférés
 
+    // TODO GET recommandations ?
+
     @GetMapping("/{userId}")
     public UserEntity getUserById(@PathVariable UUID userId) {
         // TODO passer par le service

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -16,8 +17,15 @@ public class EvaluationRestController {
 
     private final EvaluationService evaluationService;
 
-    // TODO GET commentaires d'un média
-    // TODO GET commentaires d'un utilisateur
+    @GetMapping("media/{mediaId}")
+    public List<EvaluationDTO> getEvaluationsByMedia(@PathVariable UUID mediaId) {
+        return evaluationService.getEvaluationsByMedia(mediaId);
+    }
+
+    @GetMapping("user/{userId}")
+    public List<EvaluationDTO> getEvaluationsByUser(@PathVariable UUID userId) {
+        return evaluationService.getEvaluationsByUser(userId);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<EvaluationDTO> createEvaluation(@RequestBody EvaluationDTO evaluationDTO) {

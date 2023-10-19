@@ -17,15 +17,20 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserRestController {
 
-    private final UserEntityRepository userEntityRepository;
+
     private final UserService userService;
+
 
     // TODO Modification des genres préférés
 
 
+    // TODO GET recommandations ?
+
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable UUID userId) {
+//        // TODO passer par le service
+//        // TODO renvoyer autre chose que "null" (exception ?)
 
         UserEntity user = userService.getUserById(userId);
 
@@ -45,6 +50,8 @@ public class UserRestController {
     @PatchMapping("/{userId}")
     public ResponseEntity<UserDTO> updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
         UserDTO updatedUserDto = userService.updateUser(userId, updatedUserDTO);
+//        // TODO passer par un DTO
+//        // TODO renvoyer une ResponseEntity
 
         if (updatedUserDto != null) {
             return ResponseEntity.ok(updatedUserDto);
@@ -52,8 +59,5 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-
 
 }

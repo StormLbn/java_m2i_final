@@ -22,29 +22,23 @@ public class EvaluationRestController {
     @PostMapping("/add")
     public ResponseEntity<EvaluationDTO> createEvaluation(@RequestBody EvaluationDTO evaluationDTO) {
         EvaluationDTO createdEvaluation = evaluationService.createEvaluation(evaluationDTO);
+        // FIXME les ID dans le DTO renvoyé sont null
         return new ResponseEntity<>(createdEvaluation, HttpStatus.CREATED);
     }
 
-    // TODO passer en PATCH
-    @PutMapping("/{evaluationId}")
+    @PatchMapping("/{evaluationId}")
     public ResponseEntity<EvaluationDTO> updateEvaluation(
             @PathVariable UUID evaluationId,
             @RequestBody EvaluationDTO updatedEvaluationDTO
     ) {
         EvaluationDTO updatedEvaluation = evaluationService.updateEvaluation(evaluationId, updatedEvaluationDTO);
-        if (updatedEvaluation != null) {
-            return ResponseEntity.ok(updatedEvaluation);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        // FIXME les ID dans le DTO renvoyé sont null
+        return ResponseEntity.ok(updatedEvaluation);
     }
 
     @DeleteMapping("/{evaluationId}")
     public ResponseEntity<Void> deleteEvaluation(@PathVariable UUID evaluationId) {
-        if (evaluationService.deleteEvaluation(evaluationId)) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        evaluationService.deleteEvaluation(evaluationId);
+        return ResponseEntity.ok().build();
     }
 }

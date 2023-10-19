@@ -1,7 +1,6 @@
 package com.example.filrouge_back.entities;
 
-import com.example.filrouge_back.models.MediaType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.filrouge_back.models.enums.MediaType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

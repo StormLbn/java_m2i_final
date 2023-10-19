@@ -1,7 +1,6 @@
 package com.example.filrouge_back.controllers;
 
-
-import com.example.filrouge_back.models.EvaluationDTO;
+import com.example.filrouge_back.models.entitydtos.EvaluationDTO;
 import com.example.filrouge_back.services.EvaluationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,13 +16,17 @@ public class EvaluationRestController {
 
     private final EvaluationService evaluationService;
 
+    // TODO GET commentaires d'un média
+    // TODO GET commentaires d'un utilisateur
+
     @PostMapping("/add")
     public ResponseEntity<EvaluationDTO> createEvaluation(@RequestBody EvaluationDTO evaluationDTO) {
         EvaluationDTO createdEvaluation = evaluationService.createEvaluation(evaluationDTO);
-
+        // FIXME les ID dans le DTO renvoyé sont null
         return new ResponseEntity<>(createdEvaluation, HttpStatus.CREATED);
     }
 
+    // TODO passer en PATCH
     @PutMapping("/{evaluationId}")
     public ResponseEntity<EvaluationDTO> updateEvaluation(
             @PathVariable UUID evaluationId,

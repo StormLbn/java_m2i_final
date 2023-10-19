@@ -1,15 +1,17 @@
 package com.example.filrouge_back.services;
 
 import com.example.filrouge_back.entities.Media;
-import com.example.filrouge_back.models.*;
+import com.example.filrouge_back.models.apidtos.ActorsApiResponse;
+import com.example.filrouge_back.models.apidtos.PersonApiResponse;
+import com.example.filrouge_back.models.apidtos.ShowApiResponse;
+import com.example.filrouge_back.models.enums.JobForMedia;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.MediaProfessional;
 import com.example.filrouge_back.entities.Professional;
-import com.example.filrouge_back.models.MediaType;
-import com.example.filrouge_back.models.MovieApiResponse;
+import com.example.filrouge_back.models.enums.MediaType;
+import com.example.filrouge_back.models.apidtos.MovieApiResponse;
 import com.example.filrouge_back.repositories.GenreRepository;
 import com.example.filrouge_back.repositories.MediaProfessionalRepository;
 import com.example.filrouge_back.repositories.MediaRepository;
@@ -18,9 +20,6 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -175,7 +174,7 @@ public class PopulateDatabaseService {
         mediaRepository.save(movie);
 
         movie.setProfessionals(new ArrayList<>());
-        for (Person data : response.getMovie().getCrew().getDirectors()) {
+        for (PersonApiResponse data : response.getMovie().getCrew().getDirectors()) {
             Professional person = findOrSaveProfessional(data);
 
             MediaProfessional director = mediaProfessionalRepository.save(
@@ -189,7 +188,7 @@ public class PopulateDatabaseService {
             movie.getProfessionals().add(director);
         }
 
-        for (Person data : response.getMovie().getCrew().getProducers()) {
+        for (PersonApiResponse data : response.getMovie().getCrew().getProducers()) {
             Professional person = findOrSaveProfessional(data);
 
             MediaProfessional producer = mediaProfessionalRepository.save(
@@ -204,7 +203,7 @@ public class PopulateDatabaseService {
         }
 
         // TODO refactoriser dans une méthode !
-        for (Person data : response.getMovie().getCrew().getWriters()) {
+        for (PersonApiResponse data : response.getMovie().getCrew().getWriters()) {
             Professional person = findOrSaveProfessional(data);
 
             MediaProfessional writer = mediaProfessionalRepository.save(
@@ -256,7 +255,7 @@ public class PopulateDatabaseService {
         mediaRepository.save(show);
 
         show.setProfessionals(new ArrayList<>());
-        for (Person data : response.getShowrunners()) {
+        for (PersonApiResponse data : response.getShowrunners()) {
             Professional person = findOrSaveProfessional(data);
 
             MediaProfessional producer = mediaProfessionalRepository.save(
@@ -277,11 +276,11 @@ public class PopulateDatabaseService {
 
     @Transactional
     public void saveActors(ActorsApiResponse response, Media media) {
-        List<Person> personsList = response.getCharacters();
+        List<PersonApiResponse> personsList = response.getCharacters();
         if (!personsList.isEmpty()) {
             int actorsCount = Math.min(personsList.size(), 7);
             for (int i = 0; i < actorsCount; i++) {
-                Person data = personsList.get(i);
+                PersonApiResponse data = personsList.get(i);
                 Professional person = findOrSaveProfessional(data);
 
                 MediaProfessional actor = mediaProfessionalRepository.save(
@@ -298,7 +297,7 @@ public class PopulateDatabaseService {
         }
     }
 
-    public Professional findOrSaveProfessional(Person data) {
+    public Professional findOrSaveProfessional(PersonApiResponse data) {
         Professional person;
         String name = data.getActor() != null
                 ? data.getActor()

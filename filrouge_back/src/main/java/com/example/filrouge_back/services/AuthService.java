@@ -3,8 +3,8 @@ package com.example.filrouge_back.services;
 import com.example.filrouge_back.components.JwtTokenGenerator;
 import com.example.filrouge_back.entities.Role;
 import com.example.filrouge_back.entities.UserEntity;
-import com.example.filrouge_back.models.AuthRequest;
-import com.example.filrouge_back.models.RoleName;
+import com.example.filrouge_back.models.authdtos.AuthRequest;
+import com.example.filrouge_back.models.enums.RoleName;
 import com.example.filrouge_back.repositories.RoleRepository;
 import com.example.filrouge_back.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +44,7 @@ public class AuthService {
     }
 
     public String register(AuthRequest authRequest) {
+        // TODO créer l'utilisateur dans UserService ?
         if (!userEntityRepository.existsByMail(authRequest.getMail())) {
             Role role = roleRepository
                     .findByRoleName(RoleName.USER)

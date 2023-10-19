@@ -3,29 +3,25 @@ package com.example.filrouge_back.services;
 
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.mappers.UserMapper;
-import com.example.filrouge_back.models.UserDTO;
+import com.example.filrouge_back.models.entitydtos.UserDTO;
 import com.example.filrouge_back.repositories.UserEntityRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    private final UserEntityRepository userEntityRepository;
-    private final UserMapper userMapper;
 
-    public UserService(UserEntityRepository userEntityRepository, UserMapper userMapper) {
-        this.userEntityRepository = userEntityRepository;
-        this.userMapper = userMapper;
-    }
+    private final UserEntityRepository userEntityRepository;
 
     public UserEntity updateUser(UUID userId, UserDTO updatedUserDTO) {
         Optional<UserEntity> optionalUser = userEntityRepository.findById(userId);
 
         if (optionalUser.isPresent()) {
             UserEntity user = optionalUser.get();
-//            UserEntity updatedUser = userMapper.userDtoToUser(updatedUserDTO);
 
             if (updatedUserDTO.getMail() != null)  {
                 user.setMail(updatedUserDTO.getMail());

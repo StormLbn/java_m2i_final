@@ -23,7 +23,7 @@ public class MediaDetailDTO {
     private Integer seasons;
     private Boolean inProduction;
     private Double avgRating;
-    private List<Genre> genres;
+    private List<String> genres;
     private List<ProfessionalInfoDTO> actors;
     private List<ProfessionalInfoDTO> producers;
     private List<ProfessionalInfoDTO> writers;

@@ -1,5 +1,7 @@
 package com.example.filrouge_back.services;
 
+import com.example.filrouge_back.exceptions.ResourceNotFoundException;
+import com.example.filrouge_back.models.entitydtos.MediaDetailDTO;
 import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
 import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.entities.Media;
@@ -21,21 +23,25 @@ public class MediaService {
 
     public List<MediaSummaryDTO> getAllMedia() {
         List<Media> mediaList = mediaRepository.findAll();
-        return mediaMapper.mediaListToMediaSummaryDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
-    public Media getMediaById(UUID mediaId) {
+    public MediaDetailDTO getMediaById(UUID mediaId) {
         Optional<Media> optionalMedia = mediaRepository.findById(mediaId);
-        return optionalMedia.orElse(null);
+        if (optionalMedia.isPresent()) {
+            return mediaMapper.mediaToMediaDetailDto(optionalMedia.get());
+        } else {
+            throw new ResourceNotFoundException("Media not found at id " + mediaId);
+        }
     }
 
     public List<MediaSummaryDTO> getMediaByGenre(String genre) {
         List<Media> mediaList = mediaRepository.findByGenres_GenreName(genre);
-        return mediaMapper.mediaListToMediaSummaryDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
     public List<MediaSummaryDTO> getMediaByType(MediaType type) {
         List<Media> mediaList = mediaRepository.findByType(type);
-        return mediaMapper.mediaListToMediaSummaryDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 }

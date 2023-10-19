@@ -18,6 +18,7 @@ import java.util.UUID;
 public class UserService {
 
     private final UserEntityRepository userEntityRepository;
+    private final UserMapper userMapper;
 
     public UserEditDTO updateUser(UUID userId, UserEditDTO updatedUserDTO) {
         Optional<UserEntity> optionalUser = userEntityRepository.findById(userId);
@@ -40,7 +41,7 @@ public class UserService {
             userEntityRepository.save(user);
 
 
-            UserEditDTO updatedUserDto = UserMapper.userToUserEditDto(user);
+            UserEditDTO updatedUserDto = userMapper.userToUserEditDto(user);
 
             return updatedUserDto;
         } else {
@@ -54,7 +55,7 @@ public class UserService {
         Optional<UserEntity> foundUser = userEntityRepository.findById(userId);
 
         if (foundUser.isPresent()) {
-            return UserMapper.userToUserDisplayDto(foundUser.get());
+            return userMapper.userToUserDisplayDto(foundUser.get());
         } else {
             throw new ResourceNotFoundException("User not found at id " + userId);
         }

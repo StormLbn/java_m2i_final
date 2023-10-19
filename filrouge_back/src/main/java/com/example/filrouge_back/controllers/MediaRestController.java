@@ -2,6 +2,7 @@ package com.example.filrouge_back.controllers;
 
 
 import com.example.filrouge_back.entities.Media;
+import com.example.filrouge_back.models.entitydtos.MediaDetailDTO;
 import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
 import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.services.MediaService;
@@ -24,7 +25,7 @@ public class MediaRestController {
     }
 
     @GetMapping("/{mediaId}")
-    public Media getMediaById(@PathVariable UUID mediaId) {
+    public MediaDetailDTO getMediaById(@PathVariable UUID mediaId) {
         return mediaService.getMediaById(mediaId);
     }
 

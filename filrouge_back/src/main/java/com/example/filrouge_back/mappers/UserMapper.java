@@ -4,13 +4,15 @@ package com.example.filrouge_back.mappers;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.models.entitydtos.UserDisplayDTO;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UserMapper {
+@Component
+public class UserMapper {
 
-    public static UserEntity userEditDtoToUser(UserEditDTO userDto) {
+    public UserEntity userEditDtoToUser(UserEditDTO userDto) {
         if (userDto == null) {
             return null;
         } else {
@@ -23,7 +25,7 @@ public abstract class UserMapper {
         }
     }
 
-    public static UserEditDTO userToUserEditDto(UserEntity user) {
+    public UserEditDTO userToUserEditDto(UserEntity user) {
         if (user == null) {
             return null;
         } else {
@@ -36,7 +38,7 @@ public abstract class UserMapper {
         }
     }
 
-    public static UserDisplayDTO userToUserDisplayDto(UserEntity user) {
+    public UserDisplayDTO userToUserDisplayDto(UserEntity user) {
         if (user == null) {
             return null;
         } else {

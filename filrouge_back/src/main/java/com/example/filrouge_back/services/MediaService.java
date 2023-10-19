@@ -1,7 +1,9 @@
 package com.example.filrouge_back.services;
 
+import com.example.filrouge_back.exceptions.ResourceNotFoundException;
+import com.example.filrouge_back.models.entitydtos.MediaDetailDTO;
+import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
 import com.example.filrouge_back.entities.Evaluation;
-import com.example.filrouge_back.models.entitydtos.MediaDTO;
 import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.models.enums.MediaType;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,8 @@ public class MediaService {
     private final MediaRepository mediaRepository;
     private final MediaMapper mediaMapper;
 
-
-
+    
+    // TODO refactor : à faire dans le mapping ?
 
     private void calculateAvgRating(Media media) {
         List<Evaluation> evaluations = media.getEvaluations();
@@ -41,51 +42,53 @@ public class MediaService {
     }
 
 
-    public List<MediaDTO> getAllMedia() {
+    public List<MediaSummaryDTO> getAllMedia() {
         List<Media> mediaList = mediaRepository.findAll();
         for (Media media : mediaList) {
             calculateAvgRating(media); // Calculer la moyenne des évaluations pour chaque média
         }
-        return mediaMapper.mediaListToMediaDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
-    public Media getMediaById(UUID mediaId) {
+    public MediaDetailDTO getMediaById(UUID mediaId) {
         Optional<Media> optionalMedia = mediaRepository.findById(mediaId);
+        
         if (optionalMedia.isPresent()) {
             Media media = optionalMedia.get();
             calculateAvgRating(media); // Calculer la moyenne des évaluations
-            return media;
+            return mediaMapper.mediaToMediaDetailDto(optionalMedia.get());
         } else {
-            return null;
-        }  }
+            throw new ResourceNotFoundException("Media not found at id " + mediaId);
+        }
+    }
 
-    public List<MediaDTO> getMediaByGenre(String genre) {
+    public List<MediaSummaryDTO> getMediaByGenre(String genre) {
         List<Media> mediaList = mediaRepository.findByGenres_GenreName(genre);
         for (Media media : mediaList) {
             calculateAvgRating(media);
         }
-        return mediaMapper.mediaListToMediaDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
-    public List<MediaDTO> getMediaByType(MediaType type) {
+    public List<MediaSummaryDTO> getMediaByType(MediaType type) {
         List<Media> mediaList = mediaRepository.findByType(type);
         for (Media media : mediaList) {
             calculateAvgRating(media);
         }
-        return mediaMapper.mediaListToMediaDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
-    public List<MediaDTO> getMediaByReleaseDateDescending() {
+    public List<MediaSummaryDTO> getMediaByReleaseDateDescending() {
         List<Media> mediaList = mediaRepository.findAllByOrderByReleaseDateDesc();
         for (Media media : mediaList) {
             calculateAvgRating(media);
         }
-        return mediaMapper.mediaListToMediaDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
-    public List<MediaDTO> getMediaByGenres(String genre1, String genre2) {
-        List<MediaDTO> mediaListGenre1 = getTopMediaByGenre(genre1, 3);
-        List<MediaDTO> mediaListGenre2 = getTopMediaByGenre(genre2, 3);
+    public List<MediaSummaryDTO> getMediaByGenres(String genre1, String genre2) {
+        List<MediaSummaryDTO> mediaListGenre1 = getTopMediaByGenre(genre1, 3);
+        List<MediaSummaryDTO> mediaListGenre2 = getTopMediaByGenre(genre2, 3);
 
 
         mediaListGenre1.addAll(mediaListGenre2);
@@ -93,11 +96,10 @@ public class MediaService {
         return mediaListGenre1;
     }
 
-    private List<MediaDTO> getTopMediaByGenre(String genre, int limit) {
+    private List<MediaSummaryDTO> getTopMediaByGenre(String genre, int limit) {
         List<Media> mediaList = mediaRepository.findByGenres_GenreName(genre);
 
-        return mediaMapper.mediaListToMediaDTOList(mediaList.stream()
-                .limit(limit)
-                .collect(Collectors.toList()));
+        return mediaMapper.mediaListToMediaSummaryDtoList(
+                mediaList.stream().limit(limit).toList());
     }
 }

@@ -2,7 +2,8 @@ package com.example.filrouge_back.controllers;
 
 
 import com.example.filrouge_back.entities.Media;
-import com.example.filrouge_back.models.entitydtos.MediaDTO;
+import com.example.filrouge_back.models.entitydtos.MediaDetailDTO;
+import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
 import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.services.MediaService;
 import lombok.RequiredArgsConstructor;
@@ -20,31 +21,31 @@ public class MediaRestController {
     private final MediaService mediaService;
 
     @GetMapping("/all")
-    public List<MediaDTO> getAllMedia() {
+    public List<MediaSummaryDTO> getAllMedia() {
         return mediaService.getAllMedia();
     }
 
     @GetMapping("/{mediaId}")
-    public Media getMediaById(@PathVariable UUID mediaId) {
+    public MediaDetailDTO getMediaById(@PathVariable UUID mediaId) {
         return mediaService.getMediaById(mediaId);
     }
 
     @GetMapping("/all/genre/{genre}")
-    public List<MediaDTO> getMediaByGenre(@PathVariable String genre) {
+    public List<MediaSummaryDTO> getMediaByGenre(@PathVariable String genre) {
         return mediaService.getMediaByGenre(genre);
     }
 
     @GetMapping("/all/type/{type}")
-    public List<MediaDTO> getMediaByType(@PathVariable MediaType type) {
+    public List<MediaSummaryDTO> getMediaByType(@PathVariable MediaType type) {
         return mediaService.getMediaByType(type);
     }
 
     @GetMapping("/all/date")
-    public List<MediaDTO> getMediaByReleaseDate() {
+    public List<MediaSummaryDTO> getMediaByReleaseDate() {
         return mediaService.getMediaByReleaseDateDescending();
     }
     @GetMapping("/all/genres")
-    public List<MediaDTO> getMediaByGenres(
+    public List<MediaSummaryDTO> getMediaByGenres(
             @RequestParam("genre1") String genre1,
             @RequestParam("genre2") String genre2) {
         return mediaService.getMediaByGenres(genre1, genre2);

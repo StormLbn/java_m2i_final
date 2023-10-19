@@ -1,6 +1,5 @@
 package com.example.filrouge_back.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,11 +30,11 @@ public class UserEntity implements UserDetails {
 
     private LocalDate birthDate;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_genre",
             joinColumns = @JoinColumn(name = "userEntity_id"),
@@ -44,7 +43,6 @@ public class UserEntity implements UserDetails {
     private List<Genre> genres;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
     private List<Evaluation> evaluations;
 
     @Override

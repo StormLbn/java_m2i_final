@@ -1,7 +1,6 @@
 package com.example.filrouge_back.entities;
 
 import com.example.filrouge_back.models.enums.MediaType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +20,7 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    // TODO à retirer ? (utiliser l'id du DTO)
     @Transient
     private String betaseriesId;
 
@@ -40,22 +40,22 @@ public class Media {
     private int duration;
 
     // For shows only
-    private int seasons;
+    private Integer seasons;
 
     // For shows only
-    private boolean inProdution;
+    private Boolean inProdution;
 
+    // TODO à retirer !
     @Transient
     private Double avgRating;
 
     // TODO ajouter un cascade ?
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "media_genre",
             joinColumns = @JoinColumn(name = "media_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    @JsonIgnore
     private List<Genre> genres;
 
     @OneToMany(mappedBy = "media")

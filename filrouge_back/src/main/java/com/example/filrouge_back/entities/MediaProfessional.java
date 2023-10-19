@@ -1,7 +1,6 @@
 package com.example.filrouge_back.entities;
 
 import com.example.filrouge_back.models.enums.JobForMedia;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +24,6 @@ public class MediaProfessional {
     // TODO définir cascade ?
     @ManyToOne()
     @JoinColumn(name = "media_id")
-    @JsonIgnore
     private Media media;
 
     // TODO définir cascade ?

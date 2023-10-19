@@ -1,6 +1,5 @@
 package com.example.filrouge_back.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +27,6 @@ public class Evaluation {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
 //    @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "media_id"}))
     private UserEntity user;
 

@@ -1,6 +1,5 @@
 package com.example.filrouge_back.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +23,5 @@ public class Professional {
     private String imageUrl;
 
     @OneToMany(mappedBy = "professional")
-    @JsonIgnore
     private List<MediaProfessional> mediaList;
 }

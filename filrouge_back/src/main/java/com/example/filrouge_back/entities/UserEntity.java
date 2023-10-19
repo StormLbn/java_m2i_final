@@ -30,11 +30,11 @@ public class UserEntity implements UserDetails {
 
     private LocalDate birthDate;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_genre",
             joinColumns = @JoinColumn(name = "userEntity_id"),

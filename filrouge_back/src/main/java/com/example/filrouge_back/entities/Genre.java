@@ -18,11 +18,11 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToMany(mappedBy = "genres")
-    private List<UserEntity> users;
-
     @Column(unique = true)
     private String genreName;
+
+    @ManyToMany(mappedBy = "genres")
+    private List<UserEntity> users;
 
     @ManyToMany(mappedBy = "genres")
     private Collection<Media> medias;

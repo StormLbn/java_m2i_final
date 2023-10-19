@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Evaluation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String comment;

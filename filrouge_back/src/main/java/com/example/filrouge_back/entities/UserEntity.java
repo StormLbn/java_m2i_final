@@ -1,10 +1,8 @@
 package com.example.filrouge_back.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,8 +11,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Data
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity implements UserDetails {
@@ -45,6 +44,7 @@ public class UserEntity implements UserDetails {
     private List<Genre> genres;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Evaluation> evaluations;
 
     @Override

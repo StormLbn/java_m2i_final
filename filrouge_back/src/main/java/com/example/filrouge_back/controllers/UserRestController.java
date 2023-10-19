@@ -23,15 +23,13 @@ public class UserRestController {
 
     // TODO Modification des genres préférés
 
-//    @GetMapping("/{userId}")
-//    public UserEntity getUserById(@PathVariable UUID userId) {
-//        // TODO passer par le service
-//        // TODO renvoyer autre chose que "null" (exception ?)
-//        return userEntityRepository.findById(userId).orElse(null);
-//    }
+    // TODO GET recommandations ?
+
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable UUID userId) {
+//        // TODO passer par le service
+//        // TODO renvoyer autre chose que "null" (exception ?)
 
         UserEntity user = userService.getUserById(userId);
 
@@ -43,30 +41,11 @@ public class UserRestController {
         }
     }
 
-//    @PatchMapping("/{userId}")
-//    public UserEntity updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
-//        // TODO passer par un DTO
-//        // TODO renvoyer une ResponseEntity
-//        return userService.updateUser(userId, updatedUserDTO);
-//    }
-
-//    @PatchMapping("/{userId}")
-//    public ResponseEntity<UserEntity> updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
-//        UserEntity updatedUser = userService.updateUser(userId, updatedUserDTO);
-//
-//        if (updatedUser != null) {
-//            return ResponseEntity.ok(updatedUser);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-
-
-
-
     @PatchMapping("/{userId}")
     public ResponseEntity<UserDTO> updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
         UserDTO updatedUserDto = userService.updateUser(userId, updatedUserDTO);
+//        // TODO passer par un DTO
+//        // TODO renvoyer une ResponseEntity
 
         if (updatedUserDto != null) {
             return ResponseEntity.ok(updatedUserDto);
@@ -74,8 +53,5 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-
 
 }

@@ -1,6 +1,7 @@
 package com.example.filrouge_back.services;
 
 
+import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.exceptions.ResourceNotFoundException;
 import com.example.filrouge_back.mappers.UserMapper;
@@ -10,6 +11,7 @@ import com.example.filrouge_back.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -60,6 +62,18 @@ public class UserService {
             throw new ResourceNotFoundException("User not found at id " + userId);
         }
     }
+
+    public List<Genre> getFavoriteGenresByUserId(UUID userId) {
+        Optional<UserEntity> optionalUser = userEntityRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            UserEntity user = optionalUser.get();
+            return user.getGenres();
+        } else {
+            return null;
+        }
+    }
+
 }
 
 

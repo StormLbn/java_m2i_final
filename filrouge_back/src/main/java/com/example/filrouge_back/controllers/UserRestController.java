@@ -1,6 +1,6 @@
 package com.example.filrouge_back.controllers;
 
-import com.example.filrouge_back.entities.UserEntity;
+import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.models.entitydtos.UserDisplayDTO;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
 import com.example.filrouge_back.services.UserService;
@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -42,5 +43,17 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{userId}/favoriteGenres")
+    public ResponseEntity<List<Genre>> getFavoriteGenresByUserId(@PathVariable UUID userId) {
+        List<Genre> favoriteGenres = userService.getFavoriteGenresByUserId(userId);
+
+        if (favoriteGenres != null) {
+            return ResponseEntity.ok(favoriteGenres);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

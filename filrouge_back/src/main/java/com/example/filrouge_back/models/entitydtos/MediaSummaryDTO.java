@@ -1,6 +1,5 @@
 package com.example.filrouge_back.models.entitydtos;
 
-import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.models.enums.MediaType;
 import lombok.Builder;
 import lombok.Data;

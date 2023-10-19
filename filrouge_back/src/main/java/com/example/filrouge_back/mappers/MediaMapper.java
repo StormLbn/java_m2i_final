@@ -1,6 +1,7 @@
 package com.example.filrouge_back.mappers;
 
 
+import com.example.filrouge_back.entities.Evaluation;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.models.entitydtos.MediaDTO;
 import org.mapstruct.Mapper;
@@ -12,4 +13,13 @@ public interface MediaMapper {
     MediaDTO mediaToMediaDTO(Media media);
 
     List<MediaDTO> mediaListToMediaDTOList(List<Media> mediaList);
-}
+
+
+    }
+
+
+
+
+
+
+

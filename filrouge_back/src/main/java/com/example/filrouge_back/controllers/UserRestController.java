@@ -17,11 +17,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserRestController {
 
-    private final UserEntityRepository userEntityRepository;
+
     private final UserService userService;
-    private final UserMapper userMapper;
+
 
     // TODO Modification des genres préférés
+
 
     // TODO GET recommandations ?
 
@@ -40,6 +41,11 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+
+
+
 
     @PatchMapping("/{userId}")
     public ResponseEntity<UserDTO> updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {

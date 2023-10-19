@@ -6,7 +6,6 @@ import com.example.filrouge_back.models.entitydtos.MediaDTO;
 import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.services.MediaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +36,11 @@ public class MediaRestController {
     @GetMapping("/all/type/{type}")
     public List<MediaDTO> getMediaByType(@PathVariable MediaType type) {
         return mediaService.getMediaByType(type);
+    }
+
+    @GetMapping("/all/date")
+    public List<MediaDTO> getMediaByReleaseDate() {
+        return mediaService.getMediaByReleaseDateDescending();
     }
 
 }

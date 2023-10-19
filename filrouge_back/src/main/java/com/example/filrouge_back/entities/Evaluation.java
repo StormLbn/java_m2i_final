@@ -24,6 +24,7 @@ public class Evaluation {
 
     @ManyToOne
     @JoinColumn(name = "media_id")
+    @JsonIgnore
     private Media media;
 
     @ManyToOne

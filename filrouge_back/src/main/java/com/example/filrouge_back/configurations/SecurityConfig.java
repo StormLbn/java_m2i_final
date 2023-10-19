@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/media/**", "/api/auth/**").permitAll()
                         // TODO gérer les routes bloquées
+                        .anyRequest().permitAll()
                 );
 
         return http.build();

@@ -30,6 +30,4 @@ public class Evaluation {
 //    @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "media_id"}))
     private UserEntity user;
 
-
-
 }

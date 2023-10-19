@@ -43,7 +43,7 @@ public class Media {
     private boolean inProdution;
 
     @Transient
-    private double avgRating;
+    private Double avgRating;
 
     // TODO ajouter un cascade ?
     @ManyToMany

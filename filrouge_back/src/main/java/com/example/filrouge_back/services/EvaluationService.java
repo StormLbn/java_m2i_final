@@ -42,13 +42,20 @@ public class EvaluationService {
     }
 
     public EvaluationDTO updateEvaluation(UUID evaluationId, EvaluationDTO updatedEvaluationDTO) {
-        Optional<Evaluation> existingEvaluation = evaluationRepository.findById(evaluationId);
+        Optional<Evaluation> foundEvaluation = evaluationRepository.findById(evaluationId);
 
-        if (existingEvaluation.isPresent()) {
-            Evaluation updatedEvaluation = evaluationMapper.evaluationDTOToEvaluation(updatedEvaluationDTO);
-            updatedEvaluation.setId(existingEvaluation.get().getId());
+        if (foundEvaluation.isPresent()) {
+            Evaluation existingEvaluation = foundEvaluation.get();
 
-            return evaluationMapper.evaluationToEvaluationDTO(evaluationRepository.save(updatedEvaluation));
+            if (updatedEvaluationDTO.getComment() != null) {
+                existingEvaluation.setComment(updatedEvaluationDTO.getComment());
+            }
+
+            if (updatedEvaluationDTO.getRating() != null) {
+                existingEvaluation.setRating(updatedEvaluationDTO.getRating());
+            }
+
+            return evaluationMapper.evaluationToEvaluationDTO(evaluationRepository.save(existingEvaluation));
         } else {
             throw new ResourceNotFoundException("Evaluation not found at id " + evaluationId);
         }

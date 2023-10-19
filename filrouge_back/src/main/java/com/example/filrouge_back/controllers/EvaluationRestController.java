@@ -26,13 +26,13 @@ public class EvaluationRestController {
         return new ResponseEntity<>(createdEvaluation, HttpStatus.CREATED);
     }
 
-    // TODO passer en PATCH
-    @PutMapping("/{evaluationId}")
+    @PatchMapping("/{evaluationId}")
     public ResponseEntity<EvaluationDTO> updateEvaluation(
             @PathVariable UUID evaluationId,
             @RequestBody EvaluationDTO updatedEvaluationDTO
     ) {
         EvaluationDTO updatedEvaluation = evaluationService.updateEvaluation(evaluationId, updatedEvaluationDTO);
+        // FIXME les ID dans le DTO renvoyé sont null
         return ResponseEntity.ok(updatedEvaluation);
     }
 

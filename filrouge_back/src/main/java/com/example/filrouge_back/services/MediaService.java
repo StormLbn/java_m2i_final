@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -80,5 +81,23 @@ public class MediaService {
             calculateAvgRating(media);
         }
         return mediaMapper.mediaListToMediaDTOList(mediaList);
+    }
+
+    public List<MediaDTO> getMediaByGenres(String genre1, String genre2) {
+        List<MediaDTO> mediaListGenre1 = getTopMediaByGenre(genre1, 3);
+        List<MediaDTO> mediaListGenre2 = getTopMediaByGenre(genre2, 3);
+
+
+        mediaListGenre1.addAll(mediaListGenre2);
+
+        return mediaListGenre1;
+    }
+
+    private List<MediaDTO> getTopMediaByGenre(String genre, int limit) {
+        List<Media> mediaList = mediaRepository.findByGenres_GenreName(genre);
+
+        return mediaMapper.mediaListToMediaDTOList(mediaList.stream()
+                .limit(limit)
+                .collect(Collectors.toList()));
     }
 }

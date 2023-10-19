@@ -1,5 +1,6 @@
 package com.example.filrouge_back.controllers;
 
+import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.models.entitydtos.UserDTO;
 import com.example.filrouge_back.repositories.UserEntityRepository;
@@ -59,5 +60,17 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{userId}/favoriteGenres")
+    public ResponseEntity<List<Genre>> getFavoriteGenresByUserId(@PathVariable UUID userId) {
+        List<Genre> favoriteGenres = userService.getFavoriteGenresByUserId(userId);
+
+        if (favoriteGenres != null) {
+            return ResponseEntity.ok(favoriteGenres);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

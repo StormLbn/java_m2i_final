@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/media")
@@ -41,6 +42,12 @@ public class MediaRestController {
     @GetMapping("/all/date")
     public List<MediaDTO> getMediaByReleaseDate() {
         return mediaService.getMediaByReleaseDateDescending();
+    }
+    @GetMapping("/all/genres")
+    public List<MediaDTO> getMediaByGenres(
+            @RequestParam("genre1") String genre1,
+            @RequestParam("genre2") String genre2) {
+        return mediaService.getMediaByGenres(genre1, genre2);
     }
 
 }

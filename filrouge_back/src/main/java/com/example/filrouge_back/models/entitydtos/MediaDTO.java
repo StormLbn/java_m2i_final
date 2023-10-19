@@ -22,24 +22,7 @@ public class MediaDTO {
     private LocalDate releaseDate;
     private int duration;
     private int seasons;
-    private double avgRating;
+    private Double avgRating;
     private List<Genre> genres;
 
-    public MediaDTO(UUID id, String betaseriesId, String title, MediaType type, String imageUrl, LocalDate releaseDate, int duration, int seasons, double avgRating, List<Genre> genres) {
-        this.id = id;
-        this.betaseriesId = betaseriesId;
-        this.title = title;
-        this.type = type;
-        this.imageUrl = imageUrl;
-        this.releaseDate = releaseDate;
-        this.duration = duration;
-        this.seasons = seasons;
-        this.avgRating = avgRating;
-        this.genres = genres;
-    }
-
-
-    public MediaDTO() {
-
-    }
 }

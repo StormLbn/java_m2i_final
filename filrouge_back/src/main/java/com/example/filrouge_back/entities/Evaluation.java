@@ -18,7 +18,7 @@ public class Evaluation {
 
     private String comment;
 
-    private int rating;
+    private Integer rating;
 
     @ManyToOne
     @JoinColumn(name = "media_id")

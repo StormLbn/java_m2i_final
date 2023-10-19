@@ -10,7 +10,7 @@ import java.util.UUID;
 public class EvaluationDTO {
     private UUID id;
     private String comment;
-    private int rating;
+    private Integer rating;
     private UUID mediaId;
     private UUID userId;
 }

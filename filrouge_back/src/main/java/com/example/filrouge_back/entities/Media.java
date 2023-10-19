@@ -60,4 +60,5 @@ public class Media {
     @OneToMany(mappedBy = "media")
     private List<Evaluation> evaluations;
 
+
 }

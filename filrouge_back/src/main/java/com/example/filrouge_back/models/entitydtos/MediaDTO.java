@@ -1,5 +1,6 @@
 package com.example.filrouge_back.models.entitydtos;
 
+import com.example.filrouge_back.entities.Evaluation;
 import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.models.enums.MediaType;
 import lombok.Builder;
@@ -24,5 +25,8 @@ public class MediaDTO {
     private int seasons;
     private Double avgRating;
     private List<Genre> genres;
+    private List<Evaluation> evaluations;
+
+
 
 }

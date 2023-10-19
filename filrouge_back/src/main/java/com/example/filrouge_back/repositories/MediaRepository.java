@@ -14,4 +14,5 @@ public interface MediaRepository extends JpaRepository<Media, UUID> {
     List<Media> findByGenres_GenreName(String genreName);
 
     List<Media> findByType(MediaType type);
+    List<Media> findAllByOrderByReleaseDateDesc();
 }

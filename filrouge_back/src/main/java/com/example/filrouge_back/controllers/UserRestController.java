@@ -19,16 +19,10 @@ public class UserRestController {
 
     private final UserEntityRepository userEntityRepository;
     private final UserService userService;
-    private final UserMapper userMapper;
 
     // TODO Modification des genres préférés
 
-//    @GetMapping("/{userId}")
-//    public UserEntity getUserById(@PathVariable UUID userId) {
-//        // TODO passer par le service
-//        // TODO renvoyer autre chose que "null" (exception ?)
-//        return userEntityRepository.findById(userId).orElse(null);
-//    }
+
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable UUID userId) {
@@ -43,23 +37,7 @@ public class UserRestController {
         }
     }
 
-//    @PatchMapping("/{userId}")
-//    public UserEntity updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
-//        // TODO passer par un DTO
-//        // TODO renvoyer une ResponseEntity
-//        return userService.updateUser(userId, updatedUserDTO);
-//    }
 
-//    @PatchMapping("/{userId}")
-//    public ResponseEntity<UserEntity> updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
-//        UserEntity updatedUser = userService.updateUser(userId, updatedUserDTO);
-//
-//        if (updatedUser != null) {
-//            return ResponseEntity.ok(updatedUser);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
 
 

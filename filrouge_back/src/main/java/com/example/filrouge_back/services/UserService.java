@@ -42,4 +42,13 @@ public class UserService {
             return null;
         }
     }
+
+
+
+    public UserEntity getUserById(UUID userId) {
+
+        return userEntityRepository.findById(userId).orElse(null);
+    }
 }
+
+

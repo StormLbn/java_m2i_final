@@ -4,8 +4,10 @@ import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.models.entitydtos.UserDTO;
 import com.example.filrouge_back.repositories.UserEntityRepository;
 import com.example.filrouge_back.services.UserService;
+import com.example.filrouge_back.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,21 +20,64 @@ public class UserRestController {
 
     private final UserEntityRepository userEntityRepository;
     private final UserService userService;
+    private UserMapper userMapper;
 
     // TODO Modification des genres préférés
 
+//    @GetMapping("/{userId}")
+//    public UserEntity getUserById(@PathVariable UUID userId) {
+//        // TODO passer par le service
+//        // TODO renvoyer autre chose que "null" (exception ?)
+//        return userEntityRepository.findById(userId).orElse(null);
+//    }
+
     @GetMapping("/{userId}")
-    public UserEntity getUserById(@PathVariable UUID userId) {
-        // TODO passer par le service
-        // TODO renvoyer autre chose que "null" (exception ?)
-        return userEntityRepository.findById(userId).orElse(null);
+    public ResponseEntity<UserEntity> getUserById(@PathVariable UUID userId) {
+
+        UserEntity user = userService.getUserById(userId);
+
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+
+            return ResponseEntity.notFound().build();
+        }
     }
 
+//    @PatchMapping("/{userId}")
+//    public UserEntity updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
+//        // TODO passer par un DTO
+//        // TODO renvoyer une ResponseEntity
+//        return userService.updateUser(userId, updatedUserDTO);
+//    }
+
+//    @PatchMapping("/{userId}")
+//    public ResponseEntity<UserEntity> updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
+//        UserEntity updatedUser = userService.updateUser(userId, updatedUserDTO);
+//
+//        if (updatedUser != null) {
+//            return ResponseEntity.ok(updatedUser);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
+
+
+
     @PatchMapping("/{userId}")
-    public UserEntity updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
-        // TODO passer par un DTO
-        // TODO renvoyer une ResponseEntity
-        return userService.updateUser(userId, updatedUserDTO);
+    public ResponseEntity<UserDTO> updateUserById(@PathVariable UUID userId, @RequestBody UserDTO updatedUserDTO) {
+        UserEntity updatedUser = userService.updateUser(userId, updatedUserDTO);
+
+        if (updatedUser != null) {
+
+            UserDTO updatedUserDto = userMapper.userToUserDto(updatedUser);
+            return ResponseEntity.ok(updatedUserDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
+
 
 }

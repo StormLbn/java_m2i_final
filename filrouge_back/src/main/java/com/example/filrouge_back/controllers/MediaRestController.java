@@ -39,4 +39,16 @@ public class MediaRestController {
         return mediaService.getMediaByType(type);
     }
 
+    @GetMapping("/all/date")
+    public List<MediaSummaryDTO> getMediaByReleaseDate() {
+        return mediaService.getMediaByReleaseDateDescending();
+    }
+    @GetMapping("/all/genres")
+    public List<MediaSummaryDTO> getMediaByGenres(
+            @RequestParam("genre1") String genre1,
+            @RequestParam("genre2") String genre2) {
+        return mediaService.getMediaByGenres(genre1, genre2);
+    }
+//  il faut ecrire comme ca dans l'url :   http://localhost:8080/api/media/all/genres?genre1=Drame&genre2=Action
+
 }

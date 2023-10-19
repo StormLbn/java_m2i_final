@@ -44,6 +44,7 @@ public class UserRestController {
         }
     }
 
+    // TODO refactor
     @GetMapping("/{userId}/favoriteGenres")
     public ResponseEntity<List<Genre>> getFavoriteGenresByUserId(@PathVariable UUID userId) {
         List<Genre> favoriteGenres = userService.getFavoriteGenresByUserId(userId);

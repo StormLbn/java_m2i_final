@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Evaluation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String comment;
@@ -29,7 +29,5 @@ public class Evaluation {
     @JoinColumn(name = "user_id")
 //    @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "media_id"}))
     private UserEntity user;
-
-
 
 }

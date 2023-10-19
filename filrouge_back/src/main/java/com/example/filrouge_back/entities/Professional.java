@@ -20,6 +20,7 @@ public class Professional {
 
     @Column(unique = true)
     private String name;
+
     private String imageUrl;
 
     @OneToMany(mappedBy = "professional")

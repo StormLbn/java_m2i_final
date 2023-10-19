@@ -20,6 +20,7 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    // TODO à retirer ? (utiliser l'id du DTO)
     @Transient
     private String betaseriesId;
 
@@ -44,11 +45,12 @@ public class Media {
     // For shows only
     private Boolean inProdution;
 
+    // TODO à retirer !
     @Transient
     private Double avgRating;
 
     // TODO ajouter un cascade ?
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "media_genre",
             joinColumns = @JoinColumn(name = "media_id"),

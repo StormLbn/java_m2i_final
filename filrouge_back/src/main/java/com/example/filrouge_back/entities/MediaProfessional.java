@@ -22,12 +22,12 @@ public class MediaProfessional {
     private JobForMedia job;
 
     // TODO définir cascade ?
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "media_id")
     private Media media;
 
     // TODO définir cascade ?
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "professional_id")
     private Professional professional;
 }

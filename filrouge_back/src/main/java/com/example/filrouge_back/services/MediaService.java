@@ -1,12 +1,11 @@
 package com.example.filrouge_back.services;
 
-import com.example.filrouge_back.models.entitydtos.MediaDTO;
+import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
 import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.repositories.MediaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,9 +19,9 @@ public class MediaService {
     private final MediaRepository mediaRepository;
     private final MediaMapper mediaMapper;
 
-    public List<MediaDTO> getAllMedia() {
+    public List<MediaSummaryDTO> getAllMedia() {
         List<Media> mediaList = mediaRepository.findAll();
-        return mediaMapper.mediaListToMediaDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDTOList(mediaList);
     }
 
     public Media getMediaById(UUID mediaId) {
@@ -30,13 +29,13 @@ public class MediaService {
         return optionalMedia.orElse(null);
     }
 
-    public List<MediaDTO> getMediaByGenre(String genre) {
+    public List<MediaSummaryDTO> getMediaByGenre(String genre) {
         List<Media> mediaList = mediaRepository.findByGenres_GenreName(genre);
-        return mediaMapper.mediaListToMediaDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDTOList(mediaList);
     }
 
-    public List<MediaDTO> getMediaByType(MediaType type) {
+    public List<MediaSummaryDTO> getMediaByType(MediaType type) {
         List<Media> mediaList = mediaRepository.findByType(type);
-        return mediaMapper.mediaListToMediaDTOList(mediaList);
+        return mediaMapper.mediaListToMediaSummaryDTOList(mediaList);
     }
 }

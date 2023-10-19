@@ -39,10 +39,10 @@ public class Media {
     private int duration;
 
     // For shows only
-    private int seasons;
+    private Integer seasons;
 
     // For shows only
-    private boolean inProdution;
+    private Boolean inProdution;
 
     @Transient
     private Double avgRating;

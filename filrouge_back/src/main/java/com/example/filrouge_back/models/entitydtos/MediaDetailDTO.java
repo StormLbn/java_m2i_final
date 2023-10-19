@@ -5,24 +5,28 @@ import com.example.filrouge_back.models.enums.MediaType;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 
 @Data
 @Builder
-public class MediaDTO {
+public class MediaDetailDTO {
 
     private UUID id;
-    private String betaseriesId;
     private String title;
     private MediaType type;
+    private String plot;
     private String imageUrl;
-    private LocalDate releaseDate;
+    private Integer releaseYear;
     private int duration;
-    private int seasons;
+    private Integer seasons;
+    private Boolean inProduction;
     private Double avgRating;
     private List<Genre> genres;
+    private List<ProfessionalInfoDTO> actors;
+    private List<ProfessionalInfoDTO> producers;
+    private List<ProfessionalInfoDTO> writers;
+    private List<ProfessionalInfoDTO> directors;
 
 }

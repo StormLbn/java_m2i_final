@@ -25,9 +25,12 @@ public class EvaluationRestController {
         return evaluationService.getEvaluationsByMedia(mediaId, page);
     }
 
-    @GetMapping("user/{userId}")
-    public List<EvaluationDTO> getEvaluationsByUser(@PathVariable UUID userId) {
-        return evaluationService.getEvaluationsByUser(userId);
+    @GetMapping("user/{userId}/{page}")
+    public List<EvaluationDTO> getEvaluationsByUser(
+            @PathVariable("userId") UUID userId,
+            @PathVariable("page") int page
+    ) {
+        return evaluationService.getEvaluationsByUser(userId, page);
     }
 
     @PostMapping("/add")
@@ -42,7 +45,8 @@ public class EvaluationRestController {
             @PathVariable UUID evaluationId,
             @RequestBody EvaluationDTO updatedEvaluationDTO
     ) {
-        EvaluationDTO updatedEvaluation = evaluationService.updateEvaluation(evaluationId, updatedEvaluationDTO);
+        EvaluationDTO updatedEvaluation = evaluationService.updateEvaluation(
+                evaluationId, updatedEvaluationDTO);
         // FIXME les ID dans le DTO renvoyé sont null
         return ResponseEntity.ok(updatedEvaluation);
     }

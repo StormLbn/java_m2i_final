@@ -16,9 +16,6 @@ public class UserRestController {
 
     private final UserService userService;
 
-    // TODO GET recommandations ?
-
-
     @GetMapping("/{userId}")
     public UserDisplayDTO getUserById(@PathVariable UUID userId) {
         return userService.getUserById(userId);

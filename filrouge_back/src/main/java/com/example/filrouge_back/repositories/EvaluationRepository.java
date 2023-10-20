@@ -14,5 +14,5 @@ import java.util.UUID;
 public interface EvaluationRepository extends JpaRepository<Evaluation, UUID> {
 
     List<Evaluation> findAllByMedia(Media media, Pageable pageable);
-    List<Evaluation> findAllByUser(UserEntity user);
+    List<Evaluation> findAllByUser(UserEntity user, Pageable pageable);
 }

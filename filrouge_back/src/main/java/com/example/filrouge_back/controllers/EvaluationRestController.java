@@ -17,9 +17,12 @@ public class EvaluationRestController {
 
     private final EvaluationService evaluationService;
 
-    @GetMapping("media/{mediaId}")
-    public List<EvaluationDTO> getEvaluationsByMedia(@PathVariable UUID mediaId) {
-        return evaluationService.getEvaluationsByMedia(mediaId);
+    @GetMapping("media/{mediaId}/{page}")
+    public List<EvaluationDTO> getEvaluationsByMedia(
+            @PathVariable("mediaId") UUID mediaId,
+            @PathVariable("page") int page
+    ) {
+        return evaluationService.getEvaluationsByMedia(mediaId, page);
     }
 
     @GetMapping("user/{userId}")

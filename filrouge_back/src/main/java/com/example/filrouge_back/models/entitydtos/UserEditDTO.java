@@ -1,17 +1,17 @@
-package com.example.filrouge_back.models.authdtos;
+package com.example.filrouge_back.models.entitydtos;
 
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Builder
-public class AuthRequest {
-
+public class UserEditDTO {
+    private UUID id;
+    private String pseudo;
     private String mail;
     private String password;
-    private String pseudo;
     private LocalDate birthDate;
-
 }

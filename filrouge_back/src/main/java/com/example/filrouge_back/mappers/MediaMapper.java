@@ -76,7 +76,8 @@ public class MediaMapper {
         List<ProfessionalInfoDTO> professionalsByJob = new ArrayList<>();
         for (MediaProfessional professional : professionals) {
             if (professional.getJob().equals(job)) {
-                professionalsByJob.add(professionalMapper.professionalToProfessionalInfoDto(professional.getProfessional()));
+                professionalsByJob.add(professionalMapper.professionalToProfessionalInfoDto(
+                        professional.getProfessional()));
             }
         }
         return professionalsByJob;

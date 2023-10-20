@@ -1,6 +1,5 @@
 package com.example.filrouge_back.controllers;
 
-import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.models.entitydtos.UserDisplayDTO;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
 import com.example.filrouge_back.services.UserService;
@@ -8,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController

@@ -1,6 +1,7 @@
 package com.example.filrouge_back.mappers;
 
 
+import com.example.filrouge_back.entities.Evaluation;
 import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.MediaProfessional;
@@ -20,7 +21,7 @@ public class MediaMapper {
 
     private final ProfessionalMapper professionalMapper;
 
-    public MediaSummaryDTO mediaToMediaDto(Media media) {
+    public MediaSummaryDTO mediaToMediaSummaryDto(Media media) {
         if (media == null) {
             return null;
         } else {
@@ -32,8 +33,7 @@ public class MediaMapper {
                     // TODO modifier les données BDD -> année au lieu de date
                     .releaseYear(media.getReleaseDate().getYear())
                     .duration(media.getDuration())
-                    // TODO Gérer le calcul de la note moyenne
-                    .avgRating(media.getAvgRating())
+                    .avgRating(calculateAvgRating(media))
                     .genres(media.getGenres().stream().map(Genre::getGenreName).toList())
                     .build();
         }
@@ -43,7 +43,7 @@ public class MediaMapper {
         if (mediaList == null) {
             return null;
         } else {
-            return mediaList.stream().map(this::mediaToMediaDto).toList();
+            return mediaList.stream().map(this::mediaToMediaSummaryDto).toList();
         }
     }
 
@@ -62,8 +62,7 @@ public class MediaMapper {
                     .duration(media.getDuration())
                     .seasons(media.getSeasons())
                     .inProduction(media.getInProdution())
-                    // TODO Gérer le calcul de la note moyenne
-                    .avgRating(media.getAvgRating())
+                    .avgRating(calculateAvgRating(media))
                     .genres(media.getGenres().stream().map(Genre::getGenreName).toList())
                     .actors(getProfessionalsByJob(media.getProfessionals(), JobForMedia.ACTOR))
                     .producers(getProfessionalsByJob(media.getProfessionals(), JobForMedia.PRODUCER))
@@ -81,5 +80,20 @@ public class MediaMapper {
             }
         }
         return professionalsByJob;
+    }
+
+    private Double calculateAvgRating(Media media) {
+        List<Evaluation> evaluations = media.getEvaluations();
+        if (evaluations != null && !evaluations.isEmpty()) {
+            double sum = 0;
+            for (Evaluation evaluation : evaluations) {
+                if (evaluation.getRating() != null) {
+                    sum += evaluation.getRating();
+                }
+            }
+            return (sum / evaluations.size());
+        } else {
+            return null;
+        }
     }
 }

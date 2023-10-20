@@ -45,10 +45,6 @@ public class Media {
     // For shows only
     private Boolean inProdution;
 
-    // TODO à retirer !
-    @Transient
-    private Double avgRating;
-
     // TODO ajouter un cascade ?
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

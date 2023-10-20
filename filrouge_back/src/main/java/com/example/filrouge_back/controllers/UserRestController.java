@@ -18,43 +18,21 @@ public class UserRestController {
 
     private final UserService userService;
 
-    // TODO Modification des genres préférés
-
     // TODO GET recommandations ?
 
 
     @GetMapping("/{userId}")
     public UserDisplayDTO getUserById(@PathVariable UUID userId) {
-//        // TODO passer par le service
-//        // TODO renvoyer autre chose que "null" (exception ?)
-
         return userService.getUserById(userId);
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<UserEditDTO> updateUserById(@PathVariable UUID userId, @RequestBody UserEditDTO updatedUserDTO) {
-        UserEditDTO updatedUserDto = userService.updateUser(userId, updatedUserDTO);
-//        // TODO passer par un DTO
-//        // TODO renvoyer une ResponseEntity
+    public ResponseEntity<UserEditDTO> updateUserById(
+            @PathVariable UUID userId, @RequestBody UserEditDTO userDto
+    ) {
+        UserEditDTO updatedUserDto = userService.updateUser(userId, userDto);
 
-        if (updatedUserDto != null) {
-            return ResponseEntity.ok(updatedUserDto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(updatedUserDto);
     }
-
-    // TODO refactor
-    @GetMapping("/{userId}/favoriteGenres")
-    public ResponseEntity<List<Genre>> getFavoriteGenresByUserId(@PathVariable UUID userId) {
-        List<Genre> favoriteGenres = userService.getFavoriteGenresByUserId(userId);
-
-        if (favoriteGenres != null) {
-            return ResponseEntity.ok(favoriteGenres);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
 
 }

@@ -50,6 +50,7 @@ public class AuthService {
                     .findByRoleName(RoleName.USER)
                     .orElseGet(() -> roleRepository.save(Role.builder().roleName(RoleName.USER).build()));
 
+            // TODO Passer par un mapper ?
             UserEntity newUser = UserEntity.builder()
                     .mail(authRequest.getMail())
                     .password(passwordEncoder.encode(authRequest.getPassword()))

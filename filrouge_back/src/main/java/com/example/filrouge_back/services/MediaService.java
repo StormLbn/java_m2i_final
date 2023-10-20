@@ -54,7 +54,9 @@ public class MediaService {
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
-    public List<MediaSummaryDTO> getMediaByGenres(String genre1, String genre2) {
+
+    // TODO à refaire dans un nouveau service avec un utilisateur + médias aléatoires !!!!
+    public List<MediaSummaryDTO> getRecommendationsByGenres(String genre1, String genre2) {
         List<MediaSummaryDTO> mediaListGenre1 = getTopMediaByGenre(genre1, 3);
         List<MediaSummaryDTO> mediaListGenre2 = getTopMediaByGenre(genre2, 3);
 

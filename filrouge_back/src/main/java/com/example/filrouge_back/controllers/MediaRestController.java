@@ -1,7 +1,6 @@
 package com.example.filrouge_back.controllers;
 
 
-import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.models.entitydtos.MediaDetailDTO;
 import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
 import com.example.filrouge_back.models.enums.MediaType;
@@ -44,10 +43,10 @@ public class MediaRestController {
         return mediaService.getMediaByReleaseDateDescending();
     }
     @GetMapping("/all/genres")
-    public List<MediaSummaryDTO> getMediaByGenres(
+    public List<MediaSummaryDTO> getMediaRecommendationsByGenres(
             @RequestParam("genre1") String genre1,
             @RequestParam("genre2") String genre2) {
-        return mediaService.getMediaByGenres(genre1, genre2);
+        return mediaService.getRecommendationsByGenres(genre1, genre2);
     }
 //  il faut ecrire comme ca dans l'url :   http://localhost:8080/api/media/all/genres?genre1=Drame&genre2=Action
 

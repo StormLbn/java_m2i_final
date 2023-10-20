@@ -41,7 +41,7 @@ public class MediaMapper {
 
     public List<MediaSummaryDTO> mediaListToMediaSummaryDtoList(List<Media> mediaList) {
         if (mediaList == null) {
-            return null;
+            return new ArrayList<>();
         } else {
             return mediaList.stream().map(this::mediaToMediaSummaryDto).toList();
         }

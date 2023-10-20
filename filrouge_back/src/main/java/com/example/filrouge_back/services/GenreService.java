@@ -24,6 +24,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GenreService {
 
+    // TODO refactor : utiliser les méthodes de l'UserService ?
+
     private final GenreRepository genreRepository;
     private final UserEntityRepository userEntityRepository;
     private final GenreMapper genreMapper;

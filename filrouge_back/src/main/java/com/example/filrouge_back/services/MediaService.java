@@ -54,22 +54,4 @@ public class MediaService {
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
-
-    // TODO à refaire dans un nouveau service avec un utilisateur + médias aléatoires !!!!
-    public List<MediaSummaryDTO> getRecommendationsByGenres(String genre1, String genre2) {
-        List<MediaSummaryDTO> mediaListGenre1 = getTopMediaByGenre(genre1, 3);
-        List<MediaSummaryDTO> mediaListGenre2 = getTopMediaByGenre(genre2, 3);
-
-
-        mediaListGenre1.addAll(mediaListGenre2);
-
-        return mediaListGenre1;
-    }
-
-    private List<MediaSummaryDTO> getTopMediaByGenre(String genre, int limit) {
-        List<Media> mediaList = mediaRepository.findByGenres_GenreName(genre);
-
-        return mediaMapper.mediaListToMediaSummaryDtoList(
-                mediaList.stream().limit(limit).toList());
-    }
 }

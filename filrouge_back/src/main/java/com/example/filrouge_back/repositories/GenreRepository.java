@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface GenreRepository extends JpaRepository<Genre, UUID> {
+public interface GenreRepository extends JpaRepository<Genre, Integer> {
     boolean existsByGenreName(String genreName);
     Genre findByGenreName(String genreName);
 }

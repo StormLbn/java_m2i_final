@@ -11,6 +11,7 @@ import com.example.filrouge_back.repositories.MediaRepository;
 import com.example.filrouge_back.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +27,11 @@ public class EvaluationService {
     private final EvaluationRepository evaluationRepository;
     private final EvaluationMapper evaluationMapper;
 
-    public List<EvaluationDTO> getEvaluationsByMedia(UUID mediaId) {
+    public List<EvaluationDTO> getEvaluationsByMedia(UUID mediaId, int page) {
         Optional<Media> foundMedia = mediaRepository.findById(mediaId);
 
         if (foundMedia.isPresent()) {
-            List<Evaluation> evaluationList = evaluationRepository.findAllByMedia(foundMedia.get());
+            List<Evaluation> evaluationList = evaluationRepository.findAllByMedia(foundMedia.get(), PageRequest.of(page, 5));
             return evaluationList
                     .stream()
                     .map(evaluationMapper::evaluationToEvaluationDTO)

@@ -42,6 +42,7 @@ public class MediaRestController {
     public List<MediaSummaryDTO> getMediaByReleaseDate() {
         return mediaService.getMediaByReleaseDateDescending();
     }
+
     @GetMapping("/all/genres")
     public List<MediaSummaryDTO> getMediaRecommendationsByGenres(
             @RequestParam("genre1") String genre1,

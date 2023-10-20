@@ -18,8 +18,6 @@ public class UserRestController {
 
     private final UserService userService;
 
-    // TODO Modification des genres préférés
-
     // TODO GET recommandations ?
 
 

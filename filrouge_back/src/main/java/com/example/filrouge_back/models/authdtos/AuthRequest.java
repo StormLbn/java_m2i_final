@@ -14,6 +14,4 @@ public class AuthRequest {
     private String pseudo;
     private LocalDate birthDate;
 
-    // TODO à faire à l'inscription ?
-//    private List<String> genres;
 }

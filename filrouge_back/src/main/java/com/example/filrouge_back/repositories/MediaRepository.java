@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -19,7 +18,7 @@ public interface MediaRepository extends JpaRepository<Media, UUID> {
 
     List<Media> findByGenres_GenreName(String genreName, Pageable pageable);
     List<Media> findByType(MediaType type, Pageable pageable);
-    List<Media> findAllByOrderByReleaseDateDesc(Pageable pageable);
+    List<Media> findAllByOrderByIdDescReleaseDateDesc(Pageable pageable);
 
     @Query("SELECT m FROM Media m JOIN m.genres g WHERE g IN :genres")
     Set<Media> findByGenresList(@Param("genres") List<Genre> genres);

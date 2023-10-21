@@ -18,29 +18,37 @@ public class MediaRestController {
 
     private final MediaService mediaService;
 
+    // Pas la méthode par défaut !
     @GetMapping("/all")
     public List<MediaSummaryDTO> getAllMedia() {
         return mediaService.getAllMedia();
     }
 
+    // Méthode par défaut d'envoi des médias
+    @GetMapping("/all/date/{page}")
+    public List<MediaSummaryDTO> getMediaByReleaseDate(@PathVariable("page") int page) {
+        return mediaService.getMediaByReleaseDateDescending(page);
+    }
+
+    @GetMapping("/all/genre/{genre}/{page}")
+    public List<MediaSummaryDTO> getMediaByGenre(
+            @PathVariable String genre,
+            @PathVariable("page") int page
+    ) {
+        return mediaService.getMediaByGenre(genre, page);
+    }
+
+    @GetMapping("/all/type/{type}/{page}")
+    public List<MediaSummaryDTO> getMediaByType(
+            @PathVariable MediaType type,
+            @PathVariable("page") int page
+    ) {
+        return mediaService.getMediaByType(type, page);
+    }
+
     @GetMapping("/{mediaId}")
     public MediaDetailDTO getMediaById(@PathVariable UUID mediaId) {
         return mediaService.getMediaById(mediaId);
-    }
-
-    @GetMapping("/all/genre/{genre}")
-    public List<MediaSummaryDTO> getMediaByGenre(@PathVariable String genre) {
-        return mediaService.getMediaByGenre(genre);
-    }
-
-    @GetMapping("/all/type/{type}")
-    public List<MediaSummaryDTO> getMediaByType(@PathVariable MediaType type) {
-        return mediaService.getMediaByType(type);
-    }
-
-    @GetMapping("/all/date")
-    public List<MediaSummaryDTO> getMediaByReleaseDate() {
-        return mediaService.getMediaByReleaseDateDescending();
     }
 
 }

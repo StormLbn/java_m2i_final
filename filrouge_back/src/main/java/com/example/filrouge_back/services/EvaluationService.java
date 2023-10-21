@@ -31,7 +31,8 @@ public class EvaluationService {
         Optional<Media> foundMedia = mediaRepository.findById(mediaId);
 
         if (foundMedia.isPresent()) {
-            List<Evaluation> evaluationList = evaluationRepository.findAllByMedia(foundMedia.get(), PageRequest.of(page, 5));
+            List<Evaluation> evaluationList = evaluationRepository.findAllByMedia(
+                    foundMedia.get(), PageRequest.of(page, 5));
             return evaluationList
                     .stream()
                     .map(evaluationMapper::evaluationToEvaluationDTO)
@@ -41,11 +42,12 @@ public class EvaluationService {
         }
     }
 
-    public List<EvaluationDTO> getEvaluationsByUser(UUID userId) {
+    public List<EvaluationDTO> getEvaluationsByUser(UUID userId, int page) {
         Optional<UserEntity> foundUser = userEntityRepository.findById(userId);
 
         if (foundUser.isPresent()) {
-            List<Evaluation> evaluationList = evaluationRepository.findAllByUser(foundUser.get());
+            List<Evaluation> evaluationList = evaluationRepository.findAllByUser(
+                    foundUser.get(), PageRequest.of(page, 5));
 
             return evaluationList
                     .stream()

@@ -60,24 +60,25 @@ public class PopulateDatabaseService {
         if (mediaRepository.count() == 0) {
             log.info("Database is empty");
 
-            List<String> idList = getTmdbIdList("movie");
+            List<String> idList = getTmdbIdList();
             log.info("Filling with " + idList.size() + " movies data...");
-            int errorsCount = 0;
+            List<String> failedIds = new ArrayList<>();
 
             for (String id : idList) {
                 try {
                     // FIXME : voir pourquoi certaines données ne s'enregistrent pas
                     getMovie(id);
                 } catch (Exception e) {
-                    log.warn("An error occurred while adding the movie data");
+                    log.warn("An error occurred while adding the movie data at ID " + id);
                     log.warn(e.getMessage());
-                    errorsCount++;
+                    failedIds.add(id);
                 }
             }
-            log.info((100 - errorsCount) + " movies added to DB");
+            log.info((100 - failedIds.size()) + " movies added to DB");
+            log.info("Failed ids : " + failedIds);
 
             log.info("Filling with 100 shows data...");
-            errorsCount = 0;
+            int errorsCount = 0;
             try {
                 getShows();
             } catch (Exception e) {
@@ -126,7 +127,6 @@ public class PopulateDatabaseService {
 
                 List<ShowApiResponse.Show> showsList = showsResponse.getShows();
                 log.info("List size : " + showsList.size());
-                int count = 0;
                 for (ShowApiResponse.Show showResponse : showsList) {
                     Media show = saveShow(showResponse);
 
@@ -318,14 +318,14 @@ public class PopulateDatabaseService {
     }
 
 
-    private List<String> getTmdbIdList(String type) {
+    private List<String> getTmdbIdList() {
         RestTemplate restTemplate = tmdbBuilder.build();
 
         List<String> idList = new ArrayList<>();
 
         for (int i = 1 ; i <= 5 ; i++) {
             JsonNode entityJson =
-                    restTemplate.getForEntity(type + "/top_rated?language=fr-FR&page=" + i, JsonNode.class).getBody();
+                    restTemplate.getForEntity("movie/top_rated?language=fr-FR&page=" + i, JsonNode.class).getBody();
 
             if (entityJson != null) {
                 entityJson.findPath("results").elements()

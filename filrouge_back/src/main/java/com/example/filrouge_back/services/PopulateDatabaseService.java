@@ -58,7 +58,7 @@ public class PopulateDatabaseService {
     @PostConstruct
     public void populateDatabase() {
         if (mediaRepository.count() == 0) {
-            log.info("Database is empty");
+            log.info("Media database is empty");
 
             List<String> idList = getTmdbIdList();
             log.info("Filling with " + idList.size() + " movies data...");
@@ -69,24 +69,23 @@ public class PopulateDatabaseService {
                     // FIXME : voir pourquoi certaines données ne s'enregistrent pas
                     getMovie(id);
                 } catch (Exception e) {
-                    log.warn("An error occurred while adding the movie data at ID " + id);
+                    log.warn("An error occurred while adding the movie data at ID " + id + " :");
                     log.warn(e.getMessage());
                     failedIds.add(id);
                 }
             }
             log.info((100 - failedIds.size()) + " movies added to DB");
-            log.info("Failed ids : " + failedIds);
+            log.info("Failed to add movies at IDs : " + failedIds);
 
-            log.info("Filling with 100 shows data...");
-            int errorsCount = 0;
             try {
                 getShows();
             } catch (Exception e) {
                 log.warn("An error occurred while adding the show data");
                 log.warn(e.getMessage());
-                errorsCount++;
             }
-            log.info((100 - errorsCount) + " shows added to DB");
+            log.info("Shows added to DB");
+
+            log.info("Finished adding media to database");
         }
     }
 
@@ -126,7 +125,7 @@ public class PopulateDatabaseService {
             if (showsResponse != null) {
 
                 List<ShowApiResponse.Show> showsList = showsResponse.getShows();
-                log.info("List size : " + showsList.size());
+                log.info("Filling with " + showsList.size() + " shows data...");
                 for (ShowApiResponse.Show showResponse : showsList) {
                     Media show = saveShow(showResponse);
 
@@ -147,11 +146,14 @@ public class PopulateDatabaseService {
 
     @Transactional
     public Media saveMovie(MovieApiResponse response) {
+        // TODO mapper Media
         Media movie = new Media();
         movie.setType(MediaType.MOVIE);
 
         movie.setBetaseriesId(response.getMovie().getId());
-        movie.setTitle(response.getMovie().getOther_title().getTitle());
+        movie.setTitle(
+                response.getMovie().getOther_title() != null ? response.getMovie().getOther_title().getTitle() : response.getMovie().getTitle()
+        );
         movie.setPlot(response.getMovie().getSynopsis());
         movie.setImageUrl(response.getMovie().getPoster());
         movie.setReleaseDate(response.getMovie().getRelease_date());
@@ -225,7 +227,7 @@ public class PopulateDatabaseService {
 
     @Transactional
     public Media saveShow(ShowApiResponse.Show response) {
-
+        // TODO mapper Media
         Media show = new Media();
         show.setType(MediaType.SHOW);
 

@@ -1,6 +1,7 @@
 package com.example.filrouge_back.services;
 
 import com.example.filrouge_back.entities.Media;
+import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.models.apidtos.ActorsApiResponse;
 import com.example.filrouge_back.models.apidtos.PersonApiResponse;
 import com.example.filrouge_back.models.apidtos.ShowApiResponse;
@@ -34,8 +35,11 @@ public class PopulateDatabaseService {
 
     private final RestTemplateBuilder tmdbBuilder;
     private final RestTemplateBuilder betaseriesBuilder;
+
+    // TODO refactoriser pour utiliser les services au lieu des repos !
     private final MediaRepository mediaRepository;
     private final MediaProfessionalRepository mediaProfessionalRepository;
+    private final MediaMapper mediaMapper;
     private final ProfessionalRepository professionalRepository;
     private final GenreRepository genreRepository;
 
@@ -44,6 +48,7 @@ public class PopulateDatabaseService {
             @Qualifier("betaseries") RestTemplateBuilder betaseriesBuilder,
             MediaRepository mediaRepository,
             MediaProfessionalRepository mediaProfessionalRepository,
+            MediaMapper mediaMapper,
             ProfessionalRepository professionalRepository,
             GenreRepository genreRepository
     ) {
@@ -51,6 +56,7 @@ public class PopulateDatabaseService {
         this.betaseriesBuilder = betaseriesBuilder;
         this.mediaRepository = mediaRepository;
         this.mediaProfessionalRepository = mediaProfessionalRepository;
+        this.mediaMapper = mediaMapper;
         this.professionalRepository = professionalRepository;
         this.genreRepository = genreRepository;
     }
@@ -66,7 +72,6 @@ public class PopulateDatabaseService {
 
             for (String id : idList) {
                 try {
-                    // FIXME : voir pourquoi certaines données ne s'enregistrent pas
                     getMovie(id);
                 } catch (Exception e) {
                     log.warn("An error occurred while adding the movie data at ID " + id + " :");
@@ -147,17 +152,7 @@ public class PopulateDatabaseService {
     @Transactional
     public Media saveMovie(MovieApiResponse response) {
         // TODO mapper Media
-        Media movie = new Media();
-        movie.setType(MediaType.MOVIE);
-
-        movie.setBetaseriesId(response.getMovie().getId());
-        movie.setTitle(
-                response.getMovie().getOther_title() != null ? response.getMovie().getOther_title().getTitle() : response.getMovie().getTitle()
-        );
-        movie.setPlot(response.getMovie().getSynopsis());
-        movie.setImageUrl(response.getMovie().getPoster());
-        movie.setReleaseYear(response.getMovie().getRelease_date().getYear());
-        movie.setDuration(Math.round(response.getMovie().getLength()/60.0f));
+        Media movie = mediaMapper.movieApiResponseToMedia(response);
 
         movie.setGenres(new ArrayList<>());
         for (String data : response.getMovie().getGenres()) {

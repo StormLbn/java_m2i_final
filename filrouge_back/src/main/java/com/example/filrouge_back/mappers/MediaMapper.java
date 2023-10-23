@@ -31,7 +31,7 @@ public class MediaMapper {
                     .type(media.getType())
                     .imageUrl(media.getImageUrl())
                     // TODO modifier les données BDD -> année au lieu de date
-                    .releaseYear(media.getReleaseDate().getYear())
+                    .releaseYear(media.getReleaseYear())
                     .duration(media.getDuration())
                     .avgRating(calculateAvgRating(media))
                     .genres(media.getGenres().stream().map(Genre::getGenreName).toList())
@@ -58,7 +58,7 @@ public class MediaMapper {
                     .plot(media.getPlot())
                     .imageUrl(media.getImageUrl())
                     // TODO modifier les données BDD -> année au lieu de date
-                    .releaseYear(media.getReleaseDate().getYear())
+                    .releaseYear(media.getReleaseYear())
                     .duration(media.getDuration())
                     .seasons(media.getSeasons())
                     .inProduction(media.getInProdution())

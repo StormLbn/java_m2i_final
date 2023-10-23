@@ -156,7 +156,7 @@ public class PopulateDatabaseService {
         );
         movie.setPlot(response.getMovie().getSynopsis());
         movie.setImageUrl(response.getMovie().getPoster());
-        movie.setReleaseDate(response.getMovie().getRelease_date());
+        movie.setReleaseYear(response.getMovie().getRelease_date().getYear());
         movie.setDuration(Math.round(response.getMovie().getLength()/60.0f));
 
         movie.setGenres(new ArrayList<>());
@@ -236,7 +236,7 @@ public class PopulateDatabaseService {
         show.setPlot(response.getDescription());
         show.setSeasons(response.getSeasons());
         show.setImageUrl(response.getImages().getPoster());
-        show.setReleaseDate(LocalDate.of(response.getCreation(), 1, 1));
+        show.setReleaseYear(response.getCreation());
         show.setDuration(response.getLength());
         show.setInProdution(response.getStatus().equals("Continuing"));
 

@@ -9,7 +9,6 @@ import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.repositories.MediaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,7 +51,7 @@ public class MediaService {
     }
 
     public List<MediaSummaryDTO> getMediaByReleaseDateDescending(int page) {
-        List<Media> mediaList = mediaRepository.findAllByOrderByIdDescReleaseDateDesc(
+        List<Media> mediaList = mediaRepository.findAllByOrderByIdDescReleaseYearDesc(
                 PageRequest.of(page, 24));
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }

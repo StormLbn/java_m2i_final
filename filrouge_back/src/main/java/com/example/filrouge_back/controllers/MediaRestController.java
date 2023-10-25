@@ -6,6 +6,7 @@ import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
 import com.example.filrouge_back.models.enums.MediaType;
 import com.example.filrouge_back.services.MediaService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,30 +21,50 @@ public class MediaRestController {
 
     // Pas la méthode par défaut !
     @GetMapping("/all")
-    public List<MediaSummaryDTO> getAllMedia() {
-        return mediaService.getAllMedia();
+    public ResponseEntity<List<MediaSummaryDTO>> getAllMedia() {
+        List<MediaSummaryDTO> mediaList = mediaService.getAllMedia();
+        if (mediaList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(mediaList);
+        }
     }
 
     // Méthode par défaut d'envoi des médias
     @GetMapping("/all/date/{page}")
-    public List<MediaSummaryDTO> getMediaByReleaseDate(@PathVariable("page") int page) {
-        return mediaService.getMediaByReleaseDateDescending(page);
+    public ResponseEntity<List<MediaSummaryDTO>> getMediaByReleaseDate(@PathVariable("page") int page) {
+        List<MediaSummaryDTO> mediaList = mediaService.getMediaByReleaseDateDescending(page);
+        if (mediaList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(mediaList);
+        }
     }
 
     @GetMapping("/all/genre/{genre}/{page}")
-    public List<MediaSummaryDTO> getMediaByGenre(
+    public ResponseEntity<List<MediaSummaryDTO>> getMediaByGenre(
             @PathVariable String genre,
             @PathVariable("page") int page
     ) {
-        return mediaService.getMediaByGenre(genre, page);
+        List<MediaSummaryDTO> mediaList = mediaService.getMediaByGenre(genre, page);
+        if (mediaList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(mediaList);
+        }
     }
 
     @GetMapping("/all/type/{type}/{page}")
-    public List<MediaSummaryDTO> getMediaByType(
+    public ResponseEntity<List<MediaSummaryDTO>> getMediaByType(
             @PathVariable MediaType type,
             @PathVariable("page") int page
     ) {
-        return mediaService.getMediaByType(type, page);
+        List<MediaSummaryDTO> mediaList = mediaService.getMediaByType(type, page);
+        if (mediaList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(mediaList);
+        }
     }
 
     @GetMapping("/{mediaId}")

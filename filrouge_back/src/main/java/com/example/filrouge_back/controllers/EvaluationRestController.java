@@ -18,19 +18,29 @@ public class EvaluationRestController {
     private final EvaluationService evaluationService;
 
     @GetMapping("media/{mediaId}/{page}")
-    public List<EvaluationDTO> getEvaluationsByMedia(
+    public ResponseEntity<List<EvaluationDTO>> getEvaluationsByMedia(
             @PathVariable("mediaId") UUID mediaId,
             @PathVariable("page") int page
     ) {
-        return evaluationService.getEvaluationsByMedia(mediaId, page);
+        List<EvaluationDTO> evaluationsByMedia = evaluationService.getEvaluationsByMedia(mediaId, page);
+        if (evaluationsByMedia.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(evaluationsByMedia);
+        }
     }
 
     @GetMapping("user/{userId}/{page}")
-    public List<EvaluationDTO> getEvaluationsByUser(
+    public ResponseEntity<List<EvaluationDTO>> getEvaluationsByUser(
             @PathVariable("userId") UUID userId,
             @PathVariable("page") int page
     ) {
-        return evaluationService.getEvaluationsByUser(userId, page);
+        List<EvaluationDTO> evaluationsByUser = evaluationService.getEvaluationsByUser(userId, page);
+        if (evaluationsByUser.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(evaluationsByUser);
+        }
     }
 
     @PostMapping("/add")
@@ -50,8 +60,8 @@ public class EvaluationRestController {
     }
 
     @DeleteMapping("/{evaluationId}")
-    public ResponseEntity<Void> deleteEvaluation(@PathVariable UUID evaluationId) {
+    public ResponseEntity<String> deleteEvaluation(@PathVariable UUID evaluationId) {
         evaluationService.deleteEvaluation(evaluationId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Evaluation deleted at id " + evaluationId);
     }
 }

@@ -19,8 +19,13 @@ public class GenreRestController {
     private final GenreService genreService;
 
     @GetMapping("/all")
-    public List<GenreDTO> getAllGenres() {
-        return genreService.getAllGenres();
+    public ResponseEntity<List<GenreDTO>> getAllGenres() {
+        List<GenreDTO> genres = genreService.getAllGenres();
+        if (genres.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(genres);
+        }
     }
 
     @PatchMapping("/{userId}")

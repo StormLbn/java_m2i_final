@@ -60,8 +60,8 @@ public class EvaluationRestController {
     }
 
     @DeleteMapping("/{evaluationId}")
-    public ResponseEntity<Void> deleteEvaluation(@PathVariable UUID evaluationId) {
+    public ResponseEntity<String> deleteEvaluation(@PathVariable UUID evaluationId) {
         evaluationService.deleteEvaluation(evaluationId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Evaluation deleted at id " + evaluationId);
     }
 }

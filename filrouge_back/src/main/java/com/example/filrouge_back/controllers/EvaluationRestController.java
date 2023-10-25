@@ -36,7 +36,6 @@ public class EvaluationRestController {
     @PostMapping("/add")
     public ResponseEntity<EvaluationDTO> createEvaluation(@RequestBody EvaluationDTO evaluationDTO) {
         EvaluationDTO createdEvaluation = evaluationService.createEvaluation(evaluationDTO);
-        // FIXME les ID dans le DTO renvoyé sont null
         return new ResponseEntity<>(createdEvaluation, HttpStatus.CREATED);
     }
 
@@ -47,7 +46,6 @@ public class EvaluationRestController {
     ) {
         EvaluationDTO updatedEvaluation = evaluationService.updateEvaluation(
                 evaluationId, updatedEvaluationDTO);
-        // FIXME les ID dans le DTO renvoyé sont null
         return ResponseEntity.ok(updatedEvaluation);
     }
 

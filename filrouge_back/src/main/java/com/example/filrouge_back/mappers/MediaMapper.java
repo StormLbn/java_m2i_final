@@ -6,6 +6,7 @@ import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.MediaProfessional;
 import com.example.filrouge_back.models.apidtos.MovieApiResponse;
+import com.example.filrouge_back.models.apidtos.ShowApiResponse;
 import com.example.filrouge_back.models.entitydtos.MediaDetailDTO;
 import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
 import com.example.filrouge_back.models.entitydtos.ProfessionalInfoDTO;
@@ -32,7 +33,6 @@ public class MediaMapper {
                     .title(media.getTitle())
                     .type(media.getType())
                     .imageUrl(media.getImageUrl())
-                    // TODO modifier les données BDD -> année au lieu de date
                     .releaseYear(media.getReleaseYear())
                     .duration(media.getDuration())
                     .avgRating(calculateAvgRating(media))
@@ -59,7 +59,6 @@ public class MediaMapper {
                     .type(media.getType())
                     .plot(media.getPlot())
                     .imageUrl(media.getImageUrl())
-                    // TODO modifier les données BDD -> année au lieu de date
                     .releaseYear(media.getReleaseYear())
                     .duration(media.getDuration())
                     .seasons(media.getSeasons())
@@ -75,20 +74,44 @@ public class MediaMapper {
     }
 
     public Media movieApiResponseToMedia(MovieApiResponse response) {
-        return Media.builder()
-                .type(MediaType.MOVIE)
-                .betaseriesId(response.getMovie().getId())
-                .title(
-                        response.getMovie().getOther_title() != null
-                                ? response.getMovie().getOther_title().getTitle()
-                                : response.getMovie().getTitle())
-                .plot(response.getMovie().getSynopsis())
-                .imageUrl(response.getMovie().getPoster())
-                .releaseYear(response.getMovie().getRelease_date().getYear())
-                .duration(Math.round(response.getMovie().getLength()/60f))
-                .genres(new ArrayList<>())
-                .professionals(new ArrayList<>())
-                .build();
+        if (response == null) {
+            return null;
+        } else {
+            return Media.builder()
+                    .type(MediaType.MOVIE)
+                    .betaseriesId(response.getMovie().getId())
+                    .title(
+                            response.getMovie().getOther_title() != null
+                                    ? response.getMovie().getOther_title().getTitle()
+                                    : response.getMovie().getTitle())
+                    .plot(response.getMovie().getSynopsis())
+                    .imageUrl(response.getMovie().getPoster())
+                    .releaseYear(response.getMovie().getRelease_date().getYear())
+                    .duration(Math.round(response.getMovie().getLength() / 60f))
+                    .genres(new ArrayList<>())
+                    .professionals(new ArrayList<>())
+                    .build();
+        }
+    }
+
+    public Media showApiResponseShowToMedia(ShowApiResponse.Show response) {
+        if (response == null) {
+            return null;
+        } else {
+            return Media.builder()
+                    .type(MediaType.SHOW)
+                    .betaseriesId(response.getId())
+                    .title(response.getTitle())
+                    .plot(response.getDescription())
+                    .seasons(response.getSeasons())
+                    .inProdution(response.getStatus().equals("Continuing"))
+                    .imageUrl(response.getImages().getPoster())
+                    .releaseYear(response.getCreation())
+                    .duration(response.getLength())
+                    .genres(new ArrayList<>())
+                    .professionals(new ArrayList<>())
+                    .build();
+        }
     }
 
     private List<ProfessionalInfoDTO> getProfessionalsByJob(List<MediaProfessional> professionals, JobForMedia job) {

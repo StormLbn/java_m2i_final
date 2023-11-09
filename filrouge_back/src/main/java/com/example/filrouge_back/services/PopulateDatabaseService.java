@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,31 +37,30 @@ public class PopulateDatabaseService {
 
     // TODO refactoriser pour utiliser les services au lieu des repos !
     private final MediaRepository mediaRepository;
-    private final MediaProfessionalRepository mediaProfessionalRepository;
     private final MediaMapper mediaMapper;
-    private final ProfessionalRepository professionalRepository;
     private final GenreRepository genreRepository;
+
+    private final ProfessionalService professionalService;
 
     public PopulateDatabaseService(
             @Qualifier("tmdb") RestTemplateBuilder tmdbBuilder,
             @Qualifier("betaseries") RestTemplateBuilder betaseriesBuilder,
             MediaRepository mediaRepository,
-            MediaProfessionalRepository mediaProfessionalRepository,
             MediaMapper mediaMapper,
-            ProfessionalRepository professionalRepository,
-            GenreRepository genreRepository
+            GenreRepository genreRepository,
+            ProfessionalService professionalService
     ) {
         this.tmdbBuilder = tmdbBuilder;
         this.betaseriesBuilder = betaseriesBuilder;
         this.mediaRepository = mediaRepository;
-        this.mediaProfessionalRepository = mediaProfessionalRepository;
         this.mediaMapper = mediaMapper;
-        this.professionalRepository = professionalRepository;
         this.genreRepository = genreRepository;
+        this.professionalService = professionalService;
     }
 
     @PostConstruct
     public void populateDatabase() {
+        // TODO méthode dans MediaService
         if (mediaRepository.count() == 0) {
             log.info("Media database is empty");
 
@@ -72,7 +70,7 @@ public class PopulateDatabaseService {
 
             for (String id : idList) {
                 try {
-                    getMovie(id);
+                    getMovies(id);
                 } catch (Exception e) {
                     log.warn("An error occurred while adding the movie data at ID " + id + " :");
                     log.warn(e.getMessage());
@@ -94,7 +92,7 @@ public class PopulateDatabaseService {
         }
     }
 
-    public void getMovie(String id) throws Exception {
+    public void getMovies(String id) throws Exception {
 
         RestTemplate restTemplate = betaseriesBuilder.build();
         Media movie;
@@ -149,12 +147,12 @@ public class PopulateDatabaseService {
         }
     }
 
+    // TODO déplacer dans MediaService
     @Transactional
     public Media saveMovie(MovieApiResponse response) {
-        // TODO mapper Media
         Media movie = mediaMapper.movieApiResponseToMedia(response);
 
-        movie.setGenres(new ArrayList<>());
+        // TODO méthode dans GenreService
         for (String data : response.getMovie().getGenres()) {
             Genre genre;
             if (genreRepository.existsByGenreName(data)) {
@@ -170,72 +168,21 @@ public class PopulateDatabaseService {
 
         mediaRepository.save(movie);
 
-        movie.setProfessionals(new ArrayList<>());
-        for (PersonApiResponse data : response.getMovie().getCrew().getDirectors()) {
-            Professional person = findOrSaveProfessional(data);
-
-            MediaProfessional director = mediaProfessionalRepository.save(
-                    MediaProfessional.builder()
-                            .job(JobForMedia.DIRECTOR)
-                            .professional(person)
-                            .media(movie)
-                            .build()
-            );
-
-            movie.getProfessionals().add(director);
-        }
-
-        for (PersonApiResponse data : response.getMovie().getCrew().getProducers()) {
-            Professional person = findOrSaveProfessional(data);
-
-            MediaProfessional producer = mediaProfessionalRepository.save(
-                    MediaProfessional.builder()
-                            .job(JobForMedia.PRODUCER)
-                            .professional(person)
-                            .media(movie)
-                            .build()
-            );
-
-            movie.getProfessionals().add(producer);
-        }
-
-        // TODO refactoriser dans une méthode !
-        for (PersonApiResponse data : response.getMovie().getCrew().getWriters()) {
-            Professional person = findOrSaveProfessional(data);
-
-            MediaProfessional writer = mediaProfessionalRepository.save(
-                    MediaProfessional.builder()
-                            .job(JobForMedia.WRITER)
-                            .professional(person)
-                            .media(movie)
-                            .build()
-            );
-
-            movie.getProfessionals().add(writer);
-        }
+        professionalService.saveMediaProfessionals(response.getMovie().getCrew().getDirectors(), movie, JobForMedia.DIRECTOR);
+        professionalService.saveMediaProfessionals(response.getMovie().getCrew().getProducers(), movie, JobForMedia.PRODUCER);
+        professionalService.saveMediaProfessionals(response.getMovie().getCrew().getWriters(), movie, JobForMedia.WRITER);
 
         mediaRepository.save(movie);
 
         return movie;
     }
 
-
+    // TODO déplacer dans MediaService
     @Transactional
     public Media saveShow(ShowApiResponse.Show response) {
-        // TODO mapper Media
-        Media show = new Media();
-        show.setType(MediaType.SHOW);
+        Media show = mediaMapper.showApiResponseShowToMedia(response);
 
-        show.setBetaseriesId(response.getId());
-        show.setTitle(response.getTitle());
-        show.setPlot(response.getDescription());
-        show.setSeasons(response.getSeasons());
-        show.setImageUrl(response.getImages().getPoster());
-        show.setReleaseYear(response.getCreation());
-        show.setDuration(response.getLength());
-        show.setInProdution(response.getStatus().equals("Continuing"));
-
-        show.setGenres(new ArrayList<>());
+        // TODO méthode dans GenreService
         for (String data : response.getGenres().values()) {
             Genre genre;
             if (genreRepository.existsByGenreName(data)) {
@@ -251,69 +198,20 @@ public class PopulateDatabaseService {
 
         mediaRepository.save(show);
 
-        show.setProfessionals(new ArrayList<>());
-        for (PersonApiResponse data : response.getShowrunners()) {
-            Professional person = findOrSaveProfessional(data);
-
-            MediaProfessional producer = mediaProfessionalRepository.save(
-                    MediaProfessional.builder()
-                            .job(JobForMedia.PRODUCER)
-                            .professional(person)
-                            .media(show)
-                            .build()
-            );
-
-            show.getProfessionals().add(producer);
-        }
+        professionalService.saveMediaProfessionals(response.getShowrunners(), show, JobForMedia.PRODUCER);
 
         mediaRepository.save(show);
 
         return show;
     }
 
-    @Transactional
     public void saveActors(ActorsApiResponse response, Media media) {
         List<PersonApiResponse> personsList = response.getCharacters();
         if (!personsList.isEmpty()) {
-            int actorsCount = Math.min(personsList.size(), 7);
-            for (int i = 0; i < actorsCount; i++) {
-                PersonApiResponse data = personsList.get(i);
-                Professional person = findOrSaveProfessional(data);
-
-                MediaProfessional actor = mediaProfessionalRepository.save(
-                        MediaProfessional.builder()
-                                .job(JobForMedia.ACTOR)
-                                .professional(person)
-                                .media(media)
-                                .build()
-                );
-
-                media.getProfessionals().add(actor);
-            }
+            professionalService.saveActors(personsList, media);
             mediaRepository.save(media);
         }
     }
-
-    public Professional findOrSaveProfessional(PersonApiResponse data) {
-        Professional person;
-        String name = data.getActor() != null
-                ? data.getActor()
-                : data.getName();
-
-        if (professionalRepository.existsByName(name)) {
-            person = professionalRepository.findByName(name);
-        } else {
-            person = professionalRepository.save(
-                    Professional.builder()
-                            .name(name)
-                            .imageUrl(data.getPicture())
-                            .build()
-            );
-        }
-
-        return person;
-    }
-
 
     private List<String> getTmdbIdList() {
         RestTemplate restTemplate = tmdbBuilder.build();

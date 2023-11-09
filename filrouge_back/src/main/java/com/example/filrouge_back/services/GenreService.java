@@ -27,6 +27,14 @@ public class GenreService {
     private final GenreRepository genreRepository;
     private final GenreMapper genreMapper;
 
+    public List<Genre> getGenresById(List<Integer> idList) {
+        List<Genre> genres = new ArrayList<>();
+        for (Integer id : idList) {
+            genres.add(findGenreById(id));
+        }
+        return genres;
+    }
+
     public List<GenreDTO> getAllGenres() {
         List<Genre> genresList = genreRepository.findAll(Sort.by("genreName"));
 
@@ -36,13 +44,5 @@ public class GenreService {
     public Genre findGenreById(Integer genreId) {
         return genreRepository.findById(genreId)
                 .orElseThrow(() -> new ResourceNotFoundException("Genre not found at id " + genreId));
-    }
-
-    public List<Genre> getGenresById(List<Integer> idList) {
-        List<Genre> genres = new ArrayList<>();
-        for (Integer id : idList) {
-            genres.add(findGenreById(id));
-        }
-        return genres;
     }
 }

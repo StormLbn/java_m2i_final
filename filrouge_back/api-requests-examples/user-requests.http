@@ -30,3 +30,6 @@ Content-Type: application/json
   "userId": "79d0dd7c-644d-4dfc-b392-470ae18cca18",
   "genreIdList": [4, 8, 22]
 }
+
+### Récupération des recommandations de films/séries pour un utilisateur
+GET http://localhost:8080/api/recommendations/79d0dd7c-644d-4dfc-b392-470ae18cca18

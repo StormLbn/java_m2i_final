@@ -1,5 +1,6 @@
 package com.example.filrouge_back.services;
 
+import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.exceptions.ResourceNotFoundException;
 import com.example.filrouge_back.models.entitydtos.MediaDetailDTO;
 import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
@@ -55,6 +56,10 @@ public class MediaService {
         List<Media> mediaList = mediaRepository.findAllByOrderByIdDescReleaseDateDesc(
                 PageRequest.of(page, 24));
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
+    }
+
+    public List<Media> findMediaByGenresList(List<Genre> genres) {
+        return mediaRepository.findByGenresList(genres).stream().toList();
     }
 
 }

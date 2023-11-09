@@ -1,0 +1,32 @@
+### Enregistrement d'un nouvel utilisateur et connexion
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "pseudo": "Storm",
+  "mail": "storm@mail.fr",
+  "password": "aze123",
+  "birthDate": "1994-03-26"
+}
+
+### Connexion de l'utilisateur (génération du token)
+POST http://localhost:8080/api/auth/authenticate
+Content-Type: application/json
+
+{
+  "mail": "storm@mail.fr",
+  "password": "aze123"
+}
+
+### Récupération des information de l'utilisateur
+GET http://localhost:8080/api/user/79d0dd7c-644d-4dfc-b392-470ae18cca18
+
+
+### Modification des genres favoris de l'utilisateur
+PATCH http://localhost:8080/api/user/genres/79d0dd7c-644d-4dfc-b392-470ae18cca18
+Content-Type: application/json
+
+{
+  "userId": "79d0dd7c-644d-4dfc-b392-470ae18cca18",
+  "genreIdList": [4, 8, 22]
+}

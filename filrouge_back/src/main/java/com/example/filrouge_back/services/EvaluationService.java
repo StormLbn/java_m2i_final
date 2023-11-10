@@ -96,10 +96,8 @@ public class EvaluationService {
     }
 
     public void deleteEvaluation(UUID evaluationId) {
-        Optional<Evaluation> foundEvaluation = evaluationRepository.findById(evaluationId);
-
-        if (foundEvaluation.isPresent()) {
-            evaluationRepository.delete(foundEvaluation.get());
+        if (evaluationRepository.existsById(evaluationId)) {
+            evaluationRepository.deleteById(evaluationId);
         } else {
             throw new ResourceNotFoundException("Evaluation not found at id " + evaluationId);
         }

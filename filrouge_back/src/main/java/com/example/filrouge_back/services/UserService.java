@@ -1,7 +1,6 @@
 package com.example.filrouge_back.services;
 
 
-import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.exceptions.NullOrMissingAttributeException;
 import com.example.filrouge_back.exceptions.ResourceNotFoundException;
@@ -9,14 +8,10 @@ import com.example.filrouge_back.mappers.UserMapper;
 import com.example.filrouge_back.models.entitydtos.GenreEditDTO;
 import com.example.filrouge_back.models.entitydtos.UserDisplayDTO;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
-import com.example.filrouge_back.repositories.GenreRepository;
 import com.example.filrouge_back.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -42,9 +37,6 @@ public class UserService {
         }
         if (updatedUserDTO.getBirthDate() != null) {
             user.setBirthDate(updatedUserDTO.getBirthDate());
-        }
-        if (updatedUserDTO.getPassword() != null) {
-            user.setPassword(updatedUserDTO.getPassword());
         }
         userEntityRepository.save(user);
 

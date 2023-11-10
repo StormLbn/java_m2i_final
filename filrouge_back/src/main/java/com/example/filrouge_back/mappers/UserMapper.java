@@ -13,19 +13,6 @@ import java.util.List;
 @Component
 public class UserMapper {
 
-    public UserEntity userEditDtoToUser(UserEditDTO userDto) {
-        if (userDto == null) {
-            return null;
-        } else {
-            return UserEntity.builder()
-                    .pseudo(userDto.getPseudo())
-                    .mail(userDto.getMail())
-                    .password(userDto.getPassword())
-                    .birthDate(userDto.getBirthDate())
-                    .build();
-        }
-    }
-
     public UserEditDTO userToUserEditDto(UserEntity user) {
         if (user == null) {
             return null;

@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -66,7 +67,7 @@ public class MediaService {
     }
 
     public List<Media> findMediaByGenresList(List<Genre> genres) {
-        return mediaRepository.findByGenresList(genres).stream().toList();
+        return new ArrayList<>(mediaRepository.findByGenresList(genres).stream().toList());
     }
 
     public boolean isTableEmpty() {

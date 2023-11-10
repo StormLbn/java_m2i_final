@@ -30,9 +30,8 @@ public class RecommendationService {
 
         List<Media> mediaByGenres = mediaService.findMediaByGenresList(genreList);
 
-//        // Pour proposer toujours des films différents à chaque fois, on mélange la liste obtenue avant de la réduire
-//        // FIXME cause une exception !
-//        Collections.shuffle(mediaByGenres);
+        // Pour proposer des films différents à chaque fois, on mélange la liste obtenue avant de la réduire
+        Collections.shuffle(mediaByGenres);
 
         return mediaMapper.mediaListToMediaSummaryDtoList(
                 mediaByGenres.subList(0, Math.min(10, mediaByGenres.size())));

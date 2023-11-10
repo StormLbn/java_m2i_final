@@ -38,6 +38,11 @@ public class MediaService {
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
+    public List<MediaSummaryDTO> getAllMediaByDefaultSorting(int page) {
+        List<Media> mediaList = mediaRepository.findAllByOrderById(PageRequest.of(page, 24));
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
+    }
+
     public MediaDetailDTO getMediaById(UUID mediaId) {
         Optional<Media> optionalMedia = mediaRepository.findById(mediaId);
 

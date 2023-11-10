@@ -58,4 +58,20 @@ public class GenreService {
             throw new NullOrMissingAttributeException("New genres Id list is null");
         }
     }
+
+    public List<Genre> saveMediaGenresFromGenreNames(List<String> genreNames) {
+        List<Genre> mediaGenresList = new ArrayList<>();
+        for (String genreName : genreNames) {
+            Genre genre;
+            if (genreRepository.existsByGenreName(genreName)) {
+                genre = genreRepository.findByGenreName(genreName);
+            } else {
+                genre = genreRepository.save(
+                        Genre.builder().genreName(genreName).build()
+                );
+            }
+            mediaGenresList.add(genre);
+        }
+        return mediaGenresList;
+    }
 }

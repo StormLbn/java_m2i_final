@@ -12,6 +12,5 @@ public class UserEditDTO {
     private UUID id;
     private String pseudo;
     private String mail;
-    private String password;
     private LocalDate birthDate;
 }

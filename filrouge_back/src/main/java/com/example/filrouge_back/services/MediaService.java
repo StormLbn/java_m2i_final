@@ -1,5 +1,6 @@
 package com.example.filrouge_back.services;
 
+import com.example.filrouge_back.entities.Genre;
 import com.example.filrouge_back.exceptions.ResourceNotFoundException;
 import com.example.filrouge_back.models.apidtos.ActorsApiResponse;
 import com.example.filrouge_back.models.apidtos.MovieApiResponse;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -62,6 +64,10 @@ public class MediaService {
         List<Media> mediaList = mediaRepository.findAllByOrderByIdDescReleaseYearDesc(
                 PageRequest.of(page, 24));
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
+    }
+
+    public List<Media> findMediaByGenresList(List<Genre> genres) {
+        return new ArrayList<>(mediaRepository.findByGenresList(genres).stream().toList());
     }
 
     public boolean isTableEmpty() {

@@ -24,12 +24,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GenreService {
 
-    // TODO refactor : utiliser les méthodes de l'UserService ?
-
     private final GenreRepository genreRepository;
-    private final UserEntityRepository userEntityRepository;
     private final GenreMapper genreMapper;
-    private final UserMapper userMapper;
+
+    public List<Genre> getGenresById(List<Integer> idList) {
+        List<Genre> genres = new ArrayList<>();
+        for (Integer id : idList) {
+            genres.add(findGenreById(id));
+        }
+        return genres;
+    }
 
     public List<GenreDTO> getAllGenres() {
         List<Genre> genresList = genreRepository.findAll(Sort.by("genreName"));
@@ -37,26 +41,9 @@ public class GenreService {
         return genreMapper.genreListToGenreDtoList(genresList);
     }
 
-    public UserDisplayDTO editUserGenresList(UUID userId, GenreEditDTO newGenres) {
-        Optional<UserEntity> optionalUser = userEntityRepository.findById(userId);
-
-        UserEntity user = optionalUser.orElseThrow(()
-                -> new ResourceNotFoundException("User not found at id " + userId));
-
-        List<Genre> newGenreList = new ArrayList<>();
-
-        if (newGenres.getGenreIdList() != null) {
-            for (Integer genreId : newGenres.getGenreIdList()) {
-                Optional<Genre> genre = genreRepository.findById(genreId);
-                newGenreList.add(genre.orElseThrow(()
-                        -> new ResourceNotFoundException("Genre not found at id " + genreId)));
-            }
-
-            user.setGenres(newGenreList);
-            return userMapper.userToUserDisplayDto(userEntityRepository.save(user));
-        } else {
-            throw new NullOrMissingAttributeException("New genres Id list is null");
-        }
+    public Genre findGenreById(Integer genreId) {
+        return genreRepository.findById(genreId)
+                .orElseThrow(() -> new ResourceNotFoundException("Genre not found at id " + genreId));
     }
 
     public List<Genre> saveMediaGenresFromGenreNames(List<String> genreNames) {

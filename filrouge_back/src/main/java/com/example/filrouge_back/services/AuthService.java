@@ -3,6 +3,7 @@ package com.example.filrouge_back.services;
 import com.example.filrouge_back.components.JwtTokenGenerator;
 import com.example.filrouge_back.entities.Role;
 import com.example.filrouge_back.entities.UserEntity;
+import com.example.filrouge_back.mappers.UserMapper;
 import com.example.filrouge_back.models.authdtos.AuthRequest;
 import com.example.filrouge_back.models.enums.RoleName;
 import com.example.filrouge_back.repositories.RoleRepository;
@@ -19,11 +20,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserEntityRepository userEntityRepository;
-    private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenGenerator tokenGenerator;
+
+    private final UserEntityRepository userEntityRepository;
+    private final RoleRepository roleRepository;
+    private final UserMapper userMapper;
 
     public String authenticate(AuthRequest authRequest) {
 
@@ -44,20 +47,14 @@ public class AuthService {
     }
 
     public String register(AuthRequest authRequest) {
-        // TODO créer l'utilisateur dans UserService ?
         if (!userEntityRepository.existsByMail(authRequest.getMail())) {
             Role role = roleRepository
                     .findByRoleName(RoleName.USER)
                     .orElseGet(() -> roleRepository.save(Role.builder().roleName(RoleName.USER).build()));
 
-            // TODO Passer par un mapper ?
-            UserEntity newUser = UserEntity.builder()
-                    .mail(authRequest.getMail())
-                    .password(passwordEncoder.encode(authRequest.getPassword()))
-                    .pseudo(authRequest.getPseudo())
-                    .birthDate(authRequest.getBirthDate())
-                    .role(role)
-                    .build();
+            UserEntity newUser = userMapper.authRequestToNewUserEntity(authRequest);
+            newUser.setPassword(passwordEncoder.encode(authRequest.getPassword()));
+            newUser.setRole(role);
 
             userEntityRepository.save(newUser);
         }

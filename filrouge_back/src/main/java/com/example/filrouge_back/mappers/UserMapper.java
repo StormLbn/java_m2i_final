@@ -2,6 +2,7 @@ package com.example.filrouge_back.mappers;
 
 
 import com.example.filrouge_back.entities.UserEntity;
+import com.example.filrouge_back.models.authdtos.AuthRequest;
 import com.example.filrouge_back.models.entitydtos.UserDisplayDTO;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
 import org.springframework.stereotype.Component;
@@ -11,19 +12,6 @@ import java.util.List;
 
 @Component
 public class UserMapper {
-
-    public UserEntity userEditDtoToUser(UserEditDTO userDto) {
-        if (userDto == null) {
-            return null;
-        } else {
-            return UserEntity.builder()
-                    .pseudo(userDto.getPseudo())
-                    .mail(userDto.getMail())
-                    .password(userDto.getPassword())
-                    .birthDate(userDto.getBirthDate())
-                    .build();
-        }
-    }
 
     public UserEditDTO userToUserEditDto(UserEntity user) {
         if (user == null) {
@@ -50,6 +38,18 @@ public class UserMapper {
                     .mail(user.getMail())
                     .birthDate(user.getBirthDate())
                     .genres(genres)
+                    .build();
+        }
+    }
+
+    public UserEntity authRequestToNewUserEntity(AuthRequest authRequest) {
+        if (authRequest == null) {
+            return null;
+        } else {
+            return UserEntity.builder()
+                    .mail(authRequest.getMail())
+                    .pseudo(authRequest.getPseudo())
+                    .birthDate(authRequest.getBirthDate())
                     .build();
         }
     }

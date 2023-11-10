@@ -31,6 +31,7 @@ public class MediaRestController {
     }
 
     // Méthode par défaut d'envoi des médias
+    // TODO modifier pour trier par IDs pour avoir plus d'aléatoire (sinon que des séries)
     @GetMapping("/all/date/{page}")
     public ResponseEntity<List<MediaSummaryDTO>> getMediaByReleaseDate(@PathVariable("page") int page) {
         List<MediaSummaryDTO> mediaList = mediaService.getMediaByReleaseDateDescending(page);

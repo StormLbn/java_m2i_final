@@ -19,10 +19,6 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    // TODO à retirer ? (utiliser l'id du DTO)
-    @Transient
-    private String betaseriesId;
-
     private String title;
 
     @Enumerated(EnumType.STRING)

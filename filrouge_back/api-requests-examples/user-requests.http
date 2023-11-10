@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "mail": "test@mail.fr",
-  "password": "aze123"
+  "password": "qsd456"
 }
 
 ### Récupération des information de l'utilisateur
@@ -29,6 +29,17 @@ Content-Type: application/json
 {
   "pseudo": "Test modifié"
 }
+
+### Modification du mot de passe de l'utilisateur ; nécessite le token JWT
+PATCH http://localhost:8080/api/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28/change-password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+
+{
+  "id": "407bbb4d-cb8d-4f74-b2cf-1f0160b67f28",
+  "password": "qsd456"
+}
+
 
 ### Modification des genres favoris de l'utilisateur
 PATCH http://localhost:8080/api/user/genres/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28

@@ -5,6 +5,7 @@ import com.example.filrouge_back.models.entitydtos.UserDisplayDTO;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
 import com.example.filrouge_back.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,16 @@ public class UserRestController {
         UserEditDTO updatedUserDto = userService.updateUser(userId, userDto);
 
         return ResponseEntity.ok(updatedUserDto);
+    }
+
+    @PatchMapping("/{userId}/change-password")
+    public ResponseEntity<String> changeUserPassword(@PathVariable UUID userId, @RequestBody UserEditDTO userDTO) {
+        if (userService.changeUserPassword(userId, userDTO)) {
+            return ResponseEntity.ok("Password changed successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
     }
 
     @PatchMapping("/genres/{userId}")

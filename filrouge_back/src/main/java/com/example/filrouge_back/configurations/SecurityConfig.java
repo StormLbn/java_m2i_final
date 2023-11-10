@@ -37,13 +37,13 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling((ex) -> ex.authenticationEntryPoint(customAuthenticationEntryPoint))
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(customAuthenticationEntryPoint))
                 .authorizeHttpRequests(requests -> requests
-                                .requestMatchers("/api/media/**", "/api/auth/**").permitAll()
-                                .requestMatchers("/api/user/**").permitAll()
-                                .requestMatchers("/api/user/edit/**").authenticated()
-                        // TODO gérer les routes bloquées
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/media/**", "/api/auth/**", "/api/genre/**").permitAll()
+                        .requestMatchers("/api/evaluation/media/**").permitAll()
+                        .requestMatchers("/api/evaluation/**").authenticated()
+                        .requestMatchers("/api/recommendations/**").authenticated()
+                        .requestMatchers("/api/user/**").authenticated()
                 );
 
         return http.build();

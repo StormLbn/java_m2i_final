@@ -21,6 +21,7 @@ public class UserService {
     private final UserEntityRepository userEntityRepository;
     private final UserMapper userMapper;
     private final GenreService genreService;
+    private final AuthService authService;
 
     public UserDisplayDTO getUserById(UUID userId) {
         return userMapper.userToUserDisplayDto(findUserById(userId));
@@ -41,6 +42,12 @@ public class UserService {
         userEntityRepository.save(user);
 
         return userMapper.userToUserEditDto(user);
+    }
+
+    // TODO gérer avec un exception
+    public boolean changeUserPassword(UUID userId, UserEditDTO userDTO) {
+        UserEntity user = findUserById(userId);
+        return authService.changeUserPassword(user, userDTO.getPassword());
     }
 
     public UserDisplayDTO editUserGenresList(UUID userId, GenreEditDTO newGenres) {

@@ -7,16 +7,15 @@ Content-Type: application/json
   "password": "qsd456"
 }
 
-### Récupération des recommandations pour un média
-GET http://localhost:8080/api/evaluation/media/91484412-17b8-4594-9a29-3ecdf008e628/0
-
 ### Récupération des commentaires faits par un utilisateur
 GET http://localhost:8080/api/evaluation/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28/0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
 
 
 ### Ajout d'un commentaire par un utilisateur connecté
 POST http://localhost:8080/api/evaluation/add
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
 
 {
   "userId": "407bbb4d-cb8d-4f74-b2cf-1f0160b67f28",
@@ -28,6 +27,7 @@ Content-Type: application/json
 ### Modification d'une recommandation
 PATCH http://localhost:8080/api/evaluation/d91ed146-8737-4984-9b09-54e6c002f5e2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
 
 {
   "comment": "Magnifique et émouvant"

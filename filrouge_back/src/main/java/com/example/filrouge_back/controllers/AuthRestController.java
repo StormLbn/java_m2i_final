@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthRestController {
 
-    private final AuthService authService;
+    // TODO ajouter un endpoint pour modifier le mot de passe
 
+    private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerHandler(@RequestBody AuthRequest authRequest) {

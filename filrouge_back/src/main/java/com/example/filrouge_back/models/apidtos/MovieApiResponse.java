@@ -14,6 +14,7 @@ public class MovieApiResponse {
     public static class Movie {
         private String id;
         private String tmdb_id;
+        private String title;
         private String poster;
         private LocalDate release_date;
         private int length;

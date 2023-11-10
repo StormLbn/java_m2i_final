@@ -1,5 +1,6 @@
 package com.example.filrouge_back.controllers;
 
+import com.example.filrouge_back.models.entitydtos.GenreEditDTO;
 import com.example.filrouge_back.models.entitydtos.UserDisplayDTO;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
 import com.example.filrouge_back.services.UserService;
@@ -30,4 +31,11 @@ public class UserRestController {
         return ResponseEntity.ok(updatedUserDto);
     }
 
+    @PatchMapping("/genres/{userId}")
+    public ResponseEntity<UserDisplayDTO> editUserGenresList(
+            @PathVariable UUID userId,
+            @RequestBody GenreEditDTO newGenres
+    ) {
+        return ResponseEntity.ok(userService.editUserGenresList(userId, newGenres));
+    }
 }

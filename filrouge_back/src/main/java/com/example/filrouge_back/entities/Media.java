@@ -4,7 +4,6 @@ import com.example.filrouge_back.models.enums.MediaType;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,10 +19,6 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    // TODO à retirer ? (utiliser l'id du DTO)
-    @Transient
-    private String betaseriesId;
-
     private String title;
 
     @Enumerated(EnumType.STRING)
@@ -34,7 +29,7 @@ public class Media {
 
     private String imageUrl;
 
-    private LocalDate releaseDate;
+    private Integer releaseYear;
 
     // Duration in minutes
     private int duration;

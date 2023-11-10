@@ -27,12 +27,4 @@ public class GenreRestController {
             return ResponseEntity.ok(genres);
         }
     }
-
-    @PatchMapping("/{userId}")
-    public ResponseEntity<UserDisplayDTO> editUserGenresList(
-            @PathVariable UUID userId,
-            @RequestBody GenreEditDTO newGenres
-            ) {
-        return ResponseEntity.ok(genreService.editUserGenresList(userId, newGenres));
-    }
 }

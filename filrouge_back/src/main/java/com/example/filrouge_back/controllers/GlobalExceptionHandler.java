@@ -1,6 +1,7 @@
 package com.example.filrouge_back.controllers;
 
-import com.example.filrouge_back.exceptions.NullOrMissingAttributeException;
+import com.example.filrouge_back.exceptions.DuplicateUserMailException;
+import com.example.filrouge_back.exceptions.RequiredElementMissingException;
 import com.example.filrouge_back.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
-    @ExceptionHandler(NullOrMissingAttributeException.class)
-    public ResponseEntity<String> handleNullOrMissingAttributeException(NullOrMissingAttributeException exception) {
+    @ExceptionHandler(RequiredElementMissingException.class)
+    public ResponseEntity<String> handleNullOrMissingAttributeException(RequiredElementMissingException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(DuplicateUserMailException.class)
+    public ResponseEntity<String> handleDuplicateUserMailException(DuplicateUserMailException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 }

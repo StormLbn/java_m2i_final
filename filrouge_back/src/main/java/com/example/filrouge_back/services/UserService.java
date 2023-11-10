@@ -2,7 +2,7 @@ package com.example.filrouge_back.services;
 
 
 import com.example.filrouge_back.entities.UserEntity;
-import com.example.filrouge_back.exceptions.NullOrMissingAttributeException;
+import com.example.filrouge_back.exceptions.RequiredElementMissingException;
 import com.example.filrouge_back.exceptions.ResourceNotFoundException;
 import com.example.filrouge_back.mappers.UserMapper;
 import com.example.filrouge_back.models.entitydtos.GenreEditDTO;
@@ -50,7 +50,7 @@ public class UserService {
             user.setGenres(genreService.getGenresById(newGenres.getGenreIdList()));
             return userMapper.userToUserDisplayDto(userEntityRepository.save(user));
         } else {
-            throw new NullOrMissingAttributeException("New genres Id list is null");
+            throw new RequiredElementMissingException("New genres Id list is null");
         }
     }
 

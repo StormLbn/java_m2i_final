@@ -5,8 +5,6 @@ import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.mappers.MediaMapper;
 import com.example.filrouge_back.models.entitydtos.MediaSummaryDTO;
-import com.example.filrouge_back.repositories.MediaRepository;
-import com.example.filrouge_back.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +14,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class RecommendationService {
 
-    // TODO recactor : doit utiliser les autres services !!!
-    private final MediaRepository mediaRepository;
     private final MediaMapper mediaMapper;
-
     private final UserService userService;
     private final MediaService mediaService;
 

@@ -47,7 +47,7 @@ public class PopulateDatabaseService {
 
             for (String id : idList) {
                 try {
-                    getMovies(id);
+                    getMovieFromApi(id);
                 } catch (Exception e) {
                     log.warn("An error occurred while adding the movie data at ID " + id + " :");
                     log.warn(e.getMessage());
@@ -60,7 +60,7 @@ public class PopulateDatabaseService {
             }
 
             try {
-                getShows();
+                getShowsFromApi();
             } catch (Exception e) {
                 log.warn("An error occurred while adding the show data :");
                 log.warn(e.getMessage());
@@ -71,20 +71,20 @@ public class PopulateDatabaseService {
         }
     }
 
-    public void getMovies(String id) throws ApiClientErrorException {
+    public void getMovieFromApi(String id) throws ApiClientErrorException {
 
         RestTemplate restTemplate = betaseriesBuilder.build();
         Media movie;
 
         try {
-            MovieApiResponse moviesResponse = restTemplate
+            MovieApiResponse movieResponse = restTemplate
                     .getForEntity("movies/movie?tmdb_id=" + id, MovieApiResponse.class).getBody();
 
-            if (moviesResponse != null) {
-                movie = mediaService.saveMovie(moviesResponse);
+            if (movieResponse != null) {
+                movie = mediaService.saveMovie(movieResponse);
 
                 ActorsApiResponse actorsResponse = restTemplate
-                        .getForEntity("movies/characters?id=" + movie.getBetaseriesId(), ActorsApiResponse.class).getBody();
+                        .getForEntity("movies/characters?id=" + movieResponse.getMovie().getId(), ActorsApiResponse.class).getBody();
 
                 if (actorsResponse != null) {
                     mediaService.saveActors(actorsResponse, movie);
@@ -96,7 +96,7 @@ public class PopulateDatabaseService {
         }
     }
 
-    public void getShows() throws ApiClientErrorException {
+    public void getShowsFromApi() throws ApiClientErrorException {
 
         RestTemplate restTemplate = betaseriesBuilder.build();
 

@@ -79,7 +79,6 @@ public class MediaMapper {
         } else {
             return Media.builder()
                     .type(MediaType.MOVIE)
-                    .betaseriesId(response.getMovie().getId())
                     .title(
                             response.getMovie().getOther_title() != null
                                     ? response.getMovie().getOther_title().getTitle()
@@ -100,7 +99,6 @@ public class MediaMapper {
         } else {
             return Media.builder()
                     .type(MediaType.SHOW)
-                    .betaseriesId(response.getId())
                     .title(response.getTitle())
                     .plot(response.getDescription())
                     .seasons(response.getSeasons())

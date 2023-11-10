@@ -19,7 +19,6 @@ public class AuthRestController {
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerHandler(@RequestBody AuthRequest authRequest) {
         String token = authService.register(authRequest);
-        // TODO gérer le cas où l'utilisateur existe déjà
         return ResponseEntity.ok(generateResponse(token));
     }
 

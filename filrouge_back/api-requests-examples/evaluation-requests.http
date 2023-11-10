@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "mail": "test@mail.fr",
-  "password": "aze123"
+  "password": "qsd456"
 }
 
 ### Récupération des commentaires faits par un utilisateur

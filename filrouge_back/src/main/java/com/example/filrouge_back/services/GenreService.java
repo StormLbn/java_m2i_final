@@ -45,4 +45,20 @@ public class GenreService {
         return genreRepository.findById(genreId)
                 .orElseThrow(() -> new ResourceNotFoundException("Genre not found at id " + genreId));
     }
+
+    public List<Genre> saveMediaGenresFromGenreNames(List<String> genreNames) {
+        List<Genre> mediaGenresList = new ArrayList<>();
+        for (String genreName : genreNames) {
+            Genre genre;
+            if (genreRepository.existsByGenreName(genreName)) {
+                genre = genreRepository.findByGenreName(genreName);
+            } else {
+                genre = genreRepository.save(
+                        Genre.builder().genreName(genreName).build()
+                );
+            }
+            mediaGenresList.add(genre);
+        }
+        return mediaGenresList;
+    }
 }

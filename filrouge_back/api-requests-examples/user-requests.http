@@ -3,7 +3,7 @@ POST http://localhost:8080/api/auth/register
 Content-Type: application/json
 
 {
-  "pseudo": "Storm",
+  "pseudo": "Endpoint test",
   "mail": "storm@mail.fr",
   "password": "aze123",
   "birthDate": "1994-03-26"
@@ -15,24 +15,38 @@ Content-Type: application/json
 
 {
   "mail": "test@mail.fr",
-  "password": "aze123"
+  "password": "qsd456"
 }
 
 ### Récupération des information de l'utilisateur
 GET http://localhost:8080/api/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
 
 
 ### Modifications des données utilisateur
 PATCH http://localhost:8080/api/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
 
 {
   "pseudo": "Test modifié"
 }
 
+### Modification du mot de passe de l'utilisateur
+PATCH http://localhost:8080/api/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28/change-password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+
+{
+  "id": "407bbb4d-cb8d-4f74-b2cf-1f0160b67f28",
+  "password": "qsd456"
+}
+
+
 ### Modification des genres favoris de l'utilisateur
 PATCH http://localhost:8080/api/user/genres/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
 
 {
   "userId": "407bbb4d-cb8d-4f74-b2cf-1f0160b67f28",
@@ -41,3 +55,4 @@ Content-Type: application/json
 
 ### Récupération des recommandations de films/séries pour un utilisateur
 GET http://localhost:8080/api/recommendations/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY

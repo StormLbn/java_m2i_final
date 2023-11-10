@@ -5,6 +5,7 @@ import com.example.filrouge_back.entities.Role;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.mappers.UserMapper;
 import com.example.filrouge_back.models.authdtos.AuthRequest;
+import com.example.filrouge_back.models.entitydtos.UserEditDTO;
 import com.example.filrouge_back.models.enums.RoleName;
 import com.example.filrouge_back.repositories.RoleRepository;
 import com.example.filrouge_back.repositories.UserEntityRepository;
@@ -15,6 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -60,5 +63,21 @@ public class AuthService {
         }
 
         return authenticate(authRequest);
+    }
+
+    public String getCurrentUserName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (String) authentication.getPrincipal();
+    }
+
+    public boolean changeUserPassword(UserEntity user, String password) {
+        String currentUserName = getCurrentUserName();
+        if (currentUserName.equals(user.getMail())) {
+            user.setPassword(passwordEncoder.encode(password));
+            userEntityRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

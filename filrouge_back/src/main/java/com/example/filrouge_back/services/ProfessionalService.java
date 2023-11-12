@@ -3,12 +3,10 @@ package com.example.filrouge_back.services;
 import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.MediaProfessional;
 import com.example.filrouge_back.entities.Professional;
-import com.example.filrouge_back.models.apidtos.ActorsApiResponse;
 import com.example.filrouge_back.models.apidtos.PersonApiResponse;
 import com.example.filrouge_back.models.enums.JobForMedia;
 import com.example.filrouge_back.repositories.MediaProfessionalRepository;
 import com.example.filrouge_back.repositories.ProfessionalRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

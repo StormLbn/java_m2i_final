@@ -68,6 +68,16 @@ public class MediaRestController {
         }
     }
 
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<MediaSummaryDTO>> searchMediaByTitle(@PathVariable String keyword) {
+        List<MediaSummaryDTO> mediaList = mediaService.searchMediaByTitle(keyword);
+        if (mediaList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(mediaList);
+        }
+    }
+
     @GetMapping("/{mediaId}")
     public MediaDetailDTO getMediaById(@PathVariable UUID mediaId) {
         return mediaService.getMediaById(mediaId);

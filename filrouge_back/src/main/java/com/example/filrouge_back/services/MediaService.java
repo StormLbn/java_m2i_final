@@ -71,6 +71,11 @@ public class MediaService {
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
+    public List<MediaSummaryDTO> searchMediaByTitle(String keyword) {
+        List<Media> mediaList = mediaRepository.searchByTitleContainsIgnoreCase(keyword);
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
+    }
+
     public List<Media> findMediaByGenresList(List<Genre> genres) {
         return new ArrayList<>(mediaRepository.findByGenresList(genres).stream().toList());
     }

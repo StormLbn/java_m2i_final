@@ -21,6 +21,8 @@ public interface MediaRepository extends JpaRepository<Media, UUID> {
     List<Media> findAllByOrderByIdDescReleaseYearDesc(Pageable pageable);
     List<Media> findAllByOrderById(Pageable pageable);
 
+    List<Media> searchByTitleContainsIgnoreCase(String search);
+
     @Query("SELECT m FROM Media m JOIN m.genres g WHERE g IN :genres")
     Set<Media> findByGenresList(@Param("genres") List<Genre> genres);
 }

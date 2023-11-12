@@ -21,3 +21,7 @@ GET http://localhost:8080/api/evaluation/media/91484412-17b8-4594-9a29-3ecdf008e
 
 ### Récupération de tous les genres de médias disponibles
 GET http://localhost:8080/api/genre/all
+
+### Recherche par titre
+GET http://localhost:8080/api/media/search/les
+

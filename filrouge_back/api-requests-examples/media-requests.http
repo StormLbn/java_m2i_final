@@ -1,5 +1,8 @@
-### Récupération de tous les médias
+### Récupération de tous les médias (non utilisé pour le front)
 GET http://localhost:8080/api/media/all
+
+### Récupération d'une page de médias avec pagination et tri "par défaut"
+GET http://localhost:8080/api/media/all/0
 
 ### Récupération d'une page de médias triés par date
 GET http://localhost:8080/api/media/all/date/0
@@ -18,6 +21,3 @@ GET http://localhost:8080/api/evaluation/media/91484412-17b8-4594-9a29-3ecdf008e
 
 ### Récupération de tous les genres de médias disponibles
 GET http://localhost:8080/api/genre/all
-
-
-### Récupération d'une page de médias avec le tri "par défaut" de l'API (à faire)

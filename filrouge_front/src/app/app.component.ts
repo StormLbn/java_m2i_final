@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { ApiRequestService } from './services/api-request.service';
-import { Router } from '@angular/router';
 import { AuthRequest } from './models/AuthRequest.model';
 
-const authRequest: AuthRequest = {
+let authRequest: AuthRequest = {
   mail: "storm@mail.fr",
   password: "aze123"
+}
+
+let newUser: AuthRequest = {
+  mail: "front-2@test.fr",
+  password: "aze123",
+  username: "Test inscription Front",
+  birthDate: new Date()
 }
 
 @Component({
@@ -17,16 +22,18 @@ const authRequest: AuthRequest = {
 export class AppComponent {
 
   constructor(
-    private authService: AuthService,
-    private api: ApiRequestService,
-    private router: Router
+    private authService: AuthService
   ) {}
 
   onClickLogin() {
-    this.api.logIn(authRequest).subscribe(response => this.authService.logIn(response));
+    this.authService.logIn(authRequest);
   }
-
-  onClickLogout() {
-    this.authService.logOut();
+  
+  onClickSignup() {
+    this.authService.signUp(newUser);
   }
+  
+    onClickLogout() {
+      this.authService.logOut();
+    }
 }

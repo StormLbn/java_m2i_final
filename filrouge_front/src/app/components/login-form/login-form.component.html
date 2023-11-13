@@ -1,13 +1,14 @@
-<form (ngSubmit)="onSubmitLogin($event)">
+<form (ngSubmit)="onSubmitLogin(loginForm)" #loginForm="ngForm">
     <fieldset>
         <legend>Connectez-vous pour accéder à toutes les fonctionnalités du site :</legend>
         <div>
             <label for="mail">Adresse mail :</label>
-            <input type="email" name="mail" id="mail" required [(ngModel)]="authRequest.mail">
+            <input type="email" name="mail" id="mail" email required [(ngModel)]="authRequest.mail">
+            <p *ngIf="loginForm.controls['mail']?.invalid && (loginForm.controls['mail']?.touched)">Adresse mail non valide.</p>
         </div>
         <div>
             <label for="password">Mot de passe :</label>
-            <input type="password" name="password" id="password" required [(ngModel)]="authRequest.password">
+            <input type="password" name="password" id="password" [(ngModel)]="authRequest.password">
         </div>
         <p *ngIf="errorMessage">{{ errorMessage }}</p>
         <button>Connexion</button>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthRequest } from 'src/app/models/AuthRequest.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,28 +25,30 @@ export class SignupFormComponent {
 
   constructor(
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnDestroy(): void {
     this.signUpSub?.unsubscribe();
   }
 
-  onSubmitSignup(event: Event) {
-    event.preventDefault();
-
-    if (this.authRequest.password === this.authRequest.confirm) {
-      this.signUpSub = this.authService.signUp(this.authRequest).subscribe({
-        next: (data) => {
-          this.authService.authenticate(data);
-        },
-        error: (err) => {
-          if (err.status === 422) {
-            this.errorMessage = "Vous avez déjà un compte.";
-          }
-        }
-      });
+  onSubmitSignup(form: NgForm) {
+    if (!form.valid) {
+      this.errorMessage = "Tous les champs sont requis"
     } else {
-      this.errorMessage = "Les mots de passe doivent être identiques"
+      if (this.authRequest.password === this.authRequest.confirm) {
+        this.signUpSub = this.authService.signUp(this.authRequest).subscribe({
+          next: (data) => {
+            this.authService.authenticate(data);
+          },
+          error: (err) => {
+            if (err.status === 422) {
+              this.errorMessage = "Vous avez déjà un compte.";
+            }
+          }
+        });
+      } else {
+        this.errorMessage = "Les mots de passe doivent être identiques"
+      }
     }
   }
 }

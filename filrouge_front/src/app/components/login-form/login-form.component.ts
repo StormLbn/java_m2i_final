@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthRequest } from 'src/app/models/AuthRequest.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -22,22 +23,26 @@ export class LoginFormComponent {
 
   constructor(
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnDestroy(): void {
     this.logInSub?.unsubscribe();
   }
 
-  onSubmitLogin(event: Event) {
-    this.authService.logIn(this.authRequest).subscribe({
-      next: response => {
-        this.authService.authenticate(response);
-      },
-      error: (err) => {
-        if (err.status === 401) {
-          this.errorMessage = "Identifiant ou mot de passe incorrect."
+  onSubmitLogin(form: NgForm) {
+    if (!form.valid) {
+      this.errorMessage = "Tous les champs sont requis";
+    } else {
+      this.authService.logIn(this.authRequest).subscribe({
+        next: response => {
+          this.authService.authenticate(response);
+        },
+        error: (err) => {
+          if (err.status === 401) {
+            this.errorMessage = "Identifiant ou mot de passe incorrect."
+          }
         }
-      }
-    });
+      });
+    }
   }
 }

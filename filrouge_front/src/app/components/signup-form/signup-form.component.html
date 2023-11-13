@@ -1,4 +1,4 @@
-<form (submit)="onSubmitSignup($event)" novalidate>
+<form (ngSubmit)="onSubmitSignup(signupForm)" #signupForm="ngForm">
     <fieldset>
         <legend>Pas encore de compte ? Créez-en un dès maintenant, c'est gratuit !</legend>
         <div>
@@ -11,7 +11,8 @@
         </div>
         <div>
             <label for="mail">Adresse mail :</label>
-            <input type="email" name="mail" id="mail" required [(ngModel)]="authRequest.mail">
+            <input type="email" name="mail" id="mail" required email [(ngModel)]="authRequest.mail">
+            <p *ngIf="signupForm.controls['mail']?.invalid && (signupForm.controls['mail']?.touched)">Adresse mail non valide.</p>
         </div>
         <div>
             <label for="password">Mot de passe :</label>

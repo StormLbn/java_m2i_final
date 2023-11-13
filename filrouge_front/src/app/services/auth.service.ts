@@ -24,10 +24,10 @@ export class AuthService {
   }
 
   logIn(authRequest: AuthRequest) {
-    this.http.post<AuthResponse>(baseUrl + "authenticate", {
+    return this.http.post<AuthResponse>(baseUrl + "authenticate", {
       mail: authRequest.mail,
       password: authRequest.password
-    }).subscribe(response => this.authenticate(response));
+    })
   }
 
   signUp(authRequest: AuthRequest) {
@@ -40,6 +40,8 @@ export class AuthService {
   }
 
   logOut() {
+    console.log(this.user$.getValue());
+    
     localStorage.removeItem("jwtToken");
     this.user$.next(null);
     this.router.navigate(['']);

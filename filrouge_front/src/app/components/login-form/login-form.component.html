@@ -3,11 +3,11 @@
         <legend>Connectez-vous pour accéder à toutes les fonctionnalités du site :</legend>
         <div>
             <label for="mail">Adresse mail :</label>
-            <input type="email" name="mail" id="mail">
+            <input type="email" name="mail" id="mail" [(ngModel)]="authRequest.mail">
         </div>
         <div>
             <label for="password">Mot de passe :</label>
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password" [(ngModel)]="authRequest.password">
         </div>
         <button>Connexion</button>
     </fieldset>

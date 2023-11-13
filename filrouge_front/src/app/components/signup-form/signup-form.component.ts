@@ -5,7 +5,7 @@ import { AuthRequest } from 'src/app/models/AuthRequest.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 let newUser: AuthRequest = {
-  mail: "front-1@test.fr",
+  mail: "front-2@test.fr",
   password: "aze123",
   username: "Test inscription Front",
   birthDate: new Date()
@@ -34,7 +34,7 @@ export class SignupFormComponent {
 
     this.signUpSub = this.authService.signUp(newUser).subscribe({
       next: (data) => this.authService.authenticate(data),
-      error: (err) => console.log("Erreur : " + err),
+      error: (err) => {console.log("Erreur : "); console.log(err)},
       complete: () => {
         this.router.navigate(['']);
         console.log("Utilisateur enregistré");

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,8 +31,16 @@ public class MediaRestController {
         }
     }
 
-    // Méthode par défaut d'envoi des médias
-    // TODO modifier pour trier par IDs pour avoir plus d'aléatoire (sinon que des séries)
+    @GetMapping("/all/{page}")
+    public ResponseEntity<List<MediaSummaryDTO>> getMediaByDefaultSorting(@PathVariable("page") int page) {
+        List<MediaSummaryDTO> mediaList = mediaService.getAllMediaByDefaultSorting(page);
+        if (mediaList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(mediaList);
+        }
+    }
+
     @GetMapping("/all/date/{page}")
     public ResponseEntity<List<MediaSummaryDTO>> getMediaByReleaseDate(@PathVariable("page") int page) {
         List<MediaSummaryDTO> mediaList = mediaService.getMediaByReleaseDateDescending(page);
@@ -61,6 +70,16 @@ public class MediaRestController {
             @PathVariable("page") int page
     ) {
         List<MediaSummaryDTO> mediaList = mediaService.getMediaByType(type, page);
+        if (mediaList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(mediaList);
+        }
+    }
+
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<MediaSummaryDTO>> searchMediaByTitle(@PathVariable String keyword) {
+        List<MediaSummaryDTO> mediaList = mediaService.searchMediaByTitle(keyword);
         if (mediaList.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {

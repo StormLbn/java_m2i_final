@@ -38,6 +38,11 @@ public class MediaService {
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 
+    public List<MediaSummaryDTO> getAllMediaByDefaultSorting(int page) {
+        List<Media> mediaList = mediaRepository.findAllByOrderById(PageRequest.of(page, 24));
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
+    }
+
     public MediaDetailDTO getMediaById(UUID mediaId) {
         Optional<Media> optionalMedia = mediaRepository.findById(mediaId);
 
@@ -63,6 +68,11 @@ public class MediaService {
     public List<MediaSummaryDTO> getMediaByReleaseDateDescending(int page) {
         List<Media> mediaList = mediaRepository.findAllByOrderByIdDescReleaseYearDesc(
                 PageRequest.of(page, 24));
+        return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
+    }
+
+    public List<MediaSummaryDTO> searchMediaByTitle(String keyword) {
+        List<Media> mediaList = mediaRepository.searchByTitleContainsIgnoreCase(keyword);
         return mediaMapper.mediaListToMediaSummaryDtoList(mediaList);
     }
 

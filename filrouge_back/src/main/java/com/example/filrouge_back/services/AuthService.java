@@ -3,6 +3,7 @@ package com.example.filrouge_back.services;
 import com.example.filrouge_back.components.JwtTokenGenerator;
 import com.example.filrouge_back.entities.Role;
 import com.example.filrouge_back.entities.UserEntity;
+import com.example.filrouge_back.exceptions.DuplicateUserMailException;
 import com.example.filrouge_back.mappers.UserMapper;
 import com.example.filrouge_back.models.authdtos.AuthRequest;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
@@ -60,6 +61,8 @@ public class AuthService {
             newUser.setRole(role);
 
             userEntityRepository.save(newUser);
+        } else {
+            throw new DuplicateUserMailException("You already have an account");
         }
 
         return authenticate(authRequest);

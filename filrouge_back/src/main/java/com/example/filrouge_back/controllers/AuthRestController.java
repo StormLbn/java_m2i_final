@@ -12,14 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthRestController {
 
-    // TODO ajouter un endpoint pour modifier le mot de passe
-
     private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerHandler(@RequestBody AuthRequest authRequest) {
         String token = authService.register(authRequest);
-        // TODO gérer le cas où l'utilisateur existe déjà
         return ResponseEntity.ok(generateResponse(token));
     }
 

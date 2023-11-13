@@ -1,0 +1,29 @@
+<!-- media-detail.component.html -->
+
+<div *ngIf="mediaDetail" class="media-detail-container">
+  <h2>{{ mediaDetail.title }}</h2>
+  <p>Type: {{ mediaDetail.type }}</p>
+  <p>Plot: {{ mediaDetail.plot }}</p>
+  <p>Release Year: {{ mediaDetail.releaseYear }}</p>
+  <p>Duration: {{ mediaDetail.duration }} minutes</p>
+  <p>Seasons: {{ mediaDetail.seasons }}</p>
+  <p>In Production: {{ mediaDetail.inProduction ? 'Yes' : 'No' }}</p>
+  <p>Average Rating: {{ mediaDetail.avgRating | number: '1.1-1' }}</p>
+  <p>Genres: {{ mediaDetail.genres.join(', ') }}</p>
+
+  <h3>Actors:</h3>
+  <ul>
+    <li *ngFor="let actor of mediaDetail.actors">
+      {{ actor.name }} - <img src="{{ actor.imageUrl }}" alt="{{ actor.name }}">
+    </li>
+  </ul>
+
+  <h3>Producers:</h3>
+  <ul>
+    <li *ngFor="let producer of mediaDetail.producers">
+      {{ producer.name }} - <img src="{{ producer.imageUrl }}" alt="{{ producer.name }}">
+    </li>
+  </ul>
+
+  <!-- Add similar sections for writers and directors as needed -->
+</div>

@@ -1,0 +1,36 @@
+:host{
+  background-color: yellow;
+}
+
+.media-detail-container {
+  max-width: 800px; /* Adjust the maximum width as needed */
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff; /* White background */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+.media-detail-container h2 {
+  color: #333333; /* Dark text color */
+}
+
+.media-detail-container p {
+  margin: 10px 0;
+}
+
+.media-detail-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.media-detail-container li {
+  margin-bottom: 5px;
+}
+.media-detail-container ul li img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Add more styling as needed */

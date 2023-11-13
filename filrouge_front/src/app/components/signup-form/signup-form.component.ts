@@ -4,19 +4,20 @@ import { Subscription } from 'rxjs';
 import { AuthRequest } from 'src/app/models/AuthRequest.model';
 import { AuthService } from 'src/app/services/auth.service';
 
-let newUser: AuthRequest = {
-  mail: "front-2@test.fr",
-  password: "aze123",
-  username: "Test inscription Front",
-  birthDate: new Date()
-}
-
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
   styleUrls: ['./signup-form.component.css']
 })
 export class SignupFormComponent {
+
+  authRequest: AuthRequest = {
+    mail: "front-2@test.fr",
+    password: "aze123",
+    confirm: "",
+    username: "Test inscription Front",
+    birthDate: new Date()
+  }
 
   signUpSub: Subscription | undefined;
 
@@ -32,7 +33,7 @@ export class SignupFormComponent {
   onSubmitSignup(event: Event) {
     event.preventDefault();
 
-    this.signUpSub = this.authService.signUp(newUser).subscribe({
+    this.signUpSub = this.authService.signUp(this.authRequest).subscribe({
       next: (data) => this.authService.authenticate(data),
       error: (err) => {console.log("Erreur : "); console.log(err)},
       complete: () => {

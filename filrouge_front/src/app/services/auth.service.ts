@@ -40,8 +40,6 @@ export class AuthService {
   }
 
   logOut() {
-    console.log(this.user$.getValue());
-    
     localStorage.removeItem("jwtToken");
     this.user$.next(null);
     this.router.navigate(['']);
@@ -50,5 +48,6 @@ export class AuthService {
   authenticate(response: AuthResponse) {
     localStorage.setItem("jwtToken", response.token);
     this.user$.next(response.userMail);
+    this.router.navigate(['']);
   }
 }

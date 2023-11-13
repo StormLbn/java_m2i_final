@@ -1,26 +1,27 @@
-<form (submit)="onSubmitSignup($event)">
+<form (submit)="onSubmitSignup($event)" novalidate>
     <fieldset>
         <legend>Pas encore de compte ? Créez-en un dès maintenant, c'est gratuit !</legend>
         <div>
             <label for="username">Nom d'utilisateur :</label>
-            <input type="text" name="username" id="username" [(ngModel)]="authRequest.username">
+            <input type="text" name="username" id="username" required [(ngModel)]="authRequest.username">
         </div>
         <div>
             <label for="birthDate">Date de naissance :</label>
-            <input type="date" name="birthDate" id="birthDate" [(ngModel)]="authRequest.birthDate">
+            <input type="date" name="birthDate" id="birthDate" required [(ngModel)]="authRequest.birthDate">
         </div>
         <div>
             <label for="mail">Adresse mail :</label>
-            <input type="email" name="mail" id="mail" [(ngModel)]="authRequest.mail">
+            <input type="email" name="mail" id="mail" required [(ngModel)]="authRequest.mail">
         </div>
         <div>
             <label for="password">Mot de passe :</label>
-            <input type="password" name="password" id="password" [(ngModel)]="authRequest.password">
+            <input type="password" name="password" id="password" required [(ngModel)]="authRequest.password">
         </div>
         <div>
             <label for="confirm">Confirmer le mot de passe :</label>
-            <input type="password" name="confirm" id="confirm" [(ngModel)]="authRequest.confirm">
+            <input type="password" name="confirm" id="confirm" required [(ngModel)]="authRequest.confirm">
         </div>
+        <p *ngIf="errorMessage">{{ errorMessage }}</p>
         <button>Créer un compte</button>
     </fieldset>
 </form>

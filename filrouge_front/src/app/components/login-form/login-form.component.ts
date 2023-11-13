@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthRequest } from 'src/app/models/AuthRequest.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { Subscription } from 'rxjs';
 
-let authRequest: AuthRequest = {
-  mail: "storm@mail.fr",
-  password: "aze123"
-}
 
 @Component({
   selector: 'app-login-form',
@@ -20,11 +16,12 @@ export class LoginFormComponent {
     password: ""
   };
 
-  logInSub: PushSubscription | undefined;
+  errorMessage = "";
+
+  logInSub: Subscription | undefined;
 
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
 
   ngOnDestroy(): void {
@@ -32,12 +29,15 @@ export class LoginFormComponent {
   }
 
   onSubmitLogin(event: Event) {
-    event.preventDefault();
-
     this.authService.logIn(this.authRequest).subscribe({
-      next: response => this.authService.authenticate(response),
-      error: (err) => console.log(err),
-      complete: () => this.router.navigate([''])
+      next: response => {
+        this.authService.authenticate(response);
+      },
+      error: (err) => {
+        if (err.status === 401) {
+          this.errorMessage = "Identifiant ou mot de passe incorrect."
+        }
+      }
     });
   }
 }

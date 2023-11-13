@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthRequest } from 'src/app/models/AuthRequest.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,18 +11,19 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignupFormComponent {
 
   authRequest: AuthRequest = {
-    mail: "front-2@test.fr",
-    password: "aze123",
+    mail: "",
+    password: "",
     confirm: "",
-    username: "Test inscription Front",
+    username: "",
     birthDate: new Date()
   }
+
+  errorMessage: string = "";
 
   signUpSub: Subscription | undefined;
 
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {}
 
   ngOnDestroy(): void {
@@ -33,14 +33,19 @@ export class SignupFormComponent {
   onSubmitSignup(event: Event) {
     event.preventDefault();
 
-    this.signUpSub = this.authService.signUp(this.authRequest).subscribe({
-      next: (data) => this.authService.authenticate(data),
-      error: (err) => {console.log("Erreur : "); console.log(err)},
-      complete: () => {
-        this.router.navigate(['']);
-        console.log("Utilisateur enregistré");
-        
-      }
-    });
+    if (this.authRequest.password === this.authRequest.confirm) {
+      this.signUpSub = this.authService.signUp(this.authRequest).subscribe({
+        next: (data) => {
+          this.authService.authenticate(data);
+        },
+        error: (err) => {
+          if (err.status === 422) {
+            this.errorMessage = "Vous avez déjà un compte.";
+          }
+        }
+      });
+    } else {
+      this.errorMessage = "Les mots de passe doivent être identiques"
+    }
   }
 }

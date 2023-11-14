@@ -10,6 +10,7 @@ import { MediaListComponent } from './medias/components/media-list/media-list.co
 import {HttpClientModule} from "@angular/common/http";
 import { MediaDetailComponent } from './medias/components/media-detail/media-detail.component';
 import { MediaDetailPageComponent } from './medias/pages/media-detail-page/media-detail-page.component';
+import { ProfessionalListComponent } from './medias/components/professional-list/professional-list.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +19,15 @@ import { MediaDetailPageComponent } from './medias/pages/media-detail-page/media
     MediaListComponent,
     MediaDetailComponent,
     MediaDetailPageComponent,
+    ProfessionalListComponent,
+    ProfessionalListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
       HttpClientModule
   ],
-  providers: [[MediaService]],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

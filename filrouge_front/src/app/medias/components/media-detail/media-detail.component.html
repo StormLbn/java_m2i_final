@@ -11,19 +11,11 @@
   <p>Average Rating: {{ mediaDetail.avgRating | number: '1.1-1' }}</p>
   <p>Genres: {{ mediaDetail.genres.join(', ') }}</p>
 
-  <h3>Actors:</h3>
-  <ul>
-    <li *ngFor="let actor of mediaDetail.actors">
-      {{ actor.name }} - <img src="{{ actor.imageUrl }}" alt="{{ actor.name }}">
-    </li>
-  </ul>
+  <h3>Acteurs:</h3>
+  <app-professional-list [professionals]="mediaDetail.actors"></app-professional-list>
 
-  <h3>Producers:</h3>
-  <ul>
-    <li *ngFor="let producer of mediaDetail.producers">
-      {{ producer.name }} - <img src="{{ producer.imageUrl }}" alt="{{ producer.name }}">
-    </li>
-  </ul>
+  <h3>Producteurs:</h3>
+  <app-professional-list [professionals]="mediaDetail.producers"></app-professional-list>
 
   <!-- Add similar sections for writers and directors as needed -->
 </div>

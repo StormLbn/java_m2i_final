@@ -3,16 +3,16 @@
 }
 
 .media-detail-container {
-  max-width: 800px; /* Adjust the maximum width as needed */
+  max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #ffffff; /* White background */
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .media-detail-container h2 {
-  color: #333333; /* Dark text color */
+  color: #333333;
 }
 
 .media-detail-container p {
@@ -33,4 +33,4 @@
   display: block;
 }
 
-/* Add more styling as needed */
+

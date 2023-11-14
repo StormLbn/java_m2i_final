@@ -1,5 +1,3 @@
-// media-detail.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -16,4 +14,6 @@ export class MediaDetailService {
     const url = `${this.baseUrl}/${mediaId}`;
     return this.http.get<any>(url);
   }
+
+
 }

@@ -1,6 +1,7 @@
-<form (ngSubmit)="onSubmitSignup(signupForm)" #signupForm="ngForm">
-    <fieldset>
-        <legend>Pas encore de compte ? Créez-en un dès maintenant, c'est gratuit !</legend>
+<div class="form-container">
+    <p class="form-title">Pas encore de compte ? Créez-en un dès maintenant, c'est gratuit !</p>
+    <hr>
+    <form (ngSubmit)="onSubmitSignup(signupForm)" #signupForm="ngForm">
         <div>
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" name="username" id="username" required [(ngModel)]="authRequest.username">
@@ -12,7 +13,7 @@
         <div>
             <label for="mail">Adresse mail :</label>
             <input type="email" name="mail" id="mail" required email [(ngModel)]="authRequest.mail">
-            <p *ngIf="signupForm.controls['mail']?.invalid && (signupForm.controls['mail']?.touched)">Adresse mail non valide.</p>
+            <p class="field-error" *ngIf="signupForm.controls['mail']?.invalid && (signupForm.controls['mail']?.touched)">Adresse mail non valide.</p>
         </div>
         <div>
             <label for="password">Mot de passe :</label>
@@ -22,7 +23,9 @@
             <label for="confirm">Confirmer le mot de passe :</label>
             <input type="password" name="confirm" id="confirm" required [(ngModel)]="authRequest.confirm">
         </div>
-        <p *ngIf="errorMessage">{{ errorMessage }}</p>
-        <button>Créer un compte</button>
-    </fieldset>
-</form>
+        <p class="form-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <div class="form-button">
+            <button>Créer un compte</button>
+        </div>
+    </form>
+</div>

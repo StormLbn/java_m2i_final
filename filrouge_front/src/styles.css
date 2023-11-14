@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Default form elements style */
+
+/* Container */
+.form-container {
+    min-width: 400px;
+    max-width: 100%;
+    /* margin: 20px; */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    >hr {
+        margin: 10px 0;
+    }
+}
+
+/* Form elements container */
+form>div {
+    margin: 15px 0;
+}
+
+/* Form title */
+.form-title {
+    text-align: center;
+    font-size: 20px;
+}
+
+form {
+    /* Input */
+    input,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #807e7b;
+    }
+
+    /* Label */
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+    
+    /* Button */
+    button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #c53434;
+        color: #fff;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    
+    button:hover {
+        background-color: #7d2020;
+    }
+}
+
+.form-button {
+    text-align: center;
+}
+
+/* Error messages */
+.field-error {
+    color: #ff0000;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-error {
+    color: #ff0000;
+    /* font-size: 14px; */
+    margin: 5px;
+}

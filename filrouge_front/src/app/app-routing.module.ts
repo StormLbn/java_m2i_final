@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationPageComponent } from './pages/authentication-page/authentication-page.component';
+import { AuthenticationPageComponent } from './auth/pages/authentication-page/authentication-page.component';
 import { MediaHomePageComponent } from './medias/pages/media-home-page/media-home-page.component';
 
 const routes: Routes = [

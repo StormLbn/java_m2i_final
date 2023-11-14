@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AuthRequest } from 'src/app/models/AuthRequest.model';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthRequest } from 'src/app/auth/models/AuthRequest.model';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-signup-form',

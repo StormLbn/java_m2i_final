@@ -1,0 +1,17 @@
+:host {
+    margin: 10px;
+    background-color: rgb(255, 62, 62);
+    height: 50px;
+    width: 100%;
+
+}
+
+div {
+    display: flex;
+    gap: 10px;
+}
+
+p {
+    /* background-color: antiquewhite; */
+    margin: 5px;
+}

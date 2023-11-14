@@ -11,6 +11,7 @@ import { SignupFormComponent } from './auth/components/signup-form/signup-form.c
 import { MediaHomePageComponent } from './medias/pages/media-home-page/media-home-page.component';
 import { MediaService } from './medias/services/media.service';
 import { MediaListComponent } from './medias/components/media-list/media-list.component';
+import { EvaluationComponent } from './evaluations/components/evaluation/evaluation.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MediaListComponent } from './medias/components/media-list/media-list.co
     AppComponent,
     AuthenticationPageComponent,
     LoginFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    EvaluationComponent,
   ],
   imports: [
     BrowserModule,

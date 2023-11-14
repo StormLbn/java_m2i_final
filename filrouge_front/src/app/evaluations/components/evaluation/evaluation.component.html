@@ -1,0 +1,9 @@
+<div>
+    <h3 *ngIf="onMedia; else elseOnMedia">{{ evaluation.userId }}</h3>
+    <h3>{{ evaluation.rating }}/5</h3>
+</div>
+<p>{{ evaluation.comment }}</p>
+
+<ng-template #elseOnMedia>
+    <h3>{{ evaluation.mediaId }}</h3>
+</ng-template>

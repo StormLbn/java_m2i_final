@@ -16,24 +16,17 @@ public class AuthRestController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerHandler(@RequestBody AuthRequest authRequest) {
-        String token = authService.register(authRequest);
-        return ResponseEntity.ok(generateResponse(token));
+        return ResponseEntity.ok(authService.register(authRequest));
     }
 
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthResponse> authenticationHandler(@RequestBody AuthRequest authRequest) {
-        String token = authService.authenticate(authRequest);
-
-        return ResponseEntity.ok(generateResponse(token));
+        return ResponseEntity.ok(authService.authenticate(authRequest));
     }
 
     @PostMapping("/sign-out")
     public void signOutHandler() {
         authService.signOut();
-    }
-
-    private AuthResponse generateResponse(String token) {
-        return AuthResponse.builder().token(token).build();
     }
 }

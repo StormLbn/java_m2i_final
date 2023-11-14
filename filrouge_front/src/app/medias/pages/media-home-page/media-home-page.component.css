@@ -1,5 +1,4 @@
 
-body {
-background-color: #dcdcdc;/* Light gray color */
-    margin: 0; /* Remove default body margin */
+:host{
+  background-color: #dcdcdc;
 }

@@ -1,0 +1,24 @@
+/* professional-list.component.css */
+
+.professional-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.professional-item {
+  margin: 10px;
+  text-align: center;
+}
+
+.professional-item img {
+  width: 80px;
+  height: 100px;
+  border-radius: 80%;
+  margin-bottom: 5px;
+}
+
+.professional-item p {
+  margin: 0;
+  font-size: 12px;
+}

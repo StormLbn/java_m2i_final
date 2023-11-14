@@ -7,6 +7,7 @@
 html,
 body {
     font-family: Arial, sans-serif;
+    background-color: #dcdcdc;
 }
 
 /* Default form elements style */
@@ -61,7 +62,7 @@ form {
         margin-bottom: 5px;
         display: block;
     }
-    
+
     /* Button */
     & button {
         padding: 10px 20px;
@@ -73,7 +74,7 @@ form {
         cursor: pointer;
         transition: background-color 0.2s ease;
     }
-    
+
     & button:hover {
         background-color: #7d2020;
     }

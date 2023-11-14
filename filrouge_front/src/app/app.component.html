@@ -1,4 +1,28 @@
-<a routerLink="/auth">Connexion/inscription</a>
-<button (click)="onClickLogout()">Logout</button>
+<div class="header">
+  <div class="logo">
+    <h1>Pop Corn Mania</h1>
+  </div>
+  <nav>
+    <ul>
+      <li><a routerLink="/films">Films</a></li>
+      <li><a routerLink="/series">Séries</a></li>
+    </ul>
+
+  <div class="search">
+    <input type="text" placeholder="Recherche">
+  </div>
+  <div class="languages">
+    <select>
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+  <div class="buttons">
+    <button class="black-button" routerLink="/auth">Connexion</button>
+    <button class="black-button" (click)="onClickLogout()">Déconnexion</button>
+    <button class="black-button">Profil</button>
+  </div>
+  </nav>
+</div>
 
 <router-outlet></router-outlet>

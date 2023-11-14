@@ -1,25 +1,127 @@
-<h3>Genres favoris</h3>
 <form>
+    <div>
+        <h3>Genres favoris :</h3>
+        <div *ngIf="true; else elseButtons">
+            <button type="button">Modifier</button>
+        </div>
+    </div>
     <ul>
         <li>
-            <input type="checkbox" id="Action" name="Action" value="Action" />
+            <input type="hidden" id="Action" name="Action" value="Action" />
             <label for="Action">Action</label>
         </li>
         <li>
-            <input type="checkbox" id="Aventure" name="Aventure" value="Aventure" />
+            <input type="hidden" id="Aventure" name="Aventure" value="Aventure" />
             <label for="Aventure">Aventure</label>
         </li>
         <li>
-            <input type="checkbox" id="Drame" name="Drame" value="Drame" />
+            <input type="hidden" id="Drame" name="Drame" value="Drame" />
             <label for="Drame">Drame</label>
         </li>
         <li>
-            <input type="checkbox" id="Thriller" name="Thriller" value="Thriller" />
+            <input type="hidden" id="Thriller" name="Thriller" value="Thriller" />
             <label for="Thriller">Thriller</label>
         </li>
+        
+        <li>
+            <input type="hidden" id="Action" name="Action" value="Action" />
+            <label for="Action">Action</label>
+        </li>
+        <li>
+            <input type="hidden" id="Aventure" name="Aventure" value="Aventure" />
+            <label for="Aventure">Aventure</label>
+        </li>
+        <li>
+            <input type="hidden" id="Drame" name="Drame" value="Drame" />
+            <label for="Drame">Drame</label>
+        </li>
+        <li>
+            <input type="hidden" id="Thriller" name="Thriller" value="Thriller" />
+            <label for="Thriller">Thriller</label>
+        </li>
+        
+        <li>
+            <input type="hidden" id="Action" name="Action" value="Action" />
+            <label for="Action">Action</label>
+        </li>
+        <li>
+            <input type="hidden" id="Aventure" name="Aventure" value="Aventure" />
+            <label for="Aventure">Aventure</label>
+        </li>
+        <li>
+            <input type="hidden" id="Drame" name="Drame" value="Drame" />
+            <label for="Drame">Drame</label>
+        </li>
+        <li>
+            <input type="hidden" id="Thriller" name="Thriller" value="Thriller" />
+            <label for="Thriller">Thriller</label>
+        </li>
+        
+        <li>
+            <input type="hidden" id="Action" name="Action" value="Action" />
+            <label for="Action">Action</label>
+        </li>
+        <li>
+            <input type="hidden" id="Aventure" name="Aventure" value="Aventure" />
+            <label for="Aventure">Aventure</label>
+        </li>
+        <li>
+            <input type="hidden" id="Aventure" name="Aventure" value="Aventure" />
+            <label for="Aventure">Aventure</label>
+        </li>
+        <li>
+            <input type="hidden" id="Drame" name="Drame" value="Drame" />
+            <label for="Drame">Drame</label>
+        </li>
+        <li>
+            <input type="hidden" id="Drame" name="Drame" value="Drame" />
+            <label for="Drame">Drame</label>
+        </li>
+        <li>
+            <input type="hidden" id="Thriller" name="Thriller" value="Thriller" />
+            <label for="Thriller">Thriller</label>
+        </li>
+        
+        <li>
+            <input type="hidden" id="Action" name="Action" value="Action" />
+            <label for="Action">Action</label>
+        </li>
+        <li>
+            <input type="hidden" id="Thriller" name="Thriller" value="Thriller" />
+            <label for="Thriller">Thriller</label>
+        </li>
+        
+        <li>
+            <input type="hidden" id="Action" name="Action" value="Action" />
+            <label for="Action">Action</label>
+        </li>
+        <li>
+            <input type="hidden" id="Thriller" name="Thriller" value="Thriller" />
+            <label for="Thriller">Thriller</label>
+        </li>
+        <li>
+            <input type="hidden" id="Action" name="Action" value="Action" />
+            <label for="Action">Action</label>
+        </li>
+        <li>
+            <input type="hidden" id="Aventure" name="Aventure" value="Aventure" />
+            <label for="Aventure">Aventure</label>
+        </li>
+        <li>
+            <input type="hidden" id="Aventure" name="Aventure" value="Aventure" />
+            <label for="Aventure">Aventure</label>
+        </li>
+        <li>
+            <input type="hidden" id="Drame" name="Drame" value="Drame" />
+            <label for="Drame">Drame</label>
+        </li>
+
     </ul>
-    <div class="form-button">
-        <button>Modifier</button>
-        <button>Valider</button>
-    </div>
 </form>
+
+<ng-template #elseButtons>
+    <div>
+        <button>Valider</button>
+        <button class="cancel-button" type="button">Annuler</button>
+    </div>
+</ng-template>

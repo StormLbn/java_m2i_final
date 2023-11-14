@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/services/auth.service';
 import { EvaluationService } from './evaluations/services/evaluation.service';
-import { Evaluation } from './evaluations/components/models/Evaluation.model';
+import { Evaluation } from './evaluations/models/Evaluation.model';
 
 @Component({
   selector: 'app-root',

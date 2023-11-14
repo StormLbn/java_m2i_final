@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Evaluation } from '../models/Evaluation.model';
+import { Evaluation } from '../../models/Evaluation.model';
 
 @Component({
   selector: 'app-evaluation',

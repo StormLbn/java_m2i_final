@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Evaluation } from 'src/app/evaluations/components/models/Evaluation.model';
+import { Evaluation } from 'src/app/evaluations/models/Evaluation.model';
 import { EvaluationService } from 'src/app/evaluations/services/evaluation.service';
 
 @Component({

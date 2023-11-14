@@ -59,6 +59,11 @@ form {
         border-color: #807e7b;
     }
 
+    /* Label */
+    & label {
+        display: block;
+    }
+
     /* Button */
     & button {
         padding: 10px 20px;
@@ -74,11 +79,22 @@ form {
     & button:hover {
         background-color: #7d2020;
     }
+
+    & .cancel-button {
+        background-color: #737373;
+    }
+    
+    & .cancel-button:hover {
+        background-color: #4a4a4a;
+    }
 }
 
 .form-button {
     text-align: center;
 }
+
+
+
 
 /* Error messages */
 .field-error {

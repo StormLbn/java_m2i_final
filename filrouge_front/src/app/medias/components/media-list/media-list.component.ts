@@ -14,13 +14,17 @@ export class MediaListComponent implements OnInit {
     mediaList: MediaSummaryDTO[] = [];
 
 
+
     constructor(private mediaService: MediaService) {}
 
     ngOnInit(): void {
-        this.mediaService.getAllMedia().subscribe((data: MediaSummaryDTO[]) => {
+        this.mediaService.mediaList$.subscribe((data: MediaSummaryDTO[]) => {
             this.mediaList = data;
+
         });
     }
+
+
 
   protected readonly mediaSummaryDtoModels = mediaSummaryDtoModels;
 }

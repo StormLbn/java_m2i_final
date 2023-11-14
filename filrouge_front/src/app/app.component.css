@@ -36,11 +36,10 @@ nav ul li a {
   border-radius: 10px;
 }
 
-.search,
-.languages,
-.buttons {
-  display: flex;
-  align-items: center;
+.select-genres {
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
 .search input {

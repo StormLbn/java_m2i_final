@@ -30,7 +30,7 @@ export class MediaDetailComponent implements OnInit {
   fetchMediaDetail(id: string): void {
     this.mediaDetailService.getMediaDetail(id).subscribe((data) => {
       this.mediaDetail = data;
-
+  console.log(data);
     });
   }
 }

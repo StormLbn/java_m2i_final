@@ -11,6 +11,9 @@ export class MediaSummaryDTO {
         public avgRating: number | null,
         public genres: string[]
     ) {}
+
+
 }
+
 
 export default MediaSummaryDTO

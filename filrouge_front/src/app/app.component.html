@@ -2,21 +2,27 @@
   <div class="logo">
     <h1>Pop Corn Mania</h1>
   </div>
-  <nav>
+  <nav class="black-button" >
     <ul>
-      <li><a routerLink="/films">Films</a></li>
-      <li><a routerLink="/series">Séries</a></li>
+      <li ><a routerLink="/films">Films</a></li>
+      <li ><a routerLink="/series">Séries</a></li>
     </ul>
 
   <div class="search">
     <input type="text" placeholder="Recherche">
   </div>
-  <div class="languages">
-    <select>
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-    </select>
-  </div>
+<!--    <div class="genres">-->
+<!--      <select>-->
+<!--        <option value="">Genres</option>-->
+<!--        <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.genreName }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+    <div class="genres">
+      <select class="select-genres" [(ngModel)]="selectedGenreName" (change)="onGenreChange()">
+        <option value=""></option>
+        <option *ngFor="let genre of genres" [value]="genre.genreName">{{ genre.genreName }}</option>
+      </select>
+    </div>
   <div class="buttons">
     <button class="black-button" routerLink="/auth">Connexion</button>
     <button class="black-button" (click)="onClickLogout()">Déconnexion</button>

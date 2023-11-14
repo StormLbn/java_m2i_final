@@ -10,6 +10,25 @@
   align-items: flex-end;
 }
 
+/* Ajoutez ce style à votre fichier CSS */
+
+
+.header .logo h1 {
+  font-style: italic;
+  color: #ffff00;
+  position: relative;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+
 nav {
   width: 100%; /* Faites en sorte que la navBar occupe toute la largeur */
   display: flex;
@@ -44,6 +63,7 @@ nav ul li a {
 
 .search input {
   padding: 10px;
+  border-radius: 8px;
 }
 
 .black-button {

@@ -19,7 +19,7 @@
 <!--    </div>-->
     <div class="genres">
       <select class="select-genres" [(ngModel)]="selectedGenreName" (change)="onGenreChange()">
-        <option value=""></option>
+        <option value="">choisis un genre</option>
         <option *ngFor="let genre of genres" [value]="genre.genreName">{{ genre.genreName }}</option>
       </select>
     </div>

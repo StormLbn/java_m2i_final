@@ -22,7 +22,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-    >hr {
+    > hr {
         margin: 10px 0;
     }
 }
@@ -39,10 +39,9 @@ form>div {
 }
 
 form {
-
     /* Input */
-    input,
-    textarea {
+    & input,
+    & textarea {
         width: 100%;
         padding: 10px;
         border: 1px solid #ccc;
@@ -51,21 +50,21 @@ form {
         transition: border-color 0.3s ease;
     }
 
-    input:focus,
-    textarea:focus {
+    & input:focus,
+    & textarea:focus {
         outline: none;
         border-color: #807e7b;
     }
 
     /* Label */
-    label {
+    & label {
         font-weight: bold;
         margin-bottom: 5px;
         display: block;
     }
 
     /* Button */
-    button {
+    & button {
         padding: 10px 20px;
         border: none;
         background-color: #c53434;
@@ -76,7 +75,7 @@ form {
         transition: background-color 0.2s ease;
     }
 
-    button:hover {
+    & button:hover {
         background-color: #7d2020;
     }
 }

@@ -1,9 +1,10 @@
 <div>
-    <h3 *ngIf="onMedia; else elseOnMedia">{{ evaluation.userId }}</h3>
-    <h3>{{ evaluation.rating }}/5</h3>
+    <h3>{{ onMedia ? evaluation.userId : evaluation.mediaId }} : {{ evaluation.rating }}/5</h3>
+    <div>
+        <button>Modifier</button>
+        <button>Supprimer</button>
+    </div>
 </div>
 <p>{{ evaluation.comment }}</p>
 
-<ng-template #elseOnMedia>
-    <h3>{{ evaluation.mediaId }}</h3>
-</ng-template>
+

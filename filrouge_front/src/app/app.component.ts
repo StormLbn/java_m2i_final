@@ -10,14 +10,9 @@ import { Evaluation } from './evaluations/components/models/Evaluation.model';
 })
 export class AppComponent {
 
-  evaluations: Evaluation[] = [];
-
   constructor(
-    private authService: AuthService,
-    private evalService: EvaluationService
-  ) {
-    this.evalService.getEvaluationsForMedia("53be62a6-4d7d-407f-af57-6b93be4abaf7", 0).subscribe(data => this.evaluations = data);
-  }
+    private authService: AuthService
+  ) {}
 
   onClickLogout() {
     this.authService.logOut();

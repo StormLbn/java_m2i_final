@@ -9,19 +9,19 @@ Content-Type: application/json
 
 ### Récupération des commentaires faits par un utilisateur
 GET http://localhost:8080/api/evaluation/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28/0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE3MDAwNDU3MTMsImlhdCI6MTY5OTk1OTMxM30.InZ50PdSulTtk3Qtq0jJGs62ECwnA9HWD_fD-Fcpj7M
 
 
 ### Ajout d'un commentaire par un utilisateur connecté
 POST http://localhost:8080/api/evaluation/add
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE3MDAwNDU3MTMsImlhdCI6MTY5OTk1OTMxM30.InZ50PdSulTtk3Qtq0jJGs62ECwnA9HWD_fD-Fcpj7M
 
 {
   "userId": "407bbb4d-cb8d-4f74-b2cf-1f0160b67f28",
-  "mediaId": "91484412-17b8-4594-9a29-3ecdf008e628",
-  "comment": "Magnifique",
-  "rating": 5
+  "mediaId": "53be62a6-4d7d-407f-af57-6b93be4abaf7",
+  "comment": "Génial",
+  "rating": 4
 }
 
 ### Modification d'une recommandation

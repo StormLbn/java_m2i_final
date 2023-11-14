@@ -1,0 +1,51 @@
+:host {
+    display: block;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgb(250, 239, 215);
+
+    > div {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 10px 0;
+
+        > div {
+            display: flex;
+            gap: 10px;
+
+            > button {
+                padding: 5px 10px;
+                border: none;
+                color: #000;
+                border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+            }
+
+            > button:first-child {
+                background-color: rgb(228, 173, 33);
+            }
+
+            > button:last-child {
+                background-color: #e13434;
+            }
+            
+            > button:first-child:hover {
+                background-color: rgb(177, 135, 27);
+            }
+            
+            > button:last-child:hover {
+                background-color: #a62b2b;
+            }
+        }
+    }
+
+    > p {
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+}

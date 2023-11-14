@@ -23,6 +23,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateUserMailException.class)
     public ResponseEntity<String> handleDuplicateUserMailException(DuplicateUserMailException exception) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
     }
 }

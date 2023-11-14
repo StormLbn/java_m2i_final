@@ -1,12 +1,12 @@
-// app-routing.module.ts
-
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthenticationPageComponent } from './auth/pages/authentication-page/authentication-page.component';
 import { MediaHomePageComponent } from './medias/pages/media-home-page/media-home-page.component';
 import {MediaDetailComponent} from "./medias/components/media-detail/media-detail.component";
 
 const routes: Routes = [
-  { path: 'media-home', component: MediaHomePageComponent },
+  { path: 'auth', component: AuthenticationPageComponent },
+  { path: '', component: MediaHomePageComponent },
   { path: 'media/:id', component: MediaDetailComponent },
 
 ];
@@ -16,4 +16,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-//dfsegszgsgg

@@ -1,0 +1,31 @@
+<div class="form-container">
+    <p class="form-title">Pas encore de compte ? Créez-en un dès maintenant, c'est gratuit !</p>
+    <hr>
+    <form (ngSubmit)="onSubmitSignup(signupForm)" #signupForm="ngForm">
+        <div>
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" name="username" id="username" required [(ngModel)]="authRequest.username">
+        </div>
+        <div>
+            <label for="birthDate">Date de naissance :</label>
+            <input type="date" name="birthDate" id="birthDate" required [(ngModel)]="authRequest.birthDate">
+        </div>
+        <div>
+            <label for="mail">Adresse mail :</label>
+            <input type="email" name="mail" id="mail" required email [(ngModel)]="authRequest.mail">
+            <p class="field-error" *ngIf="signupForm.controls['mail']?.invalid && (signupForm.controls['mail']?.touched)">Adresse mail non valide.</p>
+        </div>
+        <div>
+            <label for="password">Mot de passe :</label>
+            <input type="password" name="password" id="password" required [(ngModel)]="authRequest.password">
+        </div>
+        <div>
+            <label for="confirm">Confirmer le mot de passe :</label>
+            <input type="password" name="confirm" id="confirm" required [(ngModel)]="authRequest.confirm">
+        </div>
+        <p class="form-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <div class="form-button">
+            <button>Créer un compte</button>
+        </div>
+    </form>
+</div>

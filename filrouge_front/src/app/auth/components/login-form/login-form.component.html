@@ -1,0 +1,20 @@
+<div class="form-container">
+    <p class="form-title">Connectez-vous pour accéder à toutes les fonctionnalités du site.</p>
+    <hr>
+    <form (ngSubmit)="onSubmitLogin(loginForm)" #loginForm="ngForm">
+        <div>
+            <label for="mail">Adresse mail :</label>
+            <input type="email" name="mail" id="mail" email required [(ngModel)]="authRequest.mail">
+            <p class="field-error" *ngIf="loginForm.controls['mail']?.invalid && (loginForm.controls['mail']?.touched)">Adresse mail non
+                valide.</p>
+        </div>
+        <div>
+            <label for="password">Mot de passe :</label>
+            <input type="password" name="password" id="password" [(ngModel)]="authRequest.password">
+        </div>
+        <p class="form-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <div class="form-button">
+            <button>Connexion</button>
+        </div>
+    </form>
+</div>

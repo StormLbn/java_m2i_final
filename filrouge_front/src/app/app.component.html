@@ -1,5 +1,3 @@
-<!-- app.component.html -->
-
 <div class="header">
   <div class="logo">
     <h1>Pop Corn Mania</h1>
@@ -20,7 +18,8 @@
     </select>
   </div>
   <div class="buttons">
-    <button class="black-button">Connexion</button>
+    <button class="black-button" routerLink="/auth">Connexion</button>
+    <button class="black-button" (click)="onClickLogout()">Déconnexion</button>
     <button class="black-button">Profil</button>
   </div>
   </nav>

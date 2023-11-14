@@ -3,7 +3,9 @@
 <!-- media-list.component.html -->
 
 <div class="media-grid">
+
     <div class="media-thumbnail" *ngFor="let media of mediaList">
+      <a [routerLink]="['/media', media.id]">
         <img [src]="media.imageUrl" alt="{{ media.title }}" />
         <div class="media-details">
             <p>Titre: {{ media.title }}</p>
@@ -12,7 +14,9 @@
             <p>Durée: {{ media.duration }} minutes</p>
             <p>Note: {{ media.avgRating | number: '1.1-1' }}</p>
             <p>Genres: {{ media.genres.join(', ') }}</p>
-            <!-- Add more details as needed -->
+
         </div>
+      </a>
     </div>
+
 </div>

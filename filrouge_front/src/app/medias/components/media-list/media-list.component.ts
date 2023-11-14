@@ -3,6 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaService } from '../../services/media.service';
 import MediaSummaryDTO from "../../models/mediaSummaryDto.models";
+import mediaSummaryDtoModels from "../../models/mediaSummaryDto.models";
 
 @Component({
   selector: 'app-media-list',
@@ -12,6 +13,7 @@ templateUrl: 'media-list.component.html',
 export class MediaListComponent implements OnInit {
     mediaList: MediaSummaryDTO[] = [];
 
+
     constructor(private mediaService: MediaService) {}
 
     ngOnInit(): void {
@@ -19,4 +21,6 @@ export class MediaListComponent implements OnInit {
             this.mediaList = data;
         });
     }
+
+  protected readonly mediaSummaryDtoModels = mediaSummaryDtoModels;
 }

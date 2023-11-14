@@ -1,0 +1,10 @@
+<p>professional-list works!</p>
+
+<!-- professional-list.component.html -->
+
+<div class="professional-list-container">
+  <div *ngFor="let professional of professionals" class="professional-item">
+    <img src="{{ professional.imageUrl }}" alt="{{ professional.name }}">
+    <p>{{ professional.name }}</p>
+  </div>
+</div>

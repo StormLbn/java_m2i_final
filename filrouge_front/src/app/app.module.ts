@@ -1,13 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http'
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UserProfilePageComponent } from './pages/user-profile-page/user-profile-page.component';
-import { RecommendationListComponent } from './components/user/recommendation-list/recommendation-list.component';
-import { UserDetailFormComponent } from './components/user/user-detail-form/user-detail-form.component';
-import { UserGenresFormComponent } from './components/user/user-genres-form/user-genres-form.component';
-import { EditPasswordFormComponent } from './components/user/edit-password-form/edit-password-form.component';
+
+import { UserProfilePageComponent } from './users/pages/user-profile-page/user-profile-page.component';
+import { RecommendationListComponent } from './users/components/recommendation-list/recommendation-list.component';
+import { UserDetailFormComponent } from './users/components/user-detail-form/user-detail-form.component';
+import { UserGenresFormComponent } from './users/components/user-genres-form/user-genres-form.component';
+import { EditPasswordFormComponent } from './users/components/edit-password-form/edit-password-form.component';
+import { AuthenticationPageComponent } from './auth/pages/authentication-page/authentication-page.component';
+import { LoginFormComponent } from './auth/components/login-form/login-form.component';
+import { SignupFormComponent } from './auth/components/signup-form/signup-form.component';
+import { MediaHomePageComponent } from './medias/pages/media-home-page/media-home-page.component';
+import { MediaListComponent } from './medias/components/media-list/media-list.component';
+import { MediaDetailComponent } from './medias/components/media-detail/media-detail.component';
+import { MediaDetailPageComponent } from './medias/pages/media-detail-page/media-detail-page.component';
+import { ProfessionalListComponent } from './medias/components/professional-list/professional-list.component';
+import { EvaluationComponent } from './evaluations/components/evaluation/evaluation.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +27,22 @@ import { EditPasswordFormComponent } from './components/user/edit-password-form/
     RecommendationListComponent,
     UserDetailFormComponent,
     UserGenresFormComponent,
-    EditPasswordFormComponent
+    EditPasswordFormComponent,
+    MediaHomePageComponent,
+    MediaListComponent,
+    MediaDetailComponent,
+    MediaDetailPageComponent,
+    ProfessionalListComponent,
+    AuthenticationPageComponent,
+    LoginFormComponent,
+    SignupFormComponent,
+    EvaluationComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

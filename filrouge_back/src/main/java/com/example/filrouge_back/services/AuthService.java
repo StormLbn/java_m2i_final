@@ -6,6 +6,7 @@ import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.exceptions.DuplicateUserMailException;
 import com.example.filrouge_back.mappers.UserMapper;
 import com.example.filrouge_back.models.authdtos.AuthRequest;
+import com.example.filrouge_back.models.authdtos.AuthResponse;
 import com.example.filrouge_back.models.entitydtos.UserEditDTO;
 import com.example.filrouge_back.models.enums.RoleName;
 import com.example.filrouge_back.repositories.RoleRepository;
@@ -32,7 +33,7 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
 
-    public String authenticate(AuthRequest authRequest) {
+    public AuthResponse authenticate(AuthRequest authRequest) {
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 authRequest.getMail(),
@@ -43,14 +44,18 @@ public class AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return tokenGenerator.generateToken(authentication);
+        String token = tokenGenerator.generateToken(authentication);
+        return AuthResponse.builder()
+                .token(token)
+                .userMail(authRequest.getMail())
+                .build();
     }
 
     public void signOut() {
         SecurityContextHolder.getContext().setAuthentication(null);
     }
 
-    public String register(AuthRequest authRequest) {
+    public AuthResponse register(AuthRequest authRequest) {
         if (!userEntityRepository.existsByMail(authRequest.getMail())) {
             Role role = roleRepository
                     .findByRoleName(RoleName.USER)

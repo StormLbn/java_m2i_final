@@ -1,0 +1,34 @@
+:host{
+  background-color: yellow;
+}
+
+.media-detail-container {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.media-detail-container h2 {
+  color: #333333;
+}
+
+.media-detail-container p {
+  margin: 10px 0;
+}
+
+.media-detail-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.media-detail-container li {
+  margin-bottom: 5px;
+}
+.media-detail-container ul li img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+

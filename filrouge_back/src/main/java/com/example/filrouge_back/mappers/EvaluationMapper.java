@@ -9,6 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.util.List;
 import java.util.UUID;
 
 @Mapper
@@ -20,13 +21,15 @@ public interface EvaluationMapper {
     @Mapping(source = "user", target = "userId", qualifiedByName = "getUserIdFromEvaluation")
     EvaluationDTO evaluationToEvaluationDTO(Evaluation evaluation);
 
+    List<EvaluationDTO> evaluationListToEvaluationDTOList(List<Evaluation> evaluations);
+
     @Named("getMediaIdFromEvaluation")
-    public static UUID getMediaIdFromEvaluation(Media media) {
+    static UUID getMediaIdFromEvaluation(Media media) {
         return media.getId();
     }
 
     @Named("getUserIdFromEvaluation")
-    public static UUID getUserIdFromEvaluation(UserEntity user) {
+    static UUID getUserIdFromEvaluation(UserEntity user) {
         return user.getId();
     }
 }

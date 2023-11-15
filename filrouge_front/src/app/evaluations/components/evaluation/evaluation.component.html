@@ -1,6 +1,6 @@
 <div>
     <h3>{{ onMedia ? evaluation.userName : evaluation.mediaTitle }} - {{ evaluation.rating }}/5</h3>
-    <div>
+    <div *ngIf="evaluation.userId === currentUserId">
         <button>Modifier</button>
         <button>Supprimer</button>
     </div>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Evaluation } from '../../models/Evaluation.model';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 @Component({
@@ -18,5 +19,11 @@ export class EvaluationComponent {
     required: true
   })
   onMedia: boolean = true;
+
+  currentUserId: string | undefined
+
+  constructor(private authService: AuthService) {
+    this.currentUserId = this.authService.user$.getValue()?.id;
+  }
 
 }

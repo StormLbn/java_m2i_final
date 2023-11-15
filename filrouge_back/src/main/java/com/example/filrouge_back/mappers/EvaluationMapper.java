@@ -18,7 +18,9 @@ public interface EvaluationMapper {
     Evaluation evaluationDTOToEvaluation(EvaluationDTO evaluationDTO);
 
     @Mapping(source = "media", target = "mediaId", qualifiedByName = "getMediaIdFromEvaluation")
+    @Mapping(source = "media", target = "mediaTitle", qualifiedByName = "getMediaTitleFromEvaluation")
     @Mapping(source = "user", target = "userId", qualifiedByName = "getUserIdFromEvaluation")
+    @Mapping(source = "user", target = "userName", qualifiedByName = "getUserNameFromUser")
     EvaluationDTO evaluationToEvaluationDTO(Evaluation evaluation);
 
     List<EvaluationDTO> evaluationListToEvaluationDTOList(List<Evaluation> evaluations);
@@ -28,9 +30,20 @@ public interface EvaluationMapper {
         return media.getId();
     }
 
+    @Named("getMediaTitleFromEvaluation")
+    static String getMediaTitleFromEvaluation(Media media) {
+        return media.getTitle();
+    }
+
     @Named("getUserIdFromEvaluation")
     static UUID getUserIdFromEvaluation(UserEntity user) {
         return user.getId();
     }
+
+    @Named("getUserNameFromUser")
+    static String getUserNameFromUser(UserEntity user) {
+        return user.getPseudo();
+    }
+
 }
 

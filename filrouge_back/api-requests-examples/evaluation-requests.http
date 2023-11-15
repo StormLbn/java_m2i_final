@@ -19,7 +19,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwI
 
 {
   "userId": "0f0c4d2d-93d2-49d4-9f79-8f19f263d9bd",
-  "mediaId": "000499d4-262c-4b01-b629-8bf2331bea07",
+  "mediaId": "53be62a6-4d7d-407f-af57-6b93be4abaf7",
   "comment": "Génial !",
   "rating": 5
 }

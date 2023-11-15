@@ -11,9 +11,23 @@
   <p>Note : {{ (mediaDetail.avgRating | number: '1.1-1') ?? "-" }}/5</p>
   <p>Genres: {{ mediaDetail.genres.join(', ') }}</p>
 
-  <h3>Acteurs:</h3>
-  <app-professional-list [professionals]="mediaDetail.actors"></app-professional-list>
+  <div *ngIf="mediaDetail.actors.length > 0">
+    <h3>Acteurs principaux :</h3>
+    <app-professional-list [professionals]="mediaDetail.actors"></app-professional-list>
+  </div>
 
-  <h3>Producteurs:</h3>
-  <app-professional-list [professionals]="mediaDetail.producers"></app-professional-list>
+  <div *ngIf="mediaDetail.directors.length > 0">
+    <h3>Réalisateur<span *ngIf="mediaDetail.directors.length > 1">s</span> :</h3>
+    <app-professional-list [professionals]="mediaDetail.directors"></app-professional-list>
+  </div>
+  
+  <div *ngIf="mediaDetail.writers.length > 0">
+    <h3>Scénariste<span *ngIf="mediaDetail.writers.length > 1">s</span> :</h3>
+    <app-professional-list [professionals]="mediaDetail.writers"></app-professional-list>
+  </div>
+
+  <div *ngIf="mediaDetail.producers.length > 0">
+    <h3>Producteur<span *ngIf="mediaDetail.producers.length > 1">s</span> :</h3>
+    <app-professional-list [professionals]="mediaDetail.producers"></app-professional-list>
+  </div>
 </div>

@@ -1,6 +1,11 @@
-/* app.component.css */
+/* Main padding */
+main {
+  padding: 10px;
+}
 
-.header {
+/* Header & navbar styles */
+
+header {
   background-image: url('/assets/images/b0a29607-a855-4ed0-929c-8798945f16f7.jpg');
   background-size: cover;
   background-position: center;
@@ -10,10 +15,7 @@
   align-items: flex-end;
 }
 
-/* Ajoutez ce style à votre fichier CSS */
-
-
-.header .logo h1 {
+header .logo h1 {
   font-style: italic;
   color: #ffff00;
   position: relative;
@@ -30,9 +32,9 @@
 
 
 nav {
-  width: 100%; /* Faites en sorte que la navBar occupe toute la largeur */
+  width: 100%;
   display: flex;
-  justify-content: space-between; /* Pour étirer les éléments sur toute la largeur */
+  justify-content: space-between;
   align-items: flex-end;
 }
 
@@ -73,5 +75,3 @@ nav ul li a {
   border-radius: 10px;
   margin-right: 10px;
 }
-
-/* ... autres styles ... */

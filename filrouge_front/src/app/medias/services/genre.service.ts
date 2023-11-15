@@ -3,7 +3,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GenreDTO } from '../models/genreDto.models';
 
 @Injectable({
     providedIn: 'root',
@@ -11,10 +10,9 @@ import { GenreDTO } from '../models/genreDto.models';
 export class GenreService {
     private baseUrl = 'http://localhost:8080/api/genre';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-    getAllGenres(): Observable<GenreDTO[]> {
-        const url = `${this.baseUrl}/all`;
-        return this.http.get<GenreDTO[]>(url);
+    getAllGenres(): Observable<string[]> {
+        return this.http.get<string[]>(`${this.baseUrl}/all`);
     }
 }

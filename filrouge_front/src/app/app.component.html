@@ -1,6 +1,6 @@
 <header>
-  <div class="header">
-    <div class="logo" routerLink="/">
+  <div class="header" routerLink="/">
+    <div class="logo">
       <h1>Pop Corn Mania</h1>
     </div>
   </div>
@@ -20,7 +20,7 @@
         <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
       </select>
     </div>
-    <div class="buttons" *ngIf="currentUser; else elseUser">
+    <div class="buttons" *ngIf="!currentUser; else elseUser">
       <button class="black-button" routerLink="/auth">Connexion</button>
     </div>
   </nav>

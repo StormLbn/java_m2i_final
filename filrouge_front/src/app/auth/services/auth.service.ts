@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthRequest } from '../models/AuthRequest.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthResponse } from '../models/AuthResponse.model';
 import { User } from '../models/User.model';
 
@@ -22,6 +22,10 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem("jwtToken");
+  }
+
+  generateHeaders() {
+    return new HttpHeaders().set("Authorization", `Bearer ${this.getToken()}`)
   }
 
   logIn(authRequest: AuthRequest) {

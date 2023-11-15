@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Evaluation } from '../../models/Evaluation.model';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { EvaluationService } from '../../services/evaluation.service';
 
 
 @Component({
@@ -20,10 +21,30 @@ export class EvaluationComponent {
   })
   onMedia: boolean = true;
 
+  displayForm = false;
+
   currentUserId: string | undefined
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private evalService: EvaluationService
+  ) {
     this.currentUserId = this.authService.user$.getValue()?.id;
   }
 
+  onClickEdit() {
+    this.displayForm = true;
+    this.evalService.changeFormMode("edit");
+    this.evalService.changeCurrentEval(this.evaluation);
+  }
+
+  onClickDelete() {
+    this.displayForm = true;
+    this.evalService.changeFormMode("delete");
+    this.evalService.changeCurrentEval(this.evaluation);
+  }
+
+  closeForm() {
+    this.displayForm = false;
+  }
 }

@@ -84,6 +84,14 @@ form {
     }
 }
 
+.cancel-btn {
+    background-color: rgb(109, 109, 109);
+}
+
+.cancel-btn:hover {
+        background-color: rgb(71, 71, 71);
+    }
+
 .button-center {
     display: flex;
     justify-content: center;

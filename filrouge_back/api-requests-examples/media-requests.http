@@ -17,7 +17,7 @@ GET http://localhost:8080/api/media/all/type/MOVIE/0
 GET http://localhost:8080/api/media/53be62a6-4d7d-407f-af57-6b93be4abaf7
 
 ### Récupération des évaluations pour un média
-GET http://localhost:8080/api/evaluation/media/53be62a6-4d7d-407f-af57-6b93be4abaf7/0
+GET http://localhost:8080/api/evaluation/media/53be62a6-4d7d-407f-af57-6b93be4abaf7/2
 
 ### Récupération de tous les genres de médias disponibles
 GET http://localhost:8080/api/genre/all

@@ -4,6 +4,8 @@ import { GenreService } from "./medias/services/genre.service";
 import { MediaService } from "./medias/services/media.service";
 import { PageResponse } from './global/models/PageResponse.model';
 import { MediaSummary } from './medias/models/MediaSummary.model';
+import { Router } from '@angular/router';
+import { User } from './auth/models/User.model';
 
 
 @Component({
@@ -15,17 +17,26 @@ export class AppComponent {
   genres: string[] = [];
   selectedGenreName: string = "";
   mediaList: PageResponse<MediaSummary> | null = null;
+  currentUser: User | null = null;
 
 
   constructor(
     private authService: AuthService,
     private genreService: GenreService,
-    private mediaService: MediaService
+    private mediaService: MediaService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.genreService.getAllGenres().subscribe((data) => {
       this.genres = data;
+    });
+
+    this.mediaService.mediaPage$.subscribe((data) => {
+      this.mediaList = data;
+    });
+
+    this.authService.user$.subscribe(data => {this.currentUser = data; console.log(this.currentUser);
     });
   }
 
@@ -37,14 +48,9 @@ export class AppComponent {
     if (this.selectedGenreName !== "") {
       this.mediaService.getMediaByGenre(this.selectedGenreName);
     } else {
-      this.loadAllMedia();
+      this.mediaService.getAllMedia();
     }
-  }
-
-  private loadAllMedia(): void {
-    this.mediaService.mediaPage$.subscribe((data) => {
-      this.mediaList = data;
-    });
+    this.router.navigate(['/']);
   }
 
 }

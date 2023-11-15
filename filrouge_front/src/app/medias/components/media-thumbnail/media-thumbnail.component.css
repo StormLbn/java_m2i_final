@@ -1,26 +1,16 @@
-/* media-list.component.css */
-
-.media-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin: 20px;
-}
-
-
-
-
-.media-thumbnail {
+:host {
+  display: block;
   position: relative;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.media-thumbnail img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+  cursor: pointer;
+  
+  > img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
 }
 
 .media-details {
@@ -40,4 +30,3 @@
   font-size: 14px;
 }
 
-/* Additional styling for better readability, adjust as needed */

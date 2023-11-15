@@ -1,62 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { MediaType } from "../enums/media-type";
-import MediaSummaryDTO from "../models/mediaSummaryDto.models";
+import { BehaviorSubject } from 'rxjs';
 import { PageResponse } from 'src/app/global/models/PageResponse.model';
+import { MediaSummary } from '../models/MediaSummary.model';
+import { MediaDetail } from '../models/MediaDetail.models';
 
 @Injectable({
     providedIn: 'root',
 })
 export class MediaService {
-    private apiUrl = 'http://localhost:8080/api/media';
+    private baseUrl = 'http://localhost:8080/api/media';
 
-    mediaPage$ = new BehaviorSubject<PageResponse<MediaSummaryDTO> | null>(null)
+    mediaPage$ = new BehaviorSubject<PageResponse<MediaSummary> | null>(null)
 
     constructor(private http: HttpClient) {
         this.getAllMedia();
     }
 
-    getAllMedia() {
-        this.http.get<PageResponse<MediaSummaryDTO>>(`${this.apiUrl}/all/0`)
-            // .pipe(
-            //     map((data) => {
-            //         const newArray = [] as MediaSummaryDTO[]
-
-            //         for (const element of data.content) {
-            //             newArray.push({
-            //                 ...element,
-            //                 type: element.type === "MOVIE" ? "Film" : "Série"
-            //             });
-            //         }
-
-            //         return newArray;
-            //     })
-            // )
-            .subscribe((value => this.mediaPage$.next(value)));
-
-
+    getMediaDetailsById(mediaId: string) {
+        return this.http.get<MediaDetail>(`${this.baseUrl}/${mediaId}`);
     }
 
-    getMediaByGenre(genreName: string) {
-        const apiUrlByGenre = `${this.apiUrl}/all/genre/${genreName}/0`;
+    getAllMedia(page: number = 0) {
+        this.http.get<PageResponse<MediaSummary>>(`${this.baseUrl}/all/${page}`)
+            .subscribe((value => this.mediaPage$.next(value)));
+    }
 
-        this.http.get<PageResponse<MediaSummaryDTO>>(apiUrlByGenre)
-        // .pipe(
-        //     map((data: any[]) => {
-        //         const newArray = [] as MediaSummaryDTO[];
+    getMediaByGenre(genreName: string, page: number = 0) {
+        const apiUrlByGenre = `${this.baseUrl}/all/genre/${genreName}/${page}`;
 
-        //         for (const element of data) {
-        //             newArray.push({
-        //                 ...element,
-        //                 type: element.type === 'MOVIE' ? 'Film' : 'Série',
-        //             });
-        //         }
-
-        //         return newArray;
-        //     })
-        // )
-        .subscribe(data => this.mediaPage$.next(data));
+        this.http.get<PageResponse<MediaSummary>>(apiUrlByGenre)
+            .subscribe(data => this.mediaPage$.next(data));
     }
 
 }

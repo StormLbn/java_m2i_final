@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MediaType } from '../enums/media-type';
+import { MediaType } from '../models/MediaDetail.models';
 
 @Pipe({
   name: 'mediaType'
@@ -7,7 +7,14 @@ import { MediaType } from '../enums/media-type';
 export class MediaTypePipe implements PipeTransform {
 
   transform(value: MediaType): string {
-    return value === MediaType.MOVIE ? "film" : "série";
+    switch (value) {
+      case "MOVIE" :
+        return "film";
+      case "SHOW" :
+        return "série";
+      default :
+      return "";
+    }
   }
 
 }

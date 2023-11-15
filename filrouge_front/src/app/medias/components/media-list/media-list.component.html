@@ -1,5 +1,5 @@
 <div class="media-grid">
-  <div class="media-thumbnail" *ngFor="let media of mediaList?.content">
+  <div class="media-thumbnail" *ngFor="let media of mediaPage?.content">
     <a [routerLink]="['/media', media.id]">
       <img [src]="media.imageUrl" alt="{{ media.title }}" />
       <div class="media-details">

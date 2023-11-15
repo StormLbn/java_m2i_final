@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PageResponse } from 'src/app/global/models/PageResponse.model';
 import { Evaluation } from '../../models/Evaluation.model';
 import { EvaluationService } from '../../services/evaluation.service';
@@ -14,6 +14,10 @@ export class EvaluationListComponent {
   evaluationsPage: PageResponse<Evaluation> | null = null;
   mediaId: string;
   pageNumber = 0;
+  @Input({
+    required: true
+  })
+  onMedia = true;
 
   constructor(
     private evalService: EvaluationService,

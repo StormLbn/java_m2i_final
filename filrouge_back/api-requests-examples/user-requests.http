@@ -20,16 +20,17 @@ Content-Type: application/json
 
 ### Récupération des information de l'utilisateur
 GET http://localhost:8080/api/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMTI3NzAyLCJpYXQiOjE3MDAwNDEzMDJ9.eMFRQdWtvv_-EZIRlEOr13duWcGPX2wDYKfHJFJDTJ8
 
 
 ### Modifications des données utilisateur
 PATCH http://localhost:8080/api/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMTI3NzAyLCJpYXQiOjE3MDAwNDEzMDJ9.eMFRQdWtvv_-EZIRlEOr13duWcGPX2wDYKfHJFJDTJ8
 
 {
-  "pseudo": "Test modifié"
+  "pseudo": "Test modifié",
+  "birthDate": "1994-12-31"
 }
 
 ### Modification du mot de passe de l'utilisateur

@@ -1,14 +1,14 @@
-<!-- media-detail.component.html -->
-
 <div *ngIf="mediaDetail" class="media-detail-container">
   <h2>{{ mediaDetail.title }}</h2>
-  <p>Type: {{ mediaDetail.type }}</p>
+  <p>Type: {{ mediaDetail.type | mediaType }}</p>
   <p>Synoposis: {{ mediaDetail.plot }}</p>
   <p>Date de réalisation: {{ mediaDetail.releaseYear }}</p>
   <p>Durée: {{ mediaDetail.duration }} minutes</p>
-  <p>Saisons: {{ mediaDetail.seasons }}</p>
-  <p>En production: {{ mediaDetail.inProduction ? 'Yes' : 'No' }}</p>
-  <p>Note : {{ mediaDetail.avgRating | number: '1.1-1' }}</p>
+  <div *ngIf="mediaDetail.seasons">
+    <p>Saisons: {{ mediaDetail.seasons }}</p>
+    <p>{{ mediaDetail.inProduction ? 'En cours de production' : 'Production terminée' }}</p>
+  </div>
+  <p>Note : {{ (mediaDetail.avgRating | number: '1.1-1') ?? "-" }}/5</p>
   <p>Genres: {{ mediaDetail.genres.join(', ') }}</p>
 
   <h3>Acteurs:</h3>
@@ -16,6 +16,4 @@
 
   <h3>Producteurs:</h3>
   <app-professional-list [professionals]="mediaDetail.producers"></app-professional-list>
-
-  <!-- Add similar sections for writers and directors as needed -->
 </div>

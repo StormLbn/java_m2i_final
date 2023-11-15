@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/services/auth.service';
 import { GenreService } from "./medias/services/genre.service";
-import MediaSummaryDTO from "./medias/models/mediaSummaryDto.models";
 import { MediaService } from "./medias/services/media.service";
 import { PageResponse } from './global/models/PageResponse.model';
+import { MediaSummary } from './medias/models/MediaSummary.model';
+
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { PageResponse } from './global/models/PageResponse.model';
 export class AppComponent {
   genres: string[] = [];
   selectedGenreName: string = "";
-  mediaList: PageResponse<MediaSummaryDTO> | null = null;
+  mediaList: PageResponse<MediaSummary> | null = null;
 
 
   constructor(
@@ -24,8 +25,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.genreService.getAllGenres().subscribe((data) => {
-      console.log(data);
-      
       this.genres = data;
     });
   }

@@ -1,6 +1,6 @@
 <div>
     <h2>{{ evaluationsPage?.totalElements }} évaluations :</h2>
-    <app-evaluation *ngFor="let eval of evaluationsPage?.content" [evaluation]="eval" [onMedia]="true"></app-evaluation>
+    <app-evaluation *ngFor="let eval of evaluationsPage?.content" [evaluation]="eval" [onMedia]="onMedia"></app-evaluation>
     <div class="button-center">
       <button
         [disabled]="evaluationsPage?.pageNumber === 0"

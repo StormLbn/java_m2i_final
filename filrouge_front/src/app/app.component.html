@@ -4,28 +4,34 @@
       <h1>Pop Corn Mania</h1>
     </div>
   </div>
-    <nav>
-      <ul>
-        <li>Films</li>
-        <li>Séries</li>
-      </ul>
+  <nav>
+    <ul>
+      <li>Films</li>
+      <li>Séries</li>
+    </ul>
 
-      <div class="search">
-        <input type="text" placeholder="Recherche">
-      </div>
-      <div class="genres">
-        <select class="select-genres" [(ngModel)]="selectedGenreName" (change)="onGenreChange()">
-          <option value="">Filtrer par genre...</option>
-          <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
-        </select>
-      </div>
-      <div class="buttons">
-        <button class="black-button" routerLink="/auth">Connexion</button>
-        <button class="black-button" (click)="onClickLogout()">Déconnexion</button>
-        <button class="black-button">Profil</button>
-      </div>
-    </nav>
+    <form class="search">
+      <input type="text" placeholder="Recherche">
+      <button><img src="/assets/images/search.png" alt="search"></button>
+    </form>
+    <div class="genres">
+      <select class="select-genres" [(ngModel)]="selectedGenreName" (change)="onGenreChange()">
+        <option value="">Filtrer par genre...</option>
+        <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+      </select>
+    </div>
+    <div class="buttons" *ngIf="currentUser; else elseUser">
+      <button class="black-button" routerLink="/auth">Connexion</button>
+    </div>
+  </nav>
 </header>
+
+<ng-template #elseUser>
+  <div class="buttons">
+    <button class="black-button">Mon profil</button>
+    <button class="black-button" (click)="onClickLogout()">Déconnexion</button>
+  </div>
+</ng-template>
 
 <main>
   <router-outlet></router-outlet>

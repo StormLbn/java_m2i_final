@@ -1,0 +1,9 @@
+<img [src]="media.imageUrl" alt="{{ media.title }}" />
+<div class="media-details">
+  <p>Titre: {{ media.title }}</p>
+  <p>Type: {{ media.type | mediaType }}</p>
+  <p>Date de réalisation: {{ media.releaseYear }}</p>
+  <p>Durée: {{ media.duration }} minutes</p>
+  <p>Note: {{ (media.avgRating | number: '1.1-1') ?? "-"}}</p>
+  <p>Genres: {{ media.genres.join(', ') }}</p>
+</div>

@@ -1,28 +1,30 @@
-<header class="header">
-  <div class="logo" routerLink="/">
-    <h1>Pop Corn Mania</h1>
-  </div>
-  <nav class="black-button" >
-    <ul>
-      <li ><a routerLink="/films">Films</a></li>
-      <li ><a routerLink="/series">Séries</a></li>
-    </ul>
-
-  <div class="search">
-    <input type="text" placeholder="Recherche">
-  </div>
-    <div class="genres">
-      <select class="select-genres" [(ngModel)]="selectedGenreName" (change)="onGenreChange()">
-        <option value="">Filtrer par genre...</option>
-        <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
-      </select>
+<header>
+  <div class="header">
+    <div class="logo" routerLink="/">
+      <h1>Pop Corn Mania</h1>
     </div>
-  <div class="buttons">
-    <button class="black-button" routerLink="/auth">Connexion</button>
-    <button class="black-button" (click)="onClickLogout()">Déconnexion</button>
-    <button class="black-button">Profil</button>
   </div>
-  </nav>
+    <nav>
+      <ul>
+        <li>Films</li>
+        <li>Séries</li>
+      </ul>
+
+      <div class="search">
+        <input type="text" placeholder="Recherche">
+      </div>
+      <div class="genres">
+        <select class="select-genres" [(ngModel)]="selectedGenreName" (change)="onGenreChange()">
+          <option value="">Filtrer par genre...</option>
+          <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+        </select>
+      </div>
+      <div class="buttons">
+        <button class="black-button" routerLink="/auth">Connexion</button>
+        <button class="black-button" (click)="onClickLogout()">Déconnexion</button>
+        <button class="black-button">Profil</button>
+      </div>
+    </nav>
 </header>
 
 <main>

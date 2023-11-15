@@ -3,12 +3,12 @@
 <div *ngIf="mediaDetail" class="media-detail-container">
   <h2>{{ mediaDetail.title }}</h2>
   <p>Type: {{ mediaDetail.type }}</p>
-  <p>Plot: {{ mediaDetail.plot }}</p>
-  <p>Release Year: {{ mediaDetail.releaseYear }}</p>
-  <p>Duration: {{ mediaDetail.duration }} minutes</p>
-  <p>Seasons: {{ mediaDetail.seasons }}</p>
-  <p>In Production: {{ mediaDetail.inProduction ? 'Yes' : 'No' }}</p>
-  <p>Average Rating: {{ mediaDetail.avgRating | number: '1.1-1' }}</p>
+  <p>Synoposis: {{ mediaDetail.plot }}</p>
+  <p>Date de réalisation: {{ mediaDetail.releaseYear }}</p>
+  <p>Durée: {{ mediaDetail.duration }} minutes</p>
+  <p>Saisons: {{ mediaDetail.seasons }}</p>
+  <p>En production: {{ mediaDetail.inProduction ? 'Yes' : 'No' }}</p>
+  <p>Note : {{ mediaDetail.avgRating | number: '1.1-1' }}</p>
   <p>Genres: {{ mediaDetail.genres.join(', ') }}</p>
 
   <h3>Acteurs:</h3>

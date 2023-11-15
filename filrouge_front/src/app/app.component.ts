@@ -24,6 +24,8 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.genreService.getAllGenres().subscribe((data) => {
+      console.log(data);
+      
       this.genres = data;
     });
   }

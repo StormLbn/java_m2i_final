@@ -1,4 +1,6 @@
+import { User } from "./User.model";
+
 export interface AuthResponse {
     token: string;
-    userMail: string;
+    user: User;
 }

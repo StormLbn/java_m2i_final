@@ -14,6 +14,7 @@ import { EvaluationComponent } from './evaluations/components/evaluation/evaluat
 import { MediaDetailComponent } from './medias/components/media-detail/media-detail.component';
 import { MediaDetailPageComponent } from './medias/pages/media-detail-page/media-detail-page.component';
 import { ProfessionalListComponent } from './medias/components/professional-list/professional-list.component';
+import { EvaluationListComponent } from './evaluations/components/evaluation-list/evaluation-list.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ProfessionalListComponent } from './medias/components/professional-list
     LoginFormComponent,
     SignupFormComponent,
     EvaluationComponent,
+    EvaluationListComponent
   ],
   imports: [
     BrowserModule,

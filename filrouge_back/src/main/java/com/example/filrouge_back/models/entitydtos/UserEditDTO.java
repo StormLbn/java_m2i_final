@@ -1,5 +1,6 @@
 package com.example.filrouge_back.models.entitydtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +18,6 @@ public class UserEditDTO {
     private String pseudo;
     private String mail;
     private String password;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 }

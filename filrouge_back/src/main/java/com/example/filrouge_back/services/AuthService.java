@@ -4,10 +4,10 @@ import com.example.filrouge_back.components.JwtTokenGenerator;
 import com.example.filrouge_back.entities.Role;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.exceptions.DuplicateUserMailException;
+import com.example.filrouge_back.exceptions.ResourceNotFoundException;
 import com.example.filrouge_back.mappers.UserMapper;
 import com.example.filrouge_back.models.authdtos.AuthRequest;
 import com.example.filrouge_back.models.authdtos.AuthResponse;
-import com.example.filrouge_back.models.entitydtos.UserEditDTO;
 import com.example.filrouge_back.models.enums.RoleName;
 import com.example.filrouge_back.repositories.RoleRepository;
 import com.example.filrouge_back.repositories.UserEntityRepository;
@@ -19,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -45,9 +44,10 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenGenerator.generateToken(authentication);
+
         return AuthResponse.builder()
                 .token(token)
-                .userMail(authRequest.getMail())
+                .user(userMapper.userToUserDisplayDto(findUserByMail(authRequest.getMail())))
                 .build();
     }
 
@@ -87,5 +87,10 @@ public class AuthService {
         } else {
             return false;
         }
+    }
+
+    public UserEntity findUserByMail(String userMail) {
+        return userEntityRepository.findByMail(userMail)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with mail " + userMail));
     }
 }

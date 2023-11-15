@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthRequest } from '../models/AuthRequest.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthResponse } from '../models/AuthResponse.model';
+import { User } from '../models/User.model';
 
 const baseUrl = "http://localhost:8080/api/auth/"
 
@@ -12,7 +13,7 @@ const baseUrl = "http://localhost:8080/api/auth/"
 })
 export class AuthService {
 
-  user$ = new BehaviorSubject<string | null>(null);
+  user$ = new BehaviorSubject<User | null>(null);
 
   constructor(
     private http: HttpClient,
@@ -21,6 +22,10 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem("jwtToken");
+  }
+
+  generateHeaders() {
+    return new HttpHeaders().set("Authorization", `Bearer ${this.getToken()}`)
   }
 
   logIn(authRequest: AuthRequest) {
@@ -47,7 +52,7 @@ export class AuthService {
 
   authenticate(response: AuthResponse) {
     localStorage.setItem("jwtToken", response.token);
-    this.user$.next(response.userMail);
+    this.user$.next(response.user);
     this.router.navigate(['']);
   }
 }

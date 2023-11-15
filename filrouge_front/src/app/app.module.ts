@@ -10,9 +10,12 @@ import { LoginFormComponent } from './auth/components/login-form/login-form.comp
 import { SignupFormComponent } from './auth/components/signup-form/signup-form.component';
 import { MediaHomePageComponent } from './medias/pages/media-home-page/media-home-page.component';
 import { MediaListComponent } from './medias/components/media-list/media-list.component';
+import { EvaluationComponent } from './evaluations/components/evaluation/evaluation.component';
 import { MediaDetailComponent } from './medias/components/media-detail/media-detail.component';
 import { MediaDetailPageComponent } from './medias/pages/media-detail-page/media-detail-page.component';
 import { ProfessionalListComponent } from './medias/components/professional-list/professional-list.component';
+import { EvaluationListComponent } from './evaluations/components/evaluation-list/evaluation-list.component';
+import { EvaluationFormComponent } from './evaluations/components/evaluation-form/evaluation-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { ProfessionalListComponent } from './medias/components/professional-list
     AppComponent,
     AuthenticationPageComponent,
     LoginFormComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    EvaluationComponent,
+    EvaluationListComponent,
+    EvaluationFormComponent
   ],
   imports: [
     BrowserModule,

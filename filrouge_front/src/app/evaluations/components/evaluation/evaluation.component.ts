@@ -23,13 +23,14 @@ export class EvaluationComponent {
 
   displayForm = false;
 
+  @Input({
+    required: true
+  })
   currentUserId: string | undefined
 
   constructor(
-    private authService: AuthService,
     private evalService: EvaluationService
   ) {
-    this.currentUserId = this.authService.user$.getValue()?.id;
   }
 
   onClickEdit() {

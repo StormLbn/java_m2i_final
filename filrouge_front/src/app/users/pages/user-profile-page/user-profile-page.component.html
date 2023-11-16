@@ -1,7 +1,20 @@
-<h1>Profil de ...</h1>
-<app-user-genres-form></app-user-genres-form>
+<h2>Profil de {{ user.pseudo }}</h2>
+<div>
+    <div>
+        <!-- Potentiellement image de profil ici -->
+    </div>
+    <div>
+        <h3>Anniversaire : {{ user.birthDate | date: 'd MMM' : undefined : 'fr' }}</h3>
 
-<!-- <app-evaluation [onMedia]="false"></app-evaluation> -->
+        <app-user-genres-form [genresList]="user.genres" [authenticated]="authenticated"></app-user-genres-form>
+    </div>
+</div>
+
+
+<div>
+    <h3>Mes évaluations</h3>
+    <app-evaluation-list [onMedia]="false"></app-evaluation-list>
+</div>
 
 <hr>
 <h3>Affichage provisoire</h3>

@@ -45,15 +45,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiO
 
 
 ### Modification des genres favoris de l'utilisateur
-PATCH http://localhost:8080/api/user/genres/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28
+PATCH http://localhost:8080/api/user/genres/e93ce199-bada-4d5e-8d31-cd695ab3a2c6
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMjMzMDk5LCJpYXQiOjE3MDAxNDY2OTl9.wqXWoKQgu_omQfrqkqdGbfJWn9GXUbWo2Ly2szYCzQM
 
 {
-  "userId": "407bbb4d-cb8d-4f74-b2cf-1f0160b67f28",
+  "userId": "e93ce199-bada-4d5e-8d31-cd695ab3a2c6",
   "genreIdList": [4, 8, 22]
 }
 
 ### Récupération des recommandations de films/séries pour un utilisateur
-GET http://localhost:8080/api/recommendations/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+GET http://localhost:8080/api/recommendations/e93ce199-bada-4d5e-8d31-cd695ab3a2c6
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMjMzMDk5LCJpYXQiOjE3MDAxNDY2OTl9.wqXWoKQgu_omQfrqkqdGbfJWn9GXUbWo2Ly2szYCzQM

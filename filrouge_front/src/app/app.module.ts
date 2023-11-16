@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
 import { UserProfilePageComponent } from './users/pages/user-profile-page/user-profile-page.component';
 import { UserDetailFormComponent } from './users/components/user-detail-form/user-detail-form.component';
@@ -21,6 +23,8 @@ import { ProfessionalListComponent } from './medias/components/professional-list
 import { EvaluationListComponent } from './evaluations/components/evaluation-list/evaluation-list.component';
 import { EvaluationFormComponent } from './evaluations/components/evaluation-form/evaluation-form.component';
 import { MediaTypePipe } from './medias/pipes/media-type.pipe';
+
+registerLocaleData(localeFr, 'fr')
 
 @NgModule({
   declarations: [

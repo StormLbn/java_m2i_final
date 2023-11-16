@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-user-genres-form',
@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class UserGenresFormComponent {
 
+  @Input({
+    required: true
+  })
+  genresList!: string[];
+
+  @Input({
+    required: true
+  })
+  authenticated = false;
+
+  constructor() {
+
+  }
 }

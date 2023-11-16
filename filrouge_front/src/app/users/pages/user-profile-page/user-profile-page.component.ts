@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserService } from '../../services/user.service';
+import { User } from 'src/app/auth/models/User.model';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -7,4 +11,34 @@ import { Component } from '@angular/core';
 })
 export class UserProfilePageComponent {
 
+  user: User;
+  authenticated = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private authService: AuthService
+  ) {
+    const blankUser: User = {
+      id: "",
+      pseudo: "",
+      mail: "",
+      birthDate: new Date(),
+      genres: []
+    };
+    const userId = this.route.snapshot.params["id"];
+    this.userService.getUserById(userId);
+
+    this.user = blankUser;
+    this.userService.user$.subscribe(data => {
+      this.user = data ?? blankUser;
+
+      console.log("user : ");
+      console.log(this.user);
+
+      if (this.user?.id === this.authService.user$.getValue()?.id) {
+        this.authenticated = true;
+      }
+    });
+  }
 }

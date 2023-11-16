@@ -33,5 +33,12 @@ export class MediaService {
             .subscribe(data => this.mediaPage$.next(data));
     }
 
+    getMediaByType(type: string, page: number = 0) {
+      const apiUrlByType = `${this.baseUrl}/all/type/${type}/${page}`;
+
+      this.http.get<PageResponse<MediaSummary>>(apiUrlByType)
+        .subscribe(data => this.mediaPage$.next(data));
+    }
+
 }
 

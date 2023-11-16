@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { PageResponse } from 'src/app/global/models/PageResponse.model';
 import { MediaSummary } from '../models/MediaSummary.model';
-import { MediaDetail } from '../models/MediaDetail.models';
+import { MediaDetail, MediaType } from '../models/MediaDetail.models';
+import { pageOptions } from 'src/app/global/models/pageOptions.model';
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +12,7 @@ import { MediaDetail } from '../models/MediaDetail.models';
 export class MediaService {
     private baseUrl = 'http://localhost:8080/api/media';
 
-    mediaPage$ = new BehaviorSubject<PageResponse<MediaSummary> | null>(null)
+    mediaPage$ = new BehaviorSubject<PageResponse<MediaSummary> | null>(null);
 
     constructor(private http: HttpClient) {
         this.getAllMedia();
@@ -34,10 +35,24 @@ export class MediaService {
     }
 
     getMediaByType(type: string, page: number = 0) {
-      const apiUrlByType = `${this.baseUrl}/all/type/${type}/${page}`;
+        const apiUrlByType = `${this.baseUrl}/all/type/${type}/${page}`;
 
-      this.http.get<PageResponse<MediaSummary>>(apiUrlByType)
-        .subscribe(data => this.mediaPage$.next(data));
+        this.http.get<PageResponse<MediaSummary>>(apiUrlByType)
+            .subscribe(data => this.mediaPage$.next(data));
+    }
+
+    getMediaPage(options: pageOptions | null = null) {
+        if (options) {
+            if (options.filter) {
+                this.getMediaByGenre(options.filter, options.pageNumber);
+            } else if (options.mediaType) {
+                this.getMediaByType(options.mediaType, options.pageNumber);
+            } else {
+                this.getAllMedia(options.pageNumber);
+            }
+        } else {
+            this.getAllMedia();
+        }
     }
 
 }

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/services/auth.service';
 import { GenreService } from "./medias/services/genre.service";
-import { MediaService } from "./medias/services/media.service";
-import { PageResponse } from './global/models/PageResponse.model';
-import { MediaSummary } from './medias/models/MediaSummary.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from './auth/models/User.model';
+import { MediaType } from './medias/models/MediaDetail.models';
 
 
 @Component({
@@ -14,27 +12,27 @@ import { User } from './auth/models/User.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  genres: string[] = [];
-  selectedGenreName: string = "";
-  mediaList: PageResponse<MediaSummary> | null = null;
   currentUser: User | null = null;
-  selectedTypeName: string | null = null;
+  genres: string[] = [];
+  selectedGenre: string | null = "";
+  selectedType: MediaType | null = null;
+  currentPage: number;
 
 
   constructor(
     private authService: AuthService,
     private genreService: GenreService,
-    private mediaService: MediaService,
+    private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+    this.currentPage = +(this.route.snapshot.queryParamMap.get("page") ?? 0)
+    this.selectedGenre = this.route.snapshot.queryParamMap.get("filter");
+    this.selectedType = this.route.snapshot.queryParamMap.get("type") as MediaType;
+  }
 
   ngOnInit(): void {
     this.genreService.getAllGenres().subscribe((data) => {
       this.genres = data;
-    });
-
-    this.mediaService.mediaPage$.subscribe((data) => {
-      this.mediaList = data;
     });
 
     this.authService.user$.subscribe(data => this.currentUser = data);
@@ -45,17 +43,22 @@ export class AppComponent {
   }
 
   onGenreChange(): void {
-    if (this.selectedGenreName !== "") {
-      this.mediaService.getMediaByGenre(this.selectedGenreName);
-    } else {
-      this.mediaService.getAllMedia();
-    }
-    this.router.navigate(['/']);
+    this.selectedType = null;
+    this.navigateWithParams();
   }
-  onTypeChange(type: string): void {
-    this.selectedGenreName = ""; // Clear selected genre when changing type
-    this.selectedTypeName = type;
-    this.mediaService.getMediaByType(type);
+
+  onTypeChange(type: MediaType): void {
+    this.selectedGenre = null;
+    this.selectedType = type;
+    this.navigateWithParams();
+  }
+
+  navigateWithParams() {
+    this.router.navigate(['/'], {queryParams: {
+      page: 0,
+      type: this.selectedType,
+      filter: this.selectedGenre
+    }});
   }
 
 }

@@ -19,7 +19,7 @@ export class EvaluationComponent {
   @Input({
     required: true
   })
-  onMedia: boolean = true;
+  onMedia!: boolean;
 
   displayForm = false;
 

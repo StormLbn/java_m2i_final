@@ -40,6 +40,7 @@ export class EvaluationListComponent {
     this.displayForm = true;
     this.evalService.changeFormMode("add");
     this.evalService.changeCurrentEval(null);
+    this.evalService.getEvaluationsForMedia(this.mediaId, this.pageNumber);
   }
 
   onClickPrevious() {

@@ -8,4 +8,4 @@
 <p>{{ evaluation.comment }}</p>
 
 
-<app-evaluation-form *ngIf="displayForm" (closeFormEvent)="closeForm()"></app-evaluation-form>
+<app-evaluation-form *ngIf="displayForm" [onMedia]="onMedia" (closeFormEvent)="closeForm()"></app-evaluation-form>

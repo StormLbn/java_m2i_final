@@ -33,61 +33,56 @@ export class EvaluationService {
     this.currentEval$.next(evaluation);
   }
 
-  getEvaluationsForMedia(mediaId: string, page: number) {
-    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `media/${mediaId}/${page}`).subscribe(data => this.evaluations$.next(data));
+  getEvaluationsForMedia(mediaId: string, page: number = 0) {
+    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `media/${mediaId}/${page}`).subscribe(data => this.evaluations$.next({...data}));
   }
   
   getEvaluationsForUser(userId: string, page: number) {
-    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `user/${userId}/${page}`).subscribe(data => this.evaluations$.next(data));
+    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `user/${userId}/${page}`).subscribe(data => this.evaluations$.next({...data}));
   }
 
   addEvaluation(evaluation: Evaluation) {
-    console.log("Ajout évaluation");
-    
     const currentUser = this.authService.user$.getValue();
     if (currentUser) {
-      console.log("Utilisateur trouvé");
-      
       const newEval: Evaluation = {
         ...evaluation,
         userId: currentUser.id
       }
-      console.log("évaluation");
-      console.log(newEval);
-      
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Access-Control-Allow-Origin':'*',
-          'Access-Control-Allow-Headers': "*",
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + this.authService.getToken(),
-        })
-      };
-      console.log("Header");
-      console.log(httpOptions);
 
-      this.http.post<Evaluation>(this.baseUrl + "add", newEval, httpOptions).subscribe();
-    } else {
-      console.log("Utilisateur non trouvé");
+      this.http
+        .post<Evaluation>(this.baseUrl + "add", newEval, {headers: this.authService.generateHeaders()})
+        .subscribe(() => this.getEvaluationsForMedia(newEval.mediaId, 0));
     }
   }
 
-  editEvaluation(evaluation: Evaluation) {
-    console.log("Modification eval");
-    
-    console.log(evaluation);
-    
-    this.http.patch<Evaluation>(this.baseUrl + evaluation.id, evaluation).subscribe();
+  editEvaluation(evaluation: Evaluation, page: number = 0, onMedia: boolean) {
+    this.http
+      .patch<Evaluation>(this.baseUrl + evaluation.id, evaluation, {headers: this.authService.generateHeaders()})
+      .subscribe(() => {
+        if (onMedia) {
+          this.getEvaluationsForMedia(evaluation.mediaId, page)
+        } else {
+          this.getEvaluationsForUser(evaluation.userId, page)
+        }
+      });
   }
 
-  deleteEvaluation(evaluation: Evaluation) {
-    console.log("Suppression éval");
-    
-    console.log(evaluation);
-    
-    this.http.delete<Evaluation>(this.baseUrl + evaluation.id).subscribe();
-  }
+  deleteEvaluation(evaluation: Evaluation, onMedia: boolean) {
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
 
+    this.http
+      .delete<string>(this.baseUrl + evaluation.id, {
+        headers: this.authService.generateHeaders(),
+        responseType: 'text' as 'json'
+      })
+      .subscribe(() => {
+        if (onMedia) {
+          this.getEvaluationsForMedia(evaluation.mediaId, 0)
+        } else {
+          this.getEvaluationsForUser(evaluation.userId, 0)
+        }
+      });
+  }
 }
 
 export { FormMode };

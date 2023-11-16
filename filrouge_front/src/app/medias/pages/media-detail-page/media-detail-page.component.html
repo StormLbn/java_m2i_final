@@ -3,10 +3,5 @@
 <div class="container">
   <app-media-detail></app-media-detail>
   
-  
-  <div>
-    <h2>Evaluations et commentaires</h2>
-    <app-evaluation *ngFor="let eval of evaluations" [evaluation]="eval" [onMedia]="true"></app-evaluation>
-  </div>
-  
+  <app-evaluation-list [onMedia]="true"></app-evaluation-list>
 </div>

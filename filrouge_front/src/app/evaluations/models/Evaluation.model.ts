@@ -1,7 +1,9 @@
 export interface Evaluation {
-    id: string;
+    id?: string;
     mediaId: string;
+    mediaTitle?: string;
     userId: string;
-    rating: number;
+    userName?: string;
+    rating: number | null;
     comment: string;
 }

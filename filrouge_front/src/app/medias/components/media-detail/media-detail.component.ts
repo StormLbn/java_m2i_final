@@ -1,9 +1,7 @@
-// media-detail.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MediaDetailService } from '../../services/media-detail.service';
-import { MediaDetailDTO } from '../../models/mediaDetailDto.models';
+import { MediaDetail } from '../../models/MediaDetail.models';
+import { MediaService } from '../../services/media.service';
 
 @Component({
   selector: 'app-media-detail',
@@ -11,26 +9,22 @@ import { MediaDetailDTO } from '../../models/mediaDetailDto.models';
   styleUrls: ['./media-detail.component.css'],
 })
 export class MediaDetailComponent implements OnInit {
-  mediaDetail: MediaDetailDTO | undefined;
+  mediaDetail: MediaDetail | undefined;
 
   constructor(
     private route: ActivatedRoute,
-    private mediaDetailService: MediaDetailService
-  ) {}
+    private mediaService: MediaService
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const mediaId = params.get('id');
       if (mediaId) {
-        this.fetchMediaDetail(mediaId);
+        this.mediaService.getMediaDetailsById(mediaId).subscribe((data) => {
+          this.mediaDetail = data;
+        });
       }
     });
   }
 
-  fetchMediaDetail(id: string): void {
-    this.mediaDetailService.getMediaDetail(id).subscribe((data) => {
-      this.mediaDetail = data;
-
-    });
-  }
 }

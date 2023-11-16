@@ -16,6 +16,8 @@ public class EvaluationDTO {
     private String comment;
     private Integer rating;
     private UUID mediaId;
+    private String mediaTitle;
     private UUID userId;
+    private String userName;
 }
 

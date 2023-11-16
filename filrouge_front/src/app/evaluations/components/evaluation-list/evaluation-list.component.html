@@ -1,0 +1,18 @@
+<div>
+  <div>
+    <h2>
+      {{ evaluationsPage?.totalElements ?? 'Aucune' }} évaluation<span *ngIf="evaluationsPage && evaluationsPage.totalElements > 1">s</span>
+    </h2>
+    <button *ngIf="currentUserId" (click)="onClickAdd()">Ajouter</button>
+  </div>
+
+  <app-evaluation-form *ngIf="displayForm" (closeFormEvent)="closeForm()"></app-evaluation-form>
+
+  <app-evaluation *ngFor="let eval of evaluationsPage?.content" [evaluation]="eval" [onMedia]="onMedia" [currentUserId]="currentUserId"></app-evaluation>
+
+  <div class="button-center" *ngIf="evaluationsPage && evaluationsPage?.content">
+    <button [disabled]="evaluationsPage.pageNumber === 0" (click)="onClickPrevious()">Page précédente</button>
+    <button [disabled]="evaluationsPage.pageNumber >= evaluationsPage.totalPages - 1"
+      (click)="onClickNext()">Page suivante</button>
+  </div>
+</div>

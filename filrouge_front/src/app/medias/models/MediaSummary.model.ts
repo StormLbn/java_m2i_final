@@ -1,6 +1,6 @@
-import { MediaType } from '../enums/media-type';
+import { MediaType } from "./MediaDetail.models";
 
-export class MediaSummaryDTO {
+export class MediaSummary {
     constructor(
         public id: string,
         public title: string,
@@ -12,5 +12,3 @@ export class MediaSummaryDTO {
         public genres: string[]
     ) {}
 }
-
-export default MediaSummaryDTO

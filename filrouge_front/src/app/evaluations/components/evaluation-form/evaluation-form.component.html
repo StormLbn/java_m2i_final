@@ -1,0 +1,17 @@
+<div>
+    <h3>Formulaire</h3>
+    <form (ngSubmit)="onSubmitForm()">
+        <div>
+            <label for="rating">Note :</label>
+            <input type="number" name="rating" id="rating" min="1" max="5" step="1" [readOnly]="formMode === 'delete'" [(ngModel)]="evaluation.rating">
+        </div>
+        <div>
+            <label for="comment">Commentaire :</label>
+            <textarea name="comment" id="comment" cols="30" rows="10" [readOnly]="formMode === 'delete'" [(ngModel)]="evaluation.comment"></textarea>
+        </div>
+        <div class="button-center">
+            <button>Valider</button>
+            <button type="button" class="cancel-btn" (click)="onClickCancel()">Annuler</button>
+        </div>
+    </form>
+</div>

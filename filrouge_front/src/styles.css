@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
 }
 
 html,
@@ -16,7 +17,6 @@ body {
 .form-container {
     min-width: 400px;
     max-width: 100%;
-    /* margin: 20px; */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -70,7 +70,7 @@ form {
         border: none;
         background-color: #c53434;
         color: #fff;
-        border-radius: 4px;
+        border-radius: 7px;
         font-size: 16px;
         cursor: pointer;
         transition: background-color 0.2s ease;
@@ -80,21 +80,33 @@ form {
         background-color: #7d2020;
     }
 
+    & button:disabled {
+        background-color: rgb(109, 109, 109);
+        cursor: default;
+    }
+
     & .cancel-button {
         background-color: #737373;
     }
-    
+
     & .cancel-button:hover {
         background-color: #4a4a4a;
     }
 }
 
-.form-button {
-    text-align: center;
+.cancel-btn {
+    background-color: rgb(109, 109, 109);
 }
 
+.cancel-btn:hover {
+        background-color: rgb(71, 71, 71);
+    }
 
-
+.button-center {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
 
 /* Error messages */
 .field-error {

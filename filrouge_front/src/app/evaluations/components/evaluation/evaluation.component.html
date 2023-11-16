@@ -1,10 +1,11 @@
 <div>
-    <h3>{{ onMedia ? evaluation.userId : evaluation.mediaId }} : {{ evaluation.rating }}/5</h3>
-    <div>
-        <button>Modifier</button>
-        <button>Supprimer</button>
+    <h3>{{ onMedia ? evaluation.userName : evaluation.mediaTitle }} - {{ evaluation.rating }}/5</h3>
+    <div *ngIf="evaluation.userId === currentUserId">
+        <button (click)="onClickEdit()">Modifier</button>
+        <button (click)="onClickDelete()">Supprimer</button>
     </div>
 </div>
 <p>{{ evaluation.comment }}</p>
 
 
+<app-evaluation-form *ngIf="displayForm" [onMedia]="onMedia" (closeFormEvent)="closeForm()"></app-evaluation-form>

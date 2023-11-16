@@ -4,4 +4,5 @@ export interface pageOptions {
     pageNumber?: number;
     mediaType?: MediaType | null;
     filter?: string | null;
+    search?: string | null;
 }

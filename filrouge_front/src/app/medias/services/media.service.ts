@@ -41,27 +41,27 @@ export class MediaService {
             .subscribe(data => this.mediaPage$.next(data));
     }
 
+    searchMediaByTitle(title: string, page: number = 0) {
+      const apiUrl = `${this.baseUrl}/search/${title}/${page}`;
+      this.http.get<PageResponse<MediaSummary>>(apiUrl)
+        .subscribe(data => this.mediaPage$.next(data));
+
+    }
+
     getMediaPage(options: pageOptions | null = null) {
         if (options) {
             if (options.filter) {
                 this.getMediaByGenre(options.filter, options.pageNumber);
             } else if (options.mediaType) {
-                this.getMediaByType(options.mediaType, options.pageNumber);
+              this.getMediaByType(options.mediaType, options.pageNumber);
+            }else if (options.search) {
+              this.searchMediaByTitle(options.search, options.pageNumber)
             } else {
                 this.getAllMedia(options.pageNumber);
             }
         } else {
             this.getAllMedia();
         }
-    }
-    searchMediaByTitle(title: string, page: number = 0) {
-      const apiUrl = `${this.baseUrl}/search/${title}/${page}`;
-      this.http.get<PageResponse<MediaSummary>>(apiUrl)
-        .subscribe(data => {this.mediaPage$.next(data)
-        console.log(data)}
-
-        );
-
     }
 
 }

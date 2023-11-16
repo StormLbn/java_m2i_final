@@ -15,6 +15,7 @@ export class MediaHomePageComponent {
   genre: string | null = "";
   mediaType: MediaType | null = null;
   currentPage: number = 0;
+  searchTerm: string | null = "";
 
   constructor(
     private mediaService: MediaService,
@@ -25,11 +26,12 @@ export class MediaHomePageComponent {
       this.currentPage = +(params.get("page") ?? 0);
       this.genre = params.get("filter");
       this.mediaType = params.get("type") as MediaType;
-
+      this.searchTerm = params.get("search");
       this.mediaService.getMediaPage({
         pageNumber: this.currentPage,
         filter: this.genre ?? "",
-        mediaType: this.mediaType
+        mediaType: this.mediaType,
+        search: this.searchTerm
       });
 
       window.scrollTo({top: 0, left: 0, behavior:'smooth'})

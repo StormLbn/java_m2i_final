@@ -18,7 +18,7 @@ export class AppComponent {
   selectedType: MediaType | null = null;
   currentPage: number;
 
-  searchTerm: string = "";
+  searchTerm: string | null = "";
 
 
   constructor(
@@ -30,6 +30,7 @@ export class AppComponent {
     this.currentPage = +(this.route.snapshot.queryParamMap.get("page") ?? 0)
     this.selectedGenre = this.route.snapshot.queryParamMap.get("filter");
     this.selectedType = this.route.snapshot.queryParamMap.get("type") as MediaType;
+    this.searchTerm = this.route.snapshot.queryParamMap.get("search");
   }
 
   ngOnInit(): void {
@@ -46,12 +47,14 @@ export class AppComponent {
 
   onGenreChange(): void {
     this.selectedType = null;
+    this.searchTerm = null;
     this.navigateWithParams();
   }
 
   onTypeChange(type: MediaType): void {
     this.selectedGenre = null;
     this.selectedType = type;
+    this.searchTerm = null;
     this.navigateWithParams();
   }
 
@@ -59,12 +62,15 @@ export class AppComponent {
     this.router.navigate(['/'], {queryParams: {
       page: 0,
       type: this.selectedType,
-      filter: this.selectedGenre
+      filter: this.selectedGenre,
+      search: this.searchTerm
     }});
   }
 
   onTitleSearch(): void {
-    // this.mediaService.searchMediaByTitle(this.searchTerm);
+    this.selectedGenre = null;
+    this.selectedType = null;
+    this.navigateWithParams();
 
   }
 

@@ -5,16 +5,17 @@ import com.example.filrouge_back.entities.Media;
 import com.example.filrouge_back.entities.UserEntity;
 import com.example.filrouge_back.exceptions.ResourceNotFoundException;
 import com.example.filrouge_back.mappers.EvaluationMapper;
+import com.example.filrouge_back.mappers.PageMapper;
 import com.example.filrouge_back.models.entitydtos.EvaluationDTO;
+import com.example.filrouge_back.models.entitydtos.PageDTO;
 import com.example.filrouge_back.repositories.EvaluationRepository;
 import com.example.filrouge_back.repositories.MediaRepository;
 import com.example.filrouge_back.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,33 +27,33 @@ public class EvaluationService {
     private final MediaRepository mediaRepository;
     private final EvaluationRepository evaluationRepository;
     private final EvaluationMapper evaluationMapper;
+    private final PageMapper pageMapper;
 
-    public List<EvaluationDTO> getEvaluationsByMedia(UUID mediaId, int page) {
+    public PageDTO<EvaluationDTO> getEvaluationsByMedia(UUID mediaId, int page) {
         Optional<Media> foundMedia = mediaRepository.findById(mediaId);
 
         if (foundMedia.isPresent()) {
-            List<Evaluation> evaluationList = evaluationRepository.findAllByMedia(
+            Page<Evaluation> evaluationPage = evaluationRepository.findAllByMedia(
                     foundMedia.get(), PageRequest.of(page, 5));
-            return evaluationList
-                    .stream()
-                    .map(evaluationMapper::evaluationToEvaluationDTO)
-                    .toList();
+            return pageMapper.pageToPageDto(
+                    evaluationPage,
+                    evaluationMapper.evaluationListToEvaluationDTOList(evaluationPage.getContent())
+            );
         } else {
             throw new ResourceNotFoundException("Media not found at id " + mediaId);
         }
     }
 
-    public List<EvaluationDTO> getEvaluationsByUser(UUID userId, int page) {
+    public PageDTO<EvaluationDTO> getEvaluationsByUser(UUID userId, int page) {
         Optional<UserEntity> foundUser = userEntityRepository.findById(userId);
 
         if (foundUser.isPresent()) {
-            List<Evaluation> evaluationList = evaluationRepository.findAllByUser(
+            Page<Evaluation> evaluationPage = evaluationRepository.findAllByUser(
                     foundUser.get(), PageRequest.of(page, 5));
-
-            return evaluationList
-                    .stream()
-                    .map(evaluationMapper::evaluationToEvaluationDTO)
-                    .toList();
+            return pageMapper.pageToPageDto(
+                    evaluationPage,
+                    evaluationMapper.evaluationListToEvaluationDTOList(evaluationPage.getContent())
+            );
         } else {
             throw new ResourceNotFoundException("User not found at id " + userId);
         }

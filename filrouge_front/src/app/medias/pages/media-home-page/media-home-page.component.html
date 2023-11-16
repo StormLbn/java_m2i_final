@@ -1,12 +1,3 @@
-<!-- home.component.html -->
-
-
-
-
-<div>
-  <app-media-list></app-media-list>
+<div class="media-grid">
+  <app-media-thumbnail *ngFor="let media of mediaPage?.content" [media]="media"  [routerLink]="['/media', media.id]"></app-media-thumbnail>
 </div>
-
-
-
-

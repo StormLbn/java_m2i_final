@@ -1,6 +1,6 @@
 
 import { Component, Input } from '@angular/core';
-import ProfessionalDTO from "../../models/professionalDto.models";
+import ProfessionalDTO from "../../models/Professional.models";
 
 @Component({
   selector: 'app-professional-list',

@@ -3,31 +3,31 @@ POST http://localhost:8080/api/auth/authenticate
 Content-Type: application/json
 
 {
-  "mail": "test@mail.fr",
-  "password": "qsd456"
+  "mail": "storm@mail.fr",
+  "password": "aze123"
 }
 
 ### Récupération des commentaires faits par un utilisateur
-GET http://localhost:8080/api/evaluation/user/407bbb4d-cb8d-4f74-b2cf-1f0160b67f28/0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+GET http://localhost:8080/api/evaluation/user/0f0c4d2d-93d2-49d4-9f79-8f19f263d9bd/0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMDY4MzY3LCJpYXQiOjE2OTk5ODE5Njd9.A97H88MQt6oiYeE_4o_sLHYDFRCQYCRzOl3x_xdhRjU
 
 
 ### Ajout d'un commentaire par un utilisateur connecté
 POST http://localhost:8080/api/evaluation/add
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMTI4ODkxLCJpYXQiOjE3MDAwNDI0OTF9.9xJJ_ivRScIZViDEQSRKxFwgabJkvXCCMW5I-Lf-5sA
 
 {
-  "userId": "407bbb4d-cb8d-4f74-b2cf-1f0160b67f28",
-  "mediaId": "91484412-17b8-4594-9a29-3ecdf008e628",
-  "comment": "Magnifique",
+  "userId": "e93ce199-bada-4d5e-8d31-cd695ab3a2c6",
+  "mediaId": "53be62a6-4d7d-407f-af57-6b93be4abaf7",
+  "comment": "Le meilleur de la trilogie !",
   "rating": 5
 }
 
 ### Modification d'une recommandation
 PATCH http://localhost:8080/api/evaluation/d91ed146-8737-4984-9b09-54e6c002f5e2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiOjE2OTk3MTA1ODIsImlhdCI6MTY5OTYyNDE4Mn0.CCzgfjjWsRMgX_gpbZSLewA_TJIuZO7x6DnWSObTxXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMDY4MzY3LCJpYXQiOjE2OTk5ODE5Njd9.A97H88MQt6oiYeE_4o_sLHYDFRCQYCRzOl3x_xdhRjU
 
 {
   "comment": "Magnifique et émouvant"

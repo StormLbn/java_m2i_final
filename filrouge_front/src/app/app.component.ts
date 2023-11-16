@@ -37,8 +37,7 @@ export class AppComponent {
       this.mediaList = data;
     });
 
-    this.authService.user$.subscribe(data => {this.currentUser = data; console.log(this.currentUser);
-    });
+    this.authService.user$.subscribe(data => this.currentUser = data);
   }
 
   onClickLogout() {

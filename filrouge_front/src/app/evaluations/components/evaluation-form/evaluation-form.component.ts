@@ -12,12 +12,16 @@ import { ActivatedRoute } from '@angular/router';
 export class EvaluationFormComponent {
 
   mediaId: string;
+  evalPage: number;
 
   formMode: FormMode = null;
   formModeSub: Subscription | undefined;
 
   currentEval: Evaluation;
   evaluation: Evaluation;
+
+  @Input()
+  onMedia = true;
 
   @Output()
   closeFormEvent = new EventEmitter();
@@ -27,12 +31,14 @@ export class EvaluationFormComponent {
     private route: ActivatedRoute
   ) {
     this.mediaId = this.route.snapshot.params["id"];
+    this.evalPage = +(this.route.snapshot.queryParamMap.get("evalPage") ?? 0);
 
     this.formModeSub = this.evalService.formMode$.subscribe(mode => this.formMode = mode);
     this.currentEval = this.evalService.currentEval$.getValue() ?? {
       comment: "",
       rating: null,
-      mediaId: this.mediaId
+      mediaId: this.mediaId,
+      userId: ""
     };
     this.evaluation = {...this.currentEval};
   }
@@ -45,10 +51,10 @@ export class EvaluationFormComponent {
         this.evalService.addEvaluation(this.evaluation);
         break;
       case "edit" :
-        this.evalService.editEvaluation(this.evaluation);
+        this.evalService.editEvaluation(this.evaluation, this.evalPage, this.onMedia);
         break;
       case "delete" :
-        this.evalService.deleteEvaluation(this.evaluation);
+        this.evalService.deleteEvaluation(this.evaluation, this.onMedia);
         break;
     }
     this.closeFormEvent.emit();

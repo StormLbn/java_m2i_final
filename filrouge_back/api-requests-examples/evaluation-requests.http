@@ -8,8 +8,8 @@ Content-Type: application/json
 }
 
 ### Récupération des commentaires faits par un utilisateur
-GET http://localhost:8080/api/evaluation/user/0f0c4d2d-93d2-49d4-9f79-8f19f263d9bd/0
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMDY4MzY3LCJpYXQiOjE2OTk5ODE5Njd9.A97H88MQt6oiYeE_4o_sLHYDFRCQYCRzOl3x_xdhRjU
+GET http://localhost:8080/api/evaluation/user/e93ce199-bada-4d5e-8d31-cd695ab3a2c6/0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMTI4ODkxLCJpYXQiOjE3MDAwNDI0OTF9.9xJJ_ivRScIZViDEQSRKxFwgabJkvXCCMW5I-Lf-5sA
 
 
 ### Ajout d'un commentaire par un utilisateur connecté
@@ -24,7 +24,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwI
   "rating": 5
 }
 
-### Modification d'une recommandation
+### Modification d'une évaluation
 PATCH http://localhost:8080/api/evaluation/d91ed146-8737-4984-9b09-54e6c002f5e2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMDY4MzY3LCJpYXQiOjE2OTk5ODE5Njd9.A97H88MQt6oiYeE_4o_sLHYDFRCQYCRzOl3x_xdhRjU
@@ -32,3 +32,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwI
 {
   "comment": "Magnifique et émouvant"
 }
+
+### Suppression d'une évaluation par ID
+DELETE http://localhost:8080/api/evaluation/5ae547be-b117-477e-b034-62e768182367
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMTI4ODkxLCJpYXQiOjE3MDAwNDI0OTF9.9xJJ_ivRScIZViDEQSRKxFwgabJkvXCCMW5I-Lf-5sA

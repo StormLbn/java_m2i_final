@@ -31,7 +31,9 @@ public class UserMapper {
             return null;
         } else {
             List<String> genres = new ArrayList<>();
-            user.getGenres().forEach(genre -> genres.add(genre.getGenreName()));
+            if (user.getGenres() != null) {
+                user.getGenres().forEach(genre -> genres.add(genre.getGenreName()));
+            }
             return UserDisplayDTO.builder()
                     .id(user.getId())
                     .pseudo(user.getPseudo())

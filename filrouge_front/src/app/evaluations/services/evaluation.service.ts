@@ -34,11 +34,11 @@ export class EvaluationService {
   }
 
   getEvaluationsForMedia(mediaId: string, page: number = 0) {
-    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `media/${mediaId}/${page}`).subscribe(data => this.evaluations$.next({...data}));
+    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `media/${mediaId}/${page}`).subscribe(data => this.evaluations$.next({ ...data }));
   }
-  
+
   getEvaluationsForUser(userId: string, page: number) {
-    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `user/${userId}/${page}`).subscribe(data => this.evaluations$.next({...data}));
+    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `user/${userId}/${page}`).subscribe(data => this.evaluations$.next({ ...data }));
   }
 
   addEvaluation(evaluation: Evaluation) {
@@ -50,14 +50,14 @@ export class EvaluationService {
       }
 
       this.http
-        .post<Evaluation>(this.baseUrl + "add", newEval, {headers: this.authService.generateHeaders()})
+        .post<Evaluation>(this.baseUrl + "add", newEval, { headers: this.authService.generateHeaders() })
         .subscribe(() => this.getEvaluationsForMedia(newEval.mediaId, 0));
     }
   }
 
   editEvaluation(evaluation: Evaluation, page: number = 0, onMedia: boolean) {
     this.http
-      .patch<Evaluation>(this.baseUrl + evaluation.id, evaluation, {headers: this.authService.generateHeaders()})
+      .patch<Evaluation>(this.baseUrl + evaluation.id, evaluation, { headers: this.authService.generateHeaders() })
       .subscribe(() => {
         if (onMedia) {
           this.getEvaluationsForMedia(evaluation.mediaId, page)
@@ -68,8 +68,6 @@ export class EvaluationService {
   }
 
   deleteEvaluation(evaluation: Evaluation, onMedia: boolean) {
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
-
     this.http
       .delete<string>(this.baseUrl + evaluation.id, {
         headers: this.authService.generateHeaders(),

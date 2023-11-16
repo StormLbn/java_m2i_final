@@ -40,20 +40,18 @@ export class EvaluationFormComponent {
       mediaId: this.mediaId,
       userId: ""
     };
-    this.evaluation = {...this.currentEval};
+    this.evaluation = { ...this.currentEval };
   }
 
   onSubmitForm() {
-    console.log("clic !");
-    
     switch (this.formMode) {
-      case "add" :
+      case "add":
         this.evalService.addEvaluation(this.evaluation);
         break;
-      case "edit" :
+      case "edit":
         this.evalService.editEvaluation(this.evaluation, this.evalPage, this.onMedia);
         break;
-      case "delete" :
+      case "delete":
         this.evalService.deleteEvaluation(this.evaluation, this.onMedia);
         break;
     }

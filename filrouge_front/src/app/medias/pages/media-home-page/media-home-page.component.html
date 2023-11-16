@@ -1,3 +1,9 @@
 <div class="media-grid">
   <app-media-thumbnail *ngFor="let media of mediaPage?.content" [media]="media"  [routerLink]="['/media', media.id]"></app-media-thumbnail>
 </div>
+
+<div class="button-center" *ngIf="mediaPage">
+  <button [disabled]="mediaPage.pageNumber === 0" (click)="onClickPrevious()">Page précédente</button>
+  <button [disabled]="mediaPage.pageNumber >= mediaPage.totalPages - 1"
+    (click)="onClickNext()">Page suivante</button>
+</div>

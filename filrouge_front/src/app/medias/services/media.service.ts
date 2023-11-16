@@ -1,16 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { PageResponse } from 'src/app/global/models/PageResponse.model';
+import { MediaSummary } from '../models/MediaSummary.model';
+import { MediaDetail } from '../models/MediaDetail.models';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class MediaService {
-  private apiUrl = 'http://localhost:8080/api/media/all';
+    private baseUrl = 'http://localhost:8080/api/media';
 
-  constructor(private http: HttpClient) {}
+    mediaPage$ = new BehaviorSubject<PageResponse<MediaSummary> | null>(null)
 
-  getAllMedia(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
-  }
+    constructor(private http: HttpClient) {
+        this.getAllMedia();
+    }
+
+    getMediaDetailsById(mediaId: string) {
+        return this.http.get<MediaDetail>(`${this.baseUrl}/${mediaId}`);
+    }
+
+    getAllMedia(page: number = 0) {
+        this.http.get<PageResponse<MediaSummary>>(`${this.baseUrl}/all/${page}`)
+            .subscribe((value => this.mediaPage$.next(value)));
+    }
+
+    getMediaByGenre(genreName: string, page: number = 0) {
+        const apiUrlByGenre = `${this.baseUrl}/all/genre/${genreName}/${page}`;
+
+        this.http.get<PageResponse<MediaSummary>>(apiUrlByGenre)
+            .subscribe(data => this.mediaPage$.next(data));
+    }
+
 }
+

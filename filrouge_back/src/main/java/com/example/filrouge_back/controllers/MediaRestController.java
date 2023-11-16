@@ -78,13 +78,15 @@ public class MediaRestController {
         }
     }
 
-    @GetMapping("/search/{keyword}")
-    public ResponseEntity<List<MediaSummaryDTO>> searchMediaByTitle(@PathVariable String keyword) {
-        List<MediaSummaryDTO> mediaList = mediaService.searchMediaByTitle(keyword);
-        if (mediaList.isEmpty()) {
+    @GetMapping("/search/{keyword}/{page}")
+    public ResponseEntity<PageDTO<MediaSummaryDTO>> searchMediaByTitle(
+            @PathVariable String keyword,
+            @PathVariable("page") int page) {
+        PageDTO<MediaSummaryDTO> mediaPageDTO = mediaService.searchMediaByTitle(keyword, page);
+        if (mediaPageDTO.getContent().isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.ok(mediaList);
+            return ResponseEntity.ok(mediaPageDTO);
         }
     }
 

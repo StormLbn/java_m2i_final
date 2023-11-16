@@ -11,8 +11,8 @@
     </ul>
 
     <form class="search">
-      <input type="text" placeholder="Recherche">
-      <button><img src="/assets/images/search.png" alt="search"></button>
+      <input name="searchInput" type="text" placeholder="Recherche" [(ngModel)]="searchTerm">
+      <button (click)="onTitleSearch()"><img src="/assets/images/search.png" alt="search"></button>
     </form>
     <div class="genres">
       <select class="select-genres" [(ngModel)]="selectedGenre" (change)="onGenreChange()">

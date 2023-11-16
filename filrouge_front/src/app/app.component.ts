@@ -18,6 +18,8 @@ export class AppComponent {
   selectedType: MediaType | null = null;
   currentPage: number;
 
+  searchTerm: string = "";
+
 
   constructor(
     private authService: AuthService,
@@ -59,6 +61,11 @@ export class AppComponent {
       type: this.selectedType,
       filter: this.selectedGenre
     }});
+  }
+
+  onTitleSearch(): void {
+    // this.mediaService.searchMediaByTitle(this.searchTerm);
+
   }
 
 }

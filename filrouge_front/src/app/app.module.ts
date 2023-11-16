@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { UserProfilePageComponent } from './users/pages/user-profile-page/user-profile-page.component';
-import { RecommendationListComponent } from './users/components/recommendation-list/recommendation-list.component';
 import { UserDetailFormComponent } from './users/components/user-detail-form/user-detail-form.component';
 import { UserGenresFormComponent } from './users/components/user-genres-form/user-genres-form.component';
 import { EditPasswordFormComponent } from './users/components/edit-password-form/edit-password-form.component';
@@ -24,7 +23,6 @@ import { EvaluationComponent } from './evaluations/components/evaluation/evaluat
   declarations: [
     AppComponent,
     UserProfilePageComponent,
-    RecommendationListComponent,
     UserDetailFormComponent,
     UserGenresFormComponent,
     EditPasswordFormComponent,

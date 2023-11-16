@@ -1,8 +1,10 @@
 <form>
     <div>
         <h3>Genres favoris :</h3>
-        <div *ngIf="true; else elseButtons">
-            <button type="button">Modifier</button>
+        <div *ngIf="authenticated">
+            <div *ngIf="true; else elseButtons">
+                <button type="button">Modifier</button>
+            </div>
         </div>
     </div>
     <ul>

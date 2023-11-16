@@ -120,3 +120,24 @@ form {
     /* font-size: 14px; */
     margin: 5px;
 }
+
+
+.red-btn {
+    padding: 5px 10px;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    background-color: #e13434;
+}
+
+.red-btn:hover {
+    background-color: #a62b2b;
+}
+
+.red-btn:disabled {
+    background-color: rgb(109, 109, 109);
+    cursor: default;
+}

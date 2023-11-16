@@ -1,10 +1,12 @@
 :host {
     display: block;
     width: fit-content;
-    max-width: 800px;
     border: 1px solid black;
     border-radius: 5px;
     padding: 10px;
+    
+    min-width: 250px;
+    width: 100%;
 }
 
 form > div {

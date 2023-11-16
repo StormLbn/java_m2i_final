@@ -45,12 +45,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiO
 
 
 ### Modification des genres favoris de l'utilisateur
-PATCH http://localhost:8080/api/user/genres/e93ce199-bada-4d5e-8d31-cd695ab3a2c6
+PATCH http://localhost:8080/api/user/genres/0f0c4d2d-93d2-49d4-9f79-8f19f263d9bd
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMjMzMDk5LCJpYXQiOjE3MDAxNDY2OTl9.wqXWoKQgu_omQfrqkqdGbfJWn9GXUbWo2Ly2szYCzQM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMjQ1MjM1LCJpYXQiOjE3MDAxNTg4MzV9.ymr5gA8PAV5TPCNNLAHQ0lUByR-CMMnT-z9HauM79OQ
 
 {
-  "userId": "e93ce199-bada-4d5e-8d31-cd695ab3a2c6",
+  "userId": "0f0c4d2d-93d2-49d4-9f79-8f19f263d9bd",
   "genreIdList": [4, 8, 22]
 }
 

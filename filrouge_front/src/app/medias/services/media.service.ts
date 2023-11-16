@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { PageResponse } from 'src/app/global/models/PageResponse.model';
 import { MediaSummary } from '../models/MediaSummary.model';
 import { MediaDetail, MediaType } from '../models/MediaDetail.models';
@@ -16,6 +16,7 @@ export class MediaService {
 
     constructor(private http: HttpClient) {
         this.getAllMedia();
+
     }
 
     getMediaDetailsById(mediaId: string) {
@@ -63,6 +64,11 @@ export class MediaService {
             this.getAllMedia();
         }
     }
+
+  getRecommendedMedia(userId: string): Observable<PageResponse<MediaSummary>> {
+    const apiUrl = `${this.baseUrl}/recommendations/${userId}`;
+    return this.http.get<PageResponse<MediaSummary>>(apiUrl);
+  }
 
 }
 

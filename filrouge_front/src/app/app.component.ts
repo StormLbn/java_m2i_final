@@ -4,6 +4,9 @@ import { GenreService } from "./medias/services/genre.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from './auth/models/User.model';
 import { MediaType } from './medias/models/MediaDetail.models';
+import {MediaService} from "./medias/services/media.service";
+import {MediaSummary} from "./medias/models/MediaSummary.model";
+import {PageResponse} from "./global/models/PageResponse.model";
 
 
 @Component({
@@ -17,6 +20,7 @@ export class AppComponent {
   selectedGenre: string | null = "";
   selectedType: MediaType | null = null;
   currentPage: number;
+  mediaList: PageResponse<MediaSummary> | null = null;
 
   searchTerm: string | null = "";
 
@@ -25,6 +29,7 @@ export class AppComponent {
     private authService: AuthService,
     private genreService: GenreService,
     private route: ActivatedRoute,
+    private mediaService: MediaService,
     private router: Router
   ) {
     this.currentPage = +(this.route.snapshot.queryParamMap.get("page") ?? 0)
@@ -72,6 +77,12 @@ export class AppComponent {
     this.selectedType = null;
     this.navigateWithParams();
 
+  }
+
+  private loadRecommendedMedia(userId: string): void {
+    this.mediaService.getRecommendedMedia(userId).subscribe((data) => {
+      this.mediaList = data;
+    });
   }
 
 }

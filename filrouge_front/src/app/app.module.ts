@@ -17,6 +17,7 @@ import { ProfessionalListComponent } from './medias/components/professional-list
 import { EvaluationListComponent } from './evaluations/components/evaluation-list/evaluation-list.component';
 import { EvaluationFormComponent } from './evaluations/components/evaluation-form/evaluation-form.component';
 import { MediaTypePipe } from './medias/pipes/media-type.pipe';
+import { RecommandationComponent } from './global/recommandation/recommandation.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MediaTypePipe } from './medias/pipes/media-type.pipe';
     EvaluationComponent,
     EvaluationListComponent,
     EvaluationFormComponent,
-    MediaTypePipe
+    MediaTypePipe,
+    RecommandationComponent
   ],
   imports: [
     BrowserModule,

@@ -57,6 +57,13 @@ export class AppComponent {
     this.searchTerm = null;
     this.navigateWithParams();
   }
+  
+    onTitleSearch(): void {
+      this.selectedGenre = null;
+      this.selectedType = null;
+      this.navigateWithParams();
+  
+    }
 
   navigateWithParams() {
     this.router.navigate(['/'], {queryParams: {
@@ -65,13 +72,6 @@ export class AppComponent {
       filter: this.selectedGenre,
       search: this.searchTerm
     }});
-  }
-
-  onTitleSearch(): void {
-    this.selectedGenre = null;
-    this.selectedType = null;
-    this.navigateWithParams();
-
   }
 
 }

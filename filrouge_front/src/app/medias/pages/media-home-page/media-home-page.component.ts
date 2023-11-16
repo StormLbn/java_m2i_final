@@ -34,7 +34,7 @@ export class MediaHomePageComponent {
         search: this.searchTerm
       });
 
-      window.scrollTo({top: 0, left: 0, behavior:'smooth'})
+      window.scrollTo({top: 0, left: 0, behavior:'smooth'});
     });
 
     this.mediaService.mediaPage$.subscribe((data) => {
@@ -58,7 +58,8 @@ export class MediaHomePageComponent {
     this.router.navigate(['/'], {queryParams: {
       page: page,
       type: this.mediaType,
-      filter: this.genre
+      filter: this.genre,
+      search: this.searchTerm
     }});
   }
 }

@@ -19,6 +19,7 @@ export class AppComponent {
   mediaList: PageResponse<MediaSummary> | null = null;
   currentUser: User | null = null;
   selectedTypeName: string | null = null;
+  searchTerm: string = "";
 
 
   constructor(
@@ -54,9 +55,14 @@ export class AppComponent {
     this.router.navigate(['/']);
   }
   onTypeChange(type: string): void {
-    this.selectedGenreName = ""; // Clear selected genre when changing type
+    this.selectedGenreName = "";
     this.selectedTypeName = type;
     this.mediaService.getMediaByType(type);
+  }
+
+  onTitleSearch(): void {
+    this.mediaService.searchMediaByTitle(this.searchTerm);
+
   }
 
 }

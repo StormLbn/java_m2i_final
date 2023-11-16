@@ -39,6 +39,15 @@ export class MediaService {
       this.http.get<PageResponse<MediaSummary>>(apiUrlByType)
         .subscribe(data => this.mediaPage$.next(data));
     }
+    searchMediaByTitle(title: string, page: number = 0) {
+      const apiUrl = `${this.baseUrl}/search/${title}/${page}`;
+      this.http.get<PageResponse<MediaSummary>>(apiUrl)
+        .subscribe(data => {this.mediaPage$.next(data)
+        console.log(data)}
+
+        );
+
+    }
 
 }
 

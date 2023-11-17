@@ -1,4 +1,4 @@
-<app-recommandation [mediaList]="recommendations"></app-recommandation>
+<app-recommandation *ngIf="recommendations.length > 0" [mediaList]="recommendations"></app-recommandation>
 
 <div class="media-grid">
   <app-media-thumbnail *ngFor="let media of mediaPage?.content" [media]="media"  [routerLink]="['/media', media.id]"></app-media-thumbnail>

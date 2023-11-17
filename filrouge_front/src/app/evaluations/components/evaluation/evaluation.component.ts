@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Evaluation } from '../../models/Evaluation.model';
-import { AuthService } from 'src/app/auth/services/auth.service';
 import { EvaluationService } from '../../services/evaluation.service';
 
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { PageResponse } from 'src/app/global/models/PageResponse.model';
 import { MediaSummary } from '../models/MediaSummary.model';
 import { MediaDetail, MediaType } from '../models/MediaDetail.models';
@@ -16,6 +16,7 @@ export class MediaService {
 
     constructor(private http: HttpClient) {
         this.getAllMedia();
+
     }
 
     getMediaDetailsById(mediaId: string) {
@@ -54,7 +55,7 @@ export class MediaService {
                 this.getMediaByGenre(options.filter, options.pageNumber);
             } else if (options.mediaType) {
               this.getMediaByType(options.mediaType, options.pageNumber);
-            }else if (options.search) {
+            } else if (options.search) {
               this.searchMediaByTitle(options.search, options.pageNumber)
             } else {
                 this.getAllMedia(options.pageNumber);

@@ -1,0 +1,4 @@
+<h2>Recommandations :</h2>
+<div *ngIf="mediaList.length > 0">
+    <app-media-thumbnail *ngFor="let media of mediaList" [media]="media"></app-media-thumbnail>
+</div>

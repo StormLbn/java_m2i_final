@@ -1,0 +1,23 @@
+<form (ngSubmit)="onSubmit()">
+    <div>
+        <h3>Genres favoris :</h3>
+        <div *ngIf="authenticated">
+            <div *ngIf="editMode; else elseButtons">
+                <button>Valider</button>
+                <button class="cancel-button" type="button" (click)="onClickCancel()">Annuler</button>
+            </div>
+        </div>
+    </div>
+    <ul>
+        <li *ngFor="let genre of genresList">
+            <input [type]="editMode ? 'checkbox' : 'hidden'" [id]="genre" name="selectedGenre" [(ngModel)]="newGenres" />
+            <label [for]="genre">{{ genre }}</label>
+        </li>
+    </ul>
+</form>
+
+<ng-template #elseButtons>
+    <div>
+        <button type="button" (click)="onClickEdit()">Modifier</button>
+    </div>
+</ng-template>

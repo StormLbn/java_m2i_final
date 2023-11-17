@@ -28,7 +28,7 @@
 
 <ng-template #elseUser>
   <div class="buttons">
-    <button class="black-button">Mon profil</button>
+    <button class="black-button" [routerLink]="['/user', currentUser?.id]">Mon profil</button>
     <button class="black-button" (click)="onClickLogout()">Déconnexion</button>
   </div>
 </ng-template>

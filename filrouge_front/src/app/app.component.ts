@@ -70,7 +70,7 @@ export class AppComponent {
       filter: this.selectedGenre,
       search: this.searchTerm
     }});
-  }
+  }git
 
   onTitleSearch(): void {
     this.selectedGenre = null;

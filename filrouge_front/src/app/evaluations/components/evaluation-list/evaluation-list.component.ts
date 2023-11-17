@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PageResponse } from 'src/app/global/models/PageResponse.model';
 import { Evaluation } from '../../models/Evaluation.model';
 import { EvaluationService } from '../../services/evaluation.service';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   templateUrl: './evaluation-list.component.html',
   styleUrls: ['./evaluation-list.component.css']
 })
-export class EvaluationListComponent {
+export class EvaluationListComponent implements OnInit {
 
   evaluationsPage: PageResponse<Evaluation> | null = null;
   mediaId: string;
@@ -30,12 +30,19 @@ export class EvaluationListComponent {
     private authService: AuthService
   ) {
     this.mediaId = this.route.snapshot.params["id"];
+  }
 
+  ngOnInit(): void {
     this.authService.user$.subscribe(data => this.currentUserId = data?.id)
 
     this.route.queryParamMap.subscribe((params: ParamMap) => {
       this.pageNumber = +(params.get("evalPage") ?? 0);
-      this.evalService.getEvaluationsForMedia(this.mediaId, this.pageNumber);
+      
+      if (this.onMedia) {
+        this.evalService.getEvaluationsForMedia(this.mediaId, this.pageNumber);
+      } else {
+        this.evalService.getEvaluationsForUser(this.mediaId, this.pageNumber);
+      }
     })
 
     this.evalService.evaluations$.subscribe(data => this.evaluationsPage = data);

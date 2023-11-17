@@ -1,6 +1,7 @@
 export interface User {
     id: string;
-    username: string;
+    pseudo: string;
     mail: string;
     birthDate: Date;
+    genres: string[];
 }

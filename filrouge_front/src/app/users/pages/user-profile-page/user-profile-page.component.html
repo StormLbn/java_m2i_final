@@ -1,0 +1,33 @@
+<h2>Profil de {{ user.pseudo }}</h2>
+<div class="user-infos">
+    <!-- <div class="user-image">
+        Potentielle future image de profil ici
+    </div> -->
+    <div class="user-private" *ngIf="!authenticated">
+        <h3>Données personnelles :</h3>
+        <ul>
+            <li>Date de naissance : {{ user.birthDate | date: 'd/MM/yyyy' : undefined : 'fr' }}</li>
+            <li>Adresse mail : {{ user.mail }}</li>
+            <li><button class="red-btn">Modifier mes informations</button></li>
+            <li><button class="red-btn">Modifier mon mot de passe</button></li>
+        </ul>
+    </div>
+    <div class="user-detail">
+        <h3>
+            Anniversaire : {{ user.birthDate | date: 'd MMM' : undefined : 'fr' }}
+        </h3>
+        <app-user-genres-form [userGenresList]="user.genres" [authenticated]="authenticated"></app-user-genres-form>
+    </div>
+</div>
+
+<p>Affichage des recommendations personnalisées ici</p>
+
+
+<div class="evaluations">
+    <app-evaluation-list [onMedia]="false"></app-evaluation-list>
+</div>
+
+<hr>
+<h3>Affichage provisoire</h3>
+<app-user-detail-form></app-user-detail-form>
+<app-edit-password-form></app-edit-password-form>

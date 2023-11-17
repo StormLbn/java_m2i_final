@@ -1,0 +1,48 @@
+:host {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 15px;
+    margin: 0 5%;
+}
+
+.user-infos {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 10px;
+
+    > .user-detail, .user-private {
+        min-width: 250px;
+        flex: 1;
+        padding: 15px;
+        border: 1px solid black;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+
+        > h3 {
+            margin-bottom: 15px;
+        }
+    }
+
+    > .user-image {
+        width: 200px;
+        height: 200px;
+        border: 1px solid black;
+        border-radius: 100%;
+    }
+}
+
+.user-private {
+
+    > ul > li {
+        list-style-type: none;
+        text-align: center;
+        margin: 5px 0;
+    }
+}
+
+.evaluations {
+    max-width: 200 px;
+}

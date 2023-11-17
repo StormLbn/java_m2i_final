@@ -63,6 +63,13 @@ export class AppComponent {
     this.navigateWithParams();
   }
 
+    onTitleSearch(): void {
+      this.selectedGenre = null;
+      this.selectedType = null;
+      this.navigateWithParams();
+
+    }
+
   navigateWithParams() {
     this.router.navigate(['/'], {queryParams: {
       page: 0,
@@ -70,13 +77,6 @@ export class AppComponent {
       filter: this.selectedGenre,
       search: this.searchTerm
     }});
-  }
-
-  onTitleSearch(): void {
-    this.selectedGenre = null;
-    this.selectedType = null;
-    this.navigateWithParams();
-
   }
 
   private loadRecommendedMedia(userId: string): void {

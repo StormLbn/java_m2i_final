@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Evaluation } from '../models/Evaluation.model';
 import { PageResponse } from 'src/app/global/models/PageResponse.model';
@@ -34,11 +34,13 @@ export class EvaluationService {
   }
 
   getEvaluationsForMedia(mediaId: string, page: number = 0) {
-    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `media/${mediaId}/${page}`).subscribe(data => this.evaluations$.next({ ...data }));
+    this.http.get<PageResponse<Evaluation>>(`${this.baseUrl}media/${mediaId}/${page}`).subscribe(data => this.evaluations$.next({ ...data }));
   }
 
   getEvaluationsForUser(userId: string, page: number) {
-    this.http.get<PageResponse<Evaluation>>(this.baseUrl + `user/${userId}/${page}`).subscribe(data => this.evaluations$.next({ ...data }));
+    this.http
+      .get<PageResponse<Evaluation>>(`${this.baseUrl}user/${userId}/${page}`, {headers: this.authService.generateHeaders()})
+      .subscribe(data => this.evaluations$.next({ ...data }));
   }
 
   addEvaluation(evaluation: Evaluation) {

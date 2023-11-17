@@ -40,7 +40,10 @@ form>div {
 
 form {
     /* Input */
-    & input,
+    & input[type='text'],
+    & input[type='email'],
+    & input[type='password'],
+    & input[type='date'],
     & textarea {
         width: 100%;
         padding: 10px;
@@ -58,8 +61,6 @@ form {
 
     /* Label */
     & label {
-        font-weight: bold;
-        margin-bottom: 5px;
         display: block;
     }
 
@@ -82,6 +83,14 @@ form {
     & button:disabled {
         background-color: rgb(109, 109, 109);
         cursor: default;
+    }
+
+    & .cancel-button {
+        background-color: #737373;
+    }
+
+    & .cancel-button:hover {
+        background-color: #4a4a4a;
     }
 }
 
@@ -110,4 +119,25 @@ form {
     color: #ff0000;
     /* font-size: 14px; */
     margin: 5px;
+}
+
+
+.red-btn {
+    padding: 5px 10px;
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    background-color: #e13434;
+}
+
+.red-btn:hover {
+    background-color: #a62b2b;
+}
+
+.red-btn:disabled {
+    background-color: rgb(109, 109, 109);
+    cursor: default;
 }

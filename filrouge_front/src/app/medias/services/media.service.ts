@@ -65,10 +65,5 @@ export class MediaService {
         }
     }
 
-  getRecommendedMedia(userId: string): Observable<PageResponse<MediaSummary>> {
-    const apiUrl = `${this.baseUrl}/recommendations/${userId}`;
-    return this.http.get<PageResponse<MediaSummary>>(apiUrl);
-  }
-
 }
 

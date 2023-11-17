@@ -4,6 +4,7 @@ import { MediaSummary } from '../../models/MediaSummary.model';
 import { MediaService } from '../../services/media.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { MediaType } from '../../models/MediaDetail.models';
+import { RecommendationService } from 'src/app/users/services/recommendation.service';
 
 @Component({
   selector: 'app-media-home-page',
@@ -17,8 +18,11 @@ export class MediaHomePageComponent {
   currentPage: number = 0;
   searchTerm: string | null = "";
 
+  recommendations: MediaSummary[] = [];
+
   constructor(
     private mediaService: MediaService,
+    private recommendationsService: RecommendationService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -40,6 +44,8 @@ export class MediaHomePageComponent {
     this.mediaService.mediaPage$.subscribe((data) => {
       this.mediaPage = data;
     });
+
+    this.recommendationsService.recommendations$.subscribe(data => this.recommendations = data);
   }
 
   onClickPrevious() {

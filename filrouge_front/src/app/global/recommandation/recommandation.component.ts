@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MediaSummary } from 'src/app/medias/models/MediaSummary.model';
 
 @Component({
   selector: 'app-recommandation',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class RecommandationComponent {
 
+  @Input({
+    required: true
+  })
+  mediaList!: MediaSummary[];
+
+  constructor() {}
 }

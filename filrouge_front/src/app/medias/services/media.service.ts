@@ -55,7 +55,7 @@ export class MediaService {
                 this.getMediaByGenre(options.filter, options.pageNumber);
             } else if (options.mediaType) {
               this.getMediaByType(options.mediaType, options.pageNumber);
-            }else if (options.search) {
+            } else if (options.search) {
               this.searchMediaByTitle(options.search, options.pageNumber)
             } else {
                 this.getAllMedia(options.pageNumber);
@@ -64,11 +64,6 @@ export class MediaService {
             this.getAllMedia();
         }
     }
-
-  getRecommendedMedia(userId: string): Observable<PageResponse<MediaSummary>> {
-    const apiUrl = `${this.baseUrl}/recommendations/${userId}`;
-    return this.http.get<PageResponse<MediaSummary>>(apiUrl);
-  }
 
 }
 

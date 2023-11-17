@@ -1,0 +1,19 @@
+<!-- user-detail-form.component.html -->
+<h3>Modifier vos données personnelles :</h3>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Nom d'utilisateur :</label>
+    <input type="text" name="username" id="username" [(ngModel)]="newUsername" />
+  </div>
+  <div>
+    <label for="email">Adresse mail :</label>
+    <input type="email" name="email" id="email" [(ngModel)]="newEmail" />
+  </div>
+  <div>
+    <label for="birthDate">Date de naissance :</label>
+    <input type="date" name="birthDate" id="birthDate" [(ngModel)]="newBirthDate" />
+  </div>
+  <div class="form-button">
+    <button type="submit">Valider</button>
+  </div>
+</form>

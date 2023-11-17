@@ -4,9 +4,8 @@ import { GenreService } from "./medias/services/genre.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from './auth/models/User.model';
 import { MediaType } from './medias/models/MediaDetail.models';
-import {MediaService} from "./medias/services/media.service";
-import {MediaSummary} from "./medias/models/MediaSummary.model";
-import {PageResponse} from "./global/models/PageResponse.model";
+import { MediaSummary } from './medias/models/MediaSummary.model';
+import { RecommendationService } from './users/services/recommendation.service';
 
 
 @Component({
@@ -16,20 +15,19 @@ import {PageResponse} from "./global/models/PageResponse.model";
 })
 export class AppComponent {
   currentUser: User | null = null;
+  userRecommendations: MediaSummary[] = []
+
   genres: string[] = [];
   selectedGenre: string | null = "";
   selectedType: MediaType | null = null;
   currentPage: number;
-  mediaList: PageResponse<MediaSummary> | null = null;
-
   searchTerm: string | null = "";
-
 
   constructor(
     private authService: AuthService,
     private genreService: GenreService,
     private route: ActivatedRoute,
-    private mediaService: MediaService,
+    private recommendationService: RecommendationService,
     private router: Router
   ) {
     this.currentPage = +(this.route.snapshot.queryParamMap.get("page") ?? 0)
@@ -43,10 +41,16 @@ export class AppComponent {
       this.genres = data;
     });
 
-    this.authService.user$.subscribe(data => this.currentUser = data);
+    this.authService.user$.subscribe(data => {
+      this.currentUser = data;
+      if (this.currentUser) {
+        this.recommendationService.getRecommendationsForUser(this.currentUser.id);
+      }
+    });
   }
 
   onClickLogout() {
+    this.recommendationService.recommendations$.next([]);
     this.authService.logOut();
   }
 
@@ -63,15 +67,6 @@ export class AppComponent {
     this.navigateWithParams();
   }
 
-  navigateWithParams() {
-    this.router.navigate(['/'], {queryParams: {
-      page: 0,
-      type: this.selectedType,
-      filter: this.selectedGenre,
-      search: this.searchTerm
-    }});
-  }git
-
   onTitleSearch(): void {
     this.selectedGenre = null;
     this.selectedType = null;
@@ -79,9 +74,14 @@ export class AppComponent {
 
   }
 
-  private loadRecommendedMedia(userId: string): void {
-    this.mediaService.getRecommendedMedia(userId).subscribe((data) => {
-      this.mediaList = data;
+  navigateWithParams() {
+    this.router.navigate(['/'], {
+      queryParams: {
+        page: 0,
+        type: this.selectedType,
+        filter: this.selectedGenre,
+        search: this.searchTerm
+      }
     });
   }
 

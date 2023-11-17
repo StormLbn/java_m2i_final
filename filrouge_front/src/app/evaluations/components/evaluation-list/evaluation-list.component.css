@@ -8,7 +8,7 @@
     }
 }
 
-button {
+.red-btn {
     padding: 5px 10px;
     border: none;
     color: #fff;
@@ -19,11 +19,11 @@ button {
     background-color: #e13434;
 }
 
-button:hover {
+.red-btn:hover {
     background-color: #a62b2b;
 }
 
-button:disabled {
+.red-btn:disabled {
     background-color: rgb(109, 109, 109);
     cursor: default;
 }

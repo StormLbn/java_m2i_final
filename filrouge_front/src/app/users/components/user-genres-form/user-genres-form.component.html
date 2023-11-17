@@ -1,15 +1,16 @@
-<form>
+<form (ngSubmit)="onSubmit()">
     <div>
         <h3>Genres favoris :</h3>
         <div *ngIf="authenticated">
-            <div *ngIf="true; else elseButtons">
-                <button type="button">Modifier</button>
+            <div *ngIf="editMode; else elseButtons">
+                <button>Valider</button>
+                <button class="cancel-button" type="button" (click)="onClickCancel()">Annuler</button>
             </div>
         </div>
     </div>
     <ul>
         <li *ngFor="let genre of genresList">
-            <input type="hidden" [id]="genre" [name]="genre" [value]="genre" />
+            <input [type]="editMode ? 'checkbox' : 'hidden'" [id]="genre" name="selectedGenre" [(ngModel)]="newGenres" />
             <label [for]="genre">{{ genre }}</label>
         </li>
     </ul>
@@ -17,7 +18,6 @@
 
 <ng-template #elseButtons>
     <div>
-        <button>Valider</button>
-        <button class="cancel-button" type="button">Annuler</button>
+        <button type="button" (click)="onClickEdit()">Modifier</button>
     </div>
 </ng-template>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { UserService } from '../../services/user.service';
+import { FormType, UserService } from '../../services/user.service';
 import { User } from 'src/app/auth/models/User.model';
 
 @Component({
@@ -13,6 +13,7 @@ export class UserProfilePageComponent {
 
   user: User;
   authenticated = false;
+  form: FormType = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,5 +41,7 @@ export class UserProfilePageComponent {
         this.authenticated = true;
       }
     });
+
+    this.userService.form$.subscribe(data => this.form = data);
   }
 }

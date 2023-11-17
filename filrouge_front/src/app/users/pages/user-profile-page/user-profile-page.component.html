@@ -16,7 +16,7 @@
         <h3>
             Anniversaire : {{ user.birthDate | date: 'd MMM' : undefined : 'fr' }}
         </h3>
-        <app-user-genres-form [genresList]="user.genres" [authenticated]="authenticated"></app-user-genres-form>
+        <app-user-genres-form [userGenresList]="user.genres" [authenticated]="authenticated"></app-user-genres-form>
     </div>
 </div>
 

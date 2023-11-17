@@ -50,6 +50,7 @@ export class AppComponent {
   }
 
   onClickLogout() {
+    this.recommendationService.recommendations$.next([]);
     this.authService.logOut();
   }
 

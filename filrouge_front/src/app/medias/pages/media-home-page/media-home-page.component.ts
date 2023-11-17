@@ -45,7 +45,7 @@ export class MediaHomePageComponent {
       this.mediaPage = data;
     });
 
-    this.recommendationsService.recommendations$.subscribe(data => this.recommendations = data);
+    this.recommendationsService.recommendations$.subscribe(data => {this.recommendations = data});
   }
 
   onClickPrevious() {

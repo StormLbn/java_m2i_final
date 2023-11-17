@@ -45,13 +45,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QG1haWwuZnIiLCJleHAiO
 
 
 ### Modification des genres favoris de l'utilisateur
-PATCH http://localhost:8080/api/user/genres/0f0c4d2d-93d2-49d4-9f79-8f19f263d9bd
+PATCH http://localhost:8080/api/user/genres/e93ce199-bada-4d5e-8d31-cd695ab3a2c6
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMjQ1MjM1LCJpYXQiOjE3MDAxNTg4MzV9.ymr5gA8PAV5TPCNNLAHQ0lUByR-CMMnT-z9HauM79OQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdG9ybUBtYWlsLmZyIiwiZXhwIjoxNzAwMzE2NjE4LCJpYXQiOjE3MDAyMzAyMTh9.lfsi000TLLEaLBnH9K39gtsQkgW5RqksMpQXKFmQDjc
 
 {
   "userId": "0f0c4d2d-93d2-49d4-9f79-8f19f263d9bd",
-  "genreIdList": [4, 8, 22]
+  "genreIdList": [2, 12, 17]
 }
 
 ### Récupération des recommandations de films/séries pour un utilisateur

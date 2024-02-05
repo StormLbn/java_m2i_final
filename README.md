@@ -20,7 +20,7 @@ Registered users :
 ## Technologies
 
 - Java 20
-- SpringBoot
+- Spring : JPA, Security (JWT)
 - Angular 15
 - PostgreSQL
 
@@ -78,14 +78,18 @@ Database tables are automatically created during the application build.
 
 ### Run the app
 
-With a terminal open in the project folder :
+With a terminal open in the `filrouge_back` folder :
 ```bash
-java -jar filrouge_back/target/filrouge_back-0.0.1-SNAPSHOT.jar
-cd filrouge_front
+java -jar target/filrouge_back-0.0.1-SNAPSHOT.jar
+```
+
+The server runs on http://localhost:8080 and can be used without frontend for API calls ; routes and examples are listed in the files of the `filrouge_back\api-requests-examples` folder.
+
+With a terminal open in the `filrouge_front` folder :
+```bash
 npm install
 ng serve
 ```
 
 The Angular app now runs on http://localhost:4200/.
 
-The server runs on http://localhost:8080 and can be used without frontend for API calls ; routes and examples are listed in the files of the `filrouge_back\api-requests-examples` folder.

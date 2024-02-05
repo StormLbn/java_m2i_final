@@ -54,7 +54,7 @@ public class PopulateDatabaseService {
                     failedIds.add(id);
                 }
             }
-            log.info((100 - failedIds.size()) + " movies added to DB");
+            log.info((idList.size() - failedIds.size()) + " movies added to DB");
             if (!failedIds.isEmpty()) {
                 log.info("Failed to add movies at IDs : " + failedIds);
             }
@@ -129,14 +129,18 @@ public class PopulateDatabaseService {
 
         List<String> idList = new ArrayList<>();
 
-        for (int i = 1 ; i <= 5 ; i++) {
-            JsonNode entityJson =
-                    restTemplate.getForEntity("movie/top_rated?language=fr-FR&page=" + i, JsonNode.class).getBody();
+        try {
+            for (int i = 1; i <= 5; i++) {
+                JsonNode entityJson =
+                        restTemplate.getForEntity("movie/top_rated?language=fr-FR&page=" + i, JsonNode.class).getBody();
 
-            if (entityJson != null) {
-                entityJson.findPath("results").elements()
-                        .forEachRemaining(e -> idList.add(e.findPath("id").asText()));
+                if (entityJson != null) {
+                    entityJson.findPath("results").elements()
+                            .forEachRemaining(e -> idList.add(e.findPath("id").asText()));
+                }
             }
+        } catch (HttpClientErrorException e) {
+            log.warn("An error occured while trying to get movies IDs from TMDB");
         }
 
         return idList;
